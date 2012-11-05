@@ -1,0 +1,36 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8x]{inputenc}
+
+\usepackage{amsmath}
+
+%opening
+\title{Computer Vision Assignment 1: Filtering}
+\author{Robrecht Jurriaans (5887380), Taco Cohen (6394590)}
+
+\begin{document}
+
+\maketitle
+
+\section{Gaussian Filters}
+
+\subsection{1D Gaussian Filter}
+We implemented the 1D Gaussian in \verb+gaussian.m+.
+We made sure the kernel size is about $3*\sigma$ and is always odd.
+For this purpose we used the formula $2 * \lfloor 1.5 * \sigma \rfloor + 1$.
+
+Because the filter has a finite size, the sum of the filter values will not be one in a naive implementation.
+For this reason, we must normalize the kernel after calculating the values of the Gaussian at each kernel entry.
+To save computation, we used the following equality:
+
+\begin{align*}
+ \frac{G_{\sigma}(x)}{\sum_{x'=-h}^h G_{\sigma}(x')} &= \frac{ \frac{1}{\sigma \sqrt{2 \pi}} \exp(-\frac{x^2}{2 \sigma^2})}
+       {\sum_{x'=-h}^h \frac{1}{\sigma \sqrt{2 \pi}} \exp(-\frac{x'^2}{2 \sigma^2})} \\
+&= \frac{ \exp(-\frac{x^2}{2 \sigma^2})}
+       {\sum_{x'=-h}^h \exp(-\frac{x'^2}{2 \sigma^2})}
+\end{align*}
+
+That is, we leave out the normalization of each index, because it falls out in the normalization of the entire kernel anyway.
+
+\subsection{}
+
+\end{document}
