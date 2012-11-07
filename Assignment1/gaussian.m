@@ -1,5 +1,10 @@
 function G = gaussian(sigma)
 
+if sigma == 0
+    G = 1;
+    return
+end
+
 % Filter size is about 3*sigma, but must be odd
 halfSize = floor(1.5 * sigma);
 kernelSize = 2 * halfSize + 1;
