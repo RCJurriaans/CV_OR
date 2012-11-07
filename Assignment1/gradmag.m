@@ -1,19 +1,17 @@
 function [magnitude, orientation] = gradmag(img, sigma)
 
     G = gaussian(sigma);
-    kernel = gaussianDer(G, sigma)
+    kernel = gaussianDer(G, sigma);
     Gx = conv2(img, kernel, 'same');
     Gy = conv2(img, kernel', 'same');
     
-    size(Gx)
-    size(Gy)
-    size(img)
-    
     magnitude = sqrt( Gx .* Gx + Gy .* Gy );
-    orientation = zeros(size(Gx,1), size(Gx,2), 2);
-    orientation(:,:,1) = Gx;
-    orientation(:,:,2) = Gy;
+    orientation = atan2(Gx,Gy);
     
-    %[Gx, Gy];
+    %orientation = zeros(size(Gx,1), size(Gx,2), 2);
+    %orientation(:,:,1) = Gx;
+    %orientation(:,:,2) = Gy;
+    %figure;
+    %quiver(flipdim(Gx,1), flipdim(Gy,1));
 
 end

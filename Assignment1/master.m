@@ -5,7 +5,7 @@ im = im2double( rgb2gray( imread('get-a-brain.jpg') ) );
 
 
 % Compare our gaussian to matlab's
-sigma = 20;
+sigma = 5;
 tic
 blurred1 = gaussianConv(im, sigma, sigma);
 toc

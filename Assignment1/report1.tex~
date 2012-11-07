@@ -1,5 +1,5 @@
 \documentclass[a4paper,10pt]{article}
-\usepackage[utf8x]{inputenc}
+%\usepackage[utf8x]{inputenc}
 
 \usepackage{amsmath}
 
@@ -29,7 +29,28 @@ To save computation, we used the following equality:
        {\sum_{x'=-h}^h \exp(-\frac{x'^2}{2 \sigma^2})}
 \end{align*}
 
+That is, we leave out the normalization of each index, because it falls out in the normalization of the entire kernel anyway.
 
-\subsection{}
+<<<<<<< HEAD
+\subsection{Convolving an image with a 2D Gaussian}
+Look at all the programming-fucks I'm giving
+
+\subsection{Comparing with Matlab's Gaussian Filter}
+Thanks to the inherent separability of Gaussians, the implementation that convolves on one dimension at the time is slightly faster than the normal 2D implementation. However, when taking a difference image, it becomes clear that there is a difference between both implementations. The sum of squared error between both resulting images is in the order of $10^{-17}$. This difference is also found in the kernels as produced 
+
+\subsection{Gaussian Derivative}
+
+
+\subsection{Gradient Magnitude and Orientation}
+\subsubsection{Quiver before my magnitude}
+\subsubsection{Magnitude and orientation for different $\sigma$}
+\subsubsection{Threshold}
+\subsubsection{Second Order Derivative}
+\subsubsection{Impulse}
+=======
+\subsection{Convolving an Image with a 2D Gaussian}
+
+
+>>>>>>> 8b976b550fc13ea801fc6986b068f504fcb355e9
 
 \end{document}
