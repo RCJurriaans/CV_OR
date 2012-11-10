@@ -1,6 +1,6 @@
 %
-% Returns magnitude and orientation of gradient image
-% Kernel size is calculated by gaussian.m
+% Returns magnitu
+%
 %
 
 function [magnitude, orientation] = gradmag(img, sigma)

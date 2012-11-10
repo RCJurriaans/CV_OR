@@ -1,3 +1,8 @@
+%
+% Returns 1-d gaussian kernel
+% Kernel size is calculated by 2* floor(1.5*sigma) +1
+%
+
 function G = gaussian(sigma)
 
 if sigma == 0

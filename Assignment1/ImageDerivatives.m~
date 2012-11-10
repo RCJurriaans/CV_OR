@@ -1,0 +1,22 @@
+function F= ImageDerivatives ( img , sigma , type )
+   halfSize = floor(1.5 * sigma);
+   x = -halfSize:halfSize;
+   
+   G = gaussian(sigma);
+   secOrDer = (-sigma^2 + x
+   
+switch type
+    case 'x'
+        
+    case 'y'
+        
+    case 'xx'
+        
+    case 'xy'
+        
+    case 'yx'
+        
+    case 'yy'
+
+
+end
