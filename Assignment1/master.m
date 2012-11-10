@@ -28,12 +28,12 @@ imshow(blurred2);
 for sigma=[1,3,5,7,9]%,11,13,15,17,19 ]
     [mag,or] = gradmag(im,sigma);
     figure;
-    namemag = sprintf('Magnitude for sigma %0.5f', sigma);
+    namemag = sprintf('Magnitude for sigma %0.0f', sigma);
     set(gcf,'numbertitle','off','name',namemag)
     imshow(mag);
     colorbar;
     figure;
-    namemag = sprintf('Orientation for sigma %0.5f', sigma);
+    namemag = sprintf('Orientation for sigma %0.0f', sigma);
     set(gcf,'numbertitle','off','name',namemag)
     imshow(or);
     colormap(hsv);
@@ -51,7 +51,7 @@ set(gcf,'numbertitle','off','name','Magnitude images for various sigma and thres
 for sigma=[1,3,5,7,9]
     for threshold=[0.005, 0.01, 0.05, 0.1, 0.15]
         mag = gradmag(im,sigma)<threshold;
-        namemag = sprintf('s=%0f, t= %0.3f', sigma, threshold);
+        namemag = sprintf('s=%0.0f, t= %0.3f', sigma, threshold);
         subplot(5,5,p);
         imshow(mag);
         title(namemag);
@@ -63,9 +63,6 @@ end
 % 1.5.5 Impulse image with different order derivatives for different sigma
 imp = zeros(30);
 imp(15,15)=1;
-figure;
-size(imp)
-imshow(imp);
 figure;
 set(gcf,'numbertitle','off','name','Different orders of derivatives over impulse image for different sigma')
 for i=0:4
