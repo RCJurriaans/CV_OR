@@ -10,7 +10,7 @@ tic
 blurred1 = gaussianConv(im, sigma, sigma);
 toc
 tic
-blurred2 = conv2 ( im, fspecial('gaussian', 2 * floor(1.5 * sigma) + 1, sigma), 'same');
+blurred2 = conv2 ( im, fspecial('gaussian', 6 * sigma +1, sigma), 'same');
 toc
 
 error = sqrt( sum(sum( (blurred1-blurred2).^2 ) ) )
