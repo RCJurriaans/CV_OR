@@ -1,8 +1,7 @@
 
 
-im = im2double( rgb2gray( imread('get-a-brain.jpg') ) );
-
-
+im = im2double( rgb2gray( imread('zebra.png') ) );
+%im = im2double( imread('pn1.jpg') );
 
 % Compare our gaussian to matlab's
 sigma = 5;
