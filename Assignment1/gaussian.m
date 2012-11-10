@@ -11,15 +11,14 @@ if sigma == 0
 end
 
 % Filter size is about 3*sigma, but must be odd
-halfSize = floor(1.5 * sigma);
-kernelSize = 2 * halfSize + 1;
+halfSize = 3* sigma;
 
 x = -halfSize:halfSize;
 
 % Calculate the unnormalized y values
-G = exp(-(x.^2 / (2 * sigma^2)));
+G = (1/(sigma*sqrt(2*pi))) * exp(-(x.^2 / (2 * sigma^2)));
 
 % Normalize the kernel so it sums to one
-G = G / sum(G);
+%G = G / sum(G);
 
 end

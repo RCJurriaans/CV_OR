@@ -1,16 +1,13 @@
 function F= ImageDerivatives ( img , sigma , type )
-   halfSize = floor(1.5 * sigma);
+   halfSize = 3* sigma;
    x = -halfSize:halfSize;
    G = gaussian(sigma);  
    
 switch type
     case {'x', 'y', 'xy','yx'}
-        Gd = gaussianDer(G, sigma);
-        
+        Gd = gaussianDer(G, sigma);     
     case {'xx', 'yy'}
         Gdd = ( ( -(sigma^2) + (x.^2) ) ./ (sigma^4) ) .* G;
-        plot(Gdd)
-        figure
 end
 
 switch type

@@ -5,8 +5,10 @@ function F= ImageDerivatives ( img , sigma , type )
    
 switch type
     case {'x', 'y', 'xy','yx'}
-   Gd = gaussianDer(G, sigma);
-   Gdd = (((x.^2) - (sigma^2) )./ (sigma^4)) .* G;
+        Gd = gaussianDer(G, sigma);     
+    case {'xx', 'yy'}
+        Gdd = ( ( -(sigma^2) + (x.^2) ) ./ (sigma^4) ) .* G;
+end
 
 switch type
     case 'x'
@@ -21,5 +23,5 @@ switch type
         F = conv2(img', Gdd, 'same')';
     otherwise
         error('Unknown type: type must be in {x, y, xx, xy, yx, yy}');
-
+end
 end
