@@ -1,7 +1,7 @@
 
 
-%im = im2double( rgb2gray( imread('zebra.png') ) );
-im = im2double( imread('pn1.jpg') );
+im = im2double( rgb2gray( imread('zebra.png') ) );
+%im = im2double( imread('pn1.jpg') );
 
 % Compare our gaussian to matlab's
 sigma = 5;
@@ -19,10 +19,12 @@ numdifferent = sum(sum( blurred1 ~= blurred2 ) )
 % 1.3 Difference between separated filter and original filter
 figure(1)
 set(gcf,'numbertitle','off','name','Separated Filter')
-imshow(blurred1);
+imshow(blurred1,[]);
+colorbar;
 figure(2)
 set(gcf,'numbertitle','off','name','Original Matlab Filter')
-imshow(blurred2);
+imshow(blurred2,[]);
+colorbar;
 
 % 1.5.1 Magnitude and Orientation for different sigma
 for sigma=[1,3,5,7,9]%,11,13,15,17,19 ]
@@ -30,7 +32,7 @@ for sigma=[1,3,5,7,9]%,11,13,15,17,19 ]
     figure;
     namemag = sprintf('Magnitude for sigma %0.0f', sigma);
     set(gcf,'numbertitle','off','name',namemag)
-    imshow(mag);
+    imshow(mag,[]);
     colorbar;
     figure;
     namemag = sprintf('Orientation for sigma %0.0f', sigma);
