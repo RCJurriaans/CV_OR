@@ -1,12 +1,8 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.8.18)  11 NOV 2012 14:34
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.4.23)  11 NOV 2012 21:12
 entering extended mode
  %&-line parsing enabled.
-**report1.tex
-(./report1.tex
-LaTeX2e <2009/09/24>
-Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
-yphenation, loaded.
-(/usr/share/texmf-texlive/tex/latex/base/article.cls
+**\nonstopmode\input report1.tex
+(./report1.tex (/usr/share/texmf-texlive/tex/latex/base/article.cls
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
 (/usr/share/texmf-texlive/tex/latex/base/size10.clo
 File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
@@ -46,7 +42,8 @@ Package ifvtex Info: VTeX not detected.
 \Gm@odd@mp=\dimen105
 \Gm@even@mp=\dimen106
 \Gm@dimlist=\toks15
-)
+
+(/usr/share/texmf-texlive/tex/xelatex/xetexconfig/geometry.cfg))
 (/usr/share/texmf-texlive/tex/latex/base/inputenc.sty
 Package: inputenc 2008/03/30 v1.1d Input encoding file
 \inpenc@prehook=\toks16
@@ -444,9 +441,9 @@ LaTeX Font Info:    Try loading font information for OT1+zplm on input line 22.
 File: ot1zplm.fd 2002/09/08 Fontinst v1.914 font definitions for OT1/zplm.
 )
 LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 24.
+(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 25.
 LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 26.
+(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 27.
 
 <zebra_img/matlabfilter.png, id=1, 1232.605pt x 659.263pt>
 File: zebra_img/matlabfilter.png Graphic file (type png)
@@ -456,98 +453,80 @@ File: zebra_img/matlabfilter.png Graphic file (type png)
 File: zebra_img/separatedfilter.png Graphic file (type png)
 
 <use zebra_img/separatedfilter.png>
-<pn1_img/magnitude_sigma1.png, id=3, 1232.605pt x 659.263pt>
-File: pn1_img/magnitude_sigma1.png Graphic file (type png)
+<pn1_img/magnitude_sigma5_colorbar.png, id=3, 1232.605pt x 659.263pt>
+File: pn1_img/magnitude_sigma5_colorbar.png Graphic file (type png)
 
-<use pn1_img/magnitude_sigma1.png>
-<pn1_img/orientation_sigma1.png, id=4, 1232.605pt x 659.263pt>
-File: pn1_img/orientation_sigma1.png Graphic file (type png)
-
-<use pn1_img/orientation_sigma1.png>
-<pn1_img/magnitude_sigma3.png, id=5, 1232.605pt x 659.263pt>
-File: pn1_img/magnitude_sigma3.png Graphic file (type png)
-
-<use pn1_img/magnitude_sigma3.png>
-<pn1_img/orientation_sigma3.png, id=6, 1232.605pt x 659.263pt>
-File: pn1_img/orientation_sigma3.png Graphic file (type png)
-
-<use pn1_img/orientation_sigma3.png>
-<pn1_img/magnitude_sigma5.png, id=7, 1232.605pt x 659.263pt>
-File: pn1_img/magnitude_sigma5.png Graphic file (type png)
-
-<use pn1_img/magnitude_sigma5.png>
-<pn1_img/orientation_sigma5.png, id=8, 1232.605pt x 659.263pt>
+<use pn1_img/magnitude_sigma5_colorbar.png>
+<pn1_img/orientation_sigma5.png, id=4, 1232.605pt x 659.263pt>
 File: pn1_img/orientation_sigma5.png Graphic file (type png)
 
-<use pn1_img/orientation_sigma5.png>
-<pn1_img/magnitude_sigma7.png, id=9, 1232.605pt x 659.263pt>
-File: pn1_img/magnitude_sigma7.png Graphic file (type png)
+<use pn1_img/orientation_sigma5.png> [1
 
-<use pn1_img/magnitude_sigma7.png>
-<pn1_img/orientation_sigma7.png, id=10, 1232.605pt x 659.263pt>
-File: pn1_img/orientation_sigma7.png Graphic file (type png)
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+<zebra_img/magnitude_sigma5_colorbar.png, id=17, 1232.605pt x 659.263pt>
+File: zebra_img/magnitude_sigma5_colorbar.png Graphic file (type png)
 
-<use pn1_img/orientation_sigma7.png>
+<use zebra_img/magnitude_sigma5_colorbar.png>
+<zebra_img/orientation_sigma5.png, id=18, 1232.605pt x 659.263pt>
+File: zebra_img/orientation_sigma5.png Graphic file (type png)
+
+<use zebra_img/orientation_sigma5.png>
 LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 107.
+(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 101.
 
-<quiver_original.png, id=11, 1232.605pt x 659.263pt>
+<quiver_original.png, id=19, 1232.605pt x 659.263pt>
 File: quiver_original.png Graphic file (type png)
  <use quiver_original.png>
-[1
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./zebra_img/matlabfilter.p
-ng (PNG copy)> <./zebra_img/separatedfilter.png (PNG copy)> <./pn1_img/magnitud
-e_sigma1.png (PNG copy)> <./pn1_img/orientation_sigma1.png (PNG copy)>]
-<quiver_sigma1.png, id=21, 1232.605pt x 659.263pt>
+<quiver_sigma1.png, id=20, 1232.605pt x 659.263pt>
 File: quiver_sigma1.png Graphic file (type png)
  <use quiver_sigma1.png>
-<quiver_sigma3.png, id=22, 1232.605pt x 659.263pt>
+<quiver_sigma3.png, id=21, 1232.605pt x 659.263pt>
 File: quiver_sigma3.png Graphic file (type png)
  <use quiver_sigma3.png>
-<quiver_sigma5.png, id=23, 1232.605pt x 659.263pt>
+<quiver_sigma5.png, id=22, 1232.605pt x 659.263pt>
 File: quiver_sigma5.png Graphic file (type png)
  <use quiver_sigma5.png>
-<quiver_sigma7.png, id=24, 1232.605pt x 659.263pt>
+<quiver_sigma7.png, id=23, 1232.605pt x 659.263pt>
 File: quiver_sigma7.png Graphic file (type png)
  <use quiver_sigma7.png>
-<zebra_img/threshold.png, id=25, 1232.605pt x 659.263pt>
+<zebra_img/threshold.png, id=24, 1232.605pt x 659.263pt>
 File: zebra_img/threshold.png Graphic file (type png)
 
 <use zebra_img/threshold.png>
-<pn1_img/threshold.png, id=26, 1232.605pt x 659.263pt>
+<pn1_img/threshold.png, id=25, 1232.605pt x 659.263pt>
 File: pn1_img/threshold.png Graphic file (type png)
 
-<use pn1_img/threshold.png>
-<zebra_img/impulse.png, id=27, 1232.605pt x 659.263pt>
+<use pn1_img/threshold.png> [2 <./zebra_img/matlabfilter.png (PNG copy)> <./zeb
+ra_img/separatedfilter.png (PNG copy)> <./pn1_img/magnitude_sigma5_colorbar.png
+ (PNG copy)> <./pn1_img/orientation_sigma5.png (PNG copy)> <./zebra_img/magnitu
+de_sigma5_colorbar.png (PNG copy)> <./zebra_img/orientation_sigma5.png (PNG cop
+y)>] <zebra_img/impulse.png, id=29, 449.68pt x 337.26pt>
 File: zebra_img/impulse.png Graphic file (type png)
 
-<use zebra_img/impulse.png> [2 <./pn1_img/magnitude_sigma3.png (PNG copy)> <./p
-n1_img/orientation_sigma3.png (PNG copy)> <./pn1_img/magnitude_sigma5.png (PNG 
-copy)> <./pn1_img/orientation_sigma5.png (PNG copy)>] [3 <./pn1_img/magnitude_s
-igma7.png (PNG copy)> <./pn1_img/orientation_sigma7.png (PNG copy)> <./quiver_o
-riginal.png (PNG copy)> <./quiver_sigma1.png (PNG copy)> <./quiver_sigma3.png (
-PNG copy)> <./quiver_sigma5.png (PNG copy)> <./quiver_sigma7.png (PNG copy)>]
-[4 <./zebra_img/threshold.png (PNG copy)> <./pn1_img/threshold.png (PNG copy)>]
-[5 <./zebra_img/impulse.png (PNG copy)>] (./report1.aux) ) 
+<use zebra_img/impulse.png> [3 <./quiver_original.png (PNG copy)> <./quiver_sig
+ma1.png (PNG copy)> <./quiver_sigma3.png (PNG copy)>] [4 <./quiver_sigma5.png (
+PNG copy)> <./quiver_sigma7.png (PNG copy)> <./zebra_img/threshold.png (PNG cop
+y)> <./pn1_img/threshold.png (PNG copy)>] [5 <./zebra_img/impulse.png (PNG copy
+)>] (./report1.aux) ) 
 Here is how much of TeX's memory you used:
- 2358 strings out of 495061
- 30379 string characters out of 1182621
- 84956 words of memory out of 3000000
- 5495 multiletter control sequences out of 15000+50000
- 23077 words of font info for 62 fonts, out of 3000000 for 9000
- 28 hyphenation exceptions out of 8191
- 27i,7n,32p,224b,278s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/texmf-tex
-live/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texlive/fonts/type1/public/a
-msfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/c
-msy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt10.pfb><
-/usr/share/texmf-texlive/fonts/type1/public/mathpazo/fplmri.pfb></usr/share/tex
-mf-texlive/fonts/type1/urw/palatino/uplb8a.pfb></usr/share/texmf-texlive/fonts/
-type1/urw/palatino/uplr8a.pfb>
-Output written on report1.pdf (5 pages, 1262488 bytes).
+ 2353 strings out of 493848
+ 30073 string characters out of 1152823
+ 87958 words of memory out of 3000000
+ 5579 multiletter control sequences out of 15000+50000
+ 27697 words of font info for 75 fonts, out of 3000000 for 9000
+ 714 hyphenation exceptions out of 8191
+ 27i,10n,32p,472b,276s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</us
+r/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texm
+f-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/f
+onts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-texlive/fonts/type1/
+public/mathpazo/fplmr.pfb></usr/share/texmf-texlive/fonts/type1/public/mathpazo
+/fplmri.pfb></usr/share/texmf-texlive/fonts/type1/urw/palatino/uplb8a.pfb></usr
+/share/texmf-texlive/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texmf-texl
+ive/fonts/type1/urw/palatino/uplri8a.pfb>
+Output written on report1.pdf (5 pages, 1330157 bytes).
 PDF statistics:
- 61 PDF objects out of 1000 (max. 8388607)
+ 65 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 91 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 71 words of extra memory for PDF output out of 10000 (max. 10000000)
 

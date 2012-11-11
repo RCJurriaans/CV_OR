@@ -1,5 +1,4 @@
 
-
 im = im2double( rgb2gray( imread('zebra.png') ) );
 %im = im2double( imread('pn1.jpg') );
 
@@ -69,28 +68,35 @@ figure;
 set(gcf,'numbertitle','off','name','Different orders of derivatives over impulse image for different sigma')
 for i=0:4
     
-    subplot(5,5,i*5+1);
-    imshow(ImageDerivatives(imp,i+1,'x'),[]);
+    subplot(5,6,i*6+1);
+    imshow(gaussianConv(imp, i+1, i+1), []);
     ylabel(i+1);
+    if i==4
+        xlabel('0')
+    end
+    
+    subplot(5,6,i*6+2);
+    imshow(ImageDerivatives(imp,i+1,'x'),[]);
+    
     if i==4
        xlabel('x') 
     end
-        subplot(5,5,i*5+2);
+        subplot(5,6,i*6+3);
     imshow(ImageDerivatives(imp,i+1,'y'),[]);
     if i==4
        xlabel('y') 
     end
-        subplot(5,5,i*5+3);
+        subplot(5,6,i*6+4);
     imshow(ImageDerivatives(imp,i+1,'xx'),[]);
     if i==4
        xlabel('xx') 
     end
-        subplot(5,5,i*5+4);
+        subplot(5,6,i*6+5);
     imshow(ImageDerivatives(imp,i+1,'xy'),[]);
     if i==4
        xlabel('xy') 
     end
-        subplot(5,5,i*5+5);
+        subplot(5,6,i*6+6);
     imshow(ImageDerivatives(imp,i+1,'yy'),[]);
     if i==4
        xlabel('yy') 
