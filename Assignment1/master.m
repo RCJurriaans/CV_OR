@@ -35,7 +35,7 @@ for sigma=[1,3,5,7,9]%,11,13,15,17,19 ]
     figure;
     namemag = sprintf('Orientation for sigma %0.0f', sigma);
     set(gcf,'numbertitle','off','name',namemag)
-    imshow(or);
+    imshow(or,[-pi,pi]);
     colormap(hsv);
     colorbar;
 end
