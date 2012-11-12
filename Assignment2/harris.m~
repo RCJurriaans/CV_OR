@@ -1,6 +1,18 @@
-function c = harris(im, , v)
+function [r,c,s] = harris(im)
+threshold=0.0000005;
 
 R = cornerness(im,1);
+R = (R>threshold) & ((imdilate(R, strel('square', 3))-R)==0);
+done = 0;
+while done==0
+   newR = cornerness(im,sigma);
+   newR = (newR>threshold) & ((imdilate(newR, strel('square', 3))-newR)==0);
+   R = R+ ((newR-(imdilate(R, strel('square', 3))))>0)*sigma;
+end
 
+
+
+
+[r,c,s] = find(R);
 
 end

@@ -1,6 +1,6 @@
 function R = cornerness(im, sigma)
 
-gamma = 1;
+gamma = 2;
 
 Ix =  ImageDerivatives(im, sigma, 'x');
 Iy =  ImageDerivatives(im, sigma, 'y');
