@@ -1,81 +1,32 @@
-function [r,c,s] = harris(im)
-    threshold=0.000005;
+function [r, c] = harris(im, sigma)
 
-    numScales = 3;
-    R = zeros(size(im,1), size(im,2), numScales); % Cornerness images
-    L = zeros(size(im,1), size(im,2), numScales); % LoG images
-    C = zeros(size(im,1), size(im,2), numScales); % Combined
-    for i=1:numScales,
-        R(:,:,i) = cornerness(im,i);
+gamma = 0.7;
+threshold = 0.000005;
 
-        % Show cornerness
-        %figure
-        %imshow(R(:,:,i),[]); 
+Ix =  ImageDerivatives(im, gamma*sigma, 'x');
+Iy =  ImageDerivatives(im, gamma*sigma, 'y');
+M = zeros(size(Ix,1), size(Ix,2), 3);
 
-        % Show thresholded image
-        %figure
-        %imshow( (R(:,:,i)>threshold) .* R(:,:,i), []);
+M(:,:,1) = Ix.^2;
+M(:,:,2) = Ix.*Iy;
+M(:,:,3) = Iy.^2;
 
-        % Calculate maxima in the thresholded image
-        R(:,:,i) = (R(:,:,i)>threshold) & ((imdilate(R(:,:,i), strel('square', 3))==R(:,:,i)));
-        %figure
-        %imshow(R(:,:,i), []);
+M = imfilter(M, fspecial('gaussian', ceil(sigma*6+1), sigma), 'same');
 
-        % Calculate the LoG
-        L(:,:,i) = gradmag(im, i);%TODO:multiply by sigma^2
-        %figure
-        %imshow(L(:,:,i),[]);
-        
-        C(:,:,i) = L(:,:,i).*R(:,:,i);
-        figure
-        imshow(C(:,:,i),[]);
-    end
+trace = M(:,:,1) + M(:,:,3);
+det = M(:,:,1) .* M(:,:,3)-M(:,:,2).^2;
+R = det - 0.05 .* (trace).^2;
 
-    C = imdilate(C, ones(3,3,3)) == C;
-    figure
-    imshow(C(:,:,1),[]);
-    figure
-    imshow(C(:,:,2),[]);
-    figure
-    imshow(C(:,:,3),[]);
-    
-    %for i=1:numScales,
-       
-        % Find corner point coords
-    %    [r,c,s] = find(R);
-        
-        % For every corner point
-    %    for j=1:size(r,1),
-            % 
-    %    end
-        
-    %end
+% Find local maxima
+R = ((R>threshold) & ((imdilate(R, strel('square', 3))==R))) ; %.* sigma;
+
+% TODO: set threshold automatically: 0.2*maxR
 
 
-%R = cornerness(im,1);
-%R = (R>threshold) & ((imdilate(R, strel('square', 3))-R)==0);
-%   figure;
-%   imshow(R);
+figure
+imshow(R,[]);
 
-%done = 0;
-%sigma = 2;
-%while 1
-   % Determine cornerpoints for sigma
-%   newR = cornerness(im,sigma);
-%   newR = (newR>threshold) & ((imdilate(newR, strel('square', 3))-newR)==0);
-   % Check if already present
-%   newR = ((newR-(imdilate(R, strel('square', 3))))>0)*sigma;
-   %figure;
-   %imshow(newR);
-%   if sum(sum(newR))==0
-%       break;
-%   else
-%       R = R+newR;
-%       sigma=sigma+1;
-%   end
-%   pause(1)
-%end
-
-%[r,c,s] = find(R);
+% Return the coordinates
+[r,c] = find(R);
 
 end

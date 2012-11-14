@@ -15,7 +15,7 @@ halfSize = ceil(3 * sigma);
 x = -halfSize:halfSize;
 
 % Calculate the unnormalized y values
-G = (1/(sigma*sqrt(2*pi))) * exp(-(x.^2 / (2 * sigma^2)));
+G = exp(-(x.^2 / (2 * sigma^2)));
 
 % Normalize the kernel so it sums to one
 G = G / sum(G);
