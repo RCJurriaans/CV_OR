@@ -12,15 +12,16 @@ end
 
 switch type
     case 'x'
-        F = conv2(img, Gd, 'same');
+        F = imfilter(img, Gd, 'replicate', 'same'); % conv2(img, Gd, 'same');        
     case 'y'
-        F = conv2(img, Gd', 'same');
+        F = imfilter(img, Gd', 'replicate', 'same'); %conv2(img, Gd', 'same');
     case 'xx'
-        F = conv2(img, Gdd, 'same');
+        F = imfilter(img, Gdd, 'replicate', 'same'); %conv2(img, Gdd, 'same');
     case {'xy', 'yx'}
-        F = conv2(Gd, Gd, img, 'same');
+        F = imfilter(img, Gd, 'replicate', 'same'); %conv2(Gd, Gd, img, 'same');
+        F = imfilter(F, Gd', 'replicate', 'same');
     case 'yy'
-        F = conv2(img, Gdd', 'same');
+        F = imfilter(img, Gdd', 'replicate', 'same'); %conv2(img, Gdd', 'same');
     otherwise
         error('Unknown type: type must be in {x, y, xx, xy, yx, yy}');
 end

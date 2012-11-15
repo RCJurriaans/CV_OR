@@ -1,6 +1,6 @@
 function [rows,cols,sigmas] = harris_laplace(im)
     
-    sigma_array = [1.5:0.5:4];
+    sigma_array = [1:0.5:8];
     numScales = size(sigma_array, 2);
    
     corners = zeros(0, 3); % Rows, corners, scale_num
@@ -59,58 +59,13 @@ function [rows,cols,sigmas] = harris_laplace(im)
     
     tst = zeros(size(im));
     tst(sub2ind(size(im), rows, cols)) = 1;
-    figure
-    imshow(tst, []);
+%     figure
+%     imshow(tst, []);
+%     
+%     imshow(im, []);
+%     hold on;
+%     scatter(cols, rows, sigma_array(sigmas) * 15, [1,1,0]);
     
-    imshow(im, []);
-    hold on;
-    scatter(cols, rows, sigma_array(sigmas) * 15, [1,1,0]);
-    
-    %C = (imdilate(C, ones(3,3,3)) == L);
-    %figure
-    %imshow(C(:,:,1),[]);
-    %figure
-    %imshow(C(:,:,2),[]);
-    %figure
-    %imshow(C(:,:,3),[]);
-    
-    %for i=1:numScales,
-       
-        % Find corner point coords
-    %    [r,c,s] = find(R);
-        
-        % For every corner point
-    %    for j=1:size(r,1),
-            % 
-    %    end
-        
-    %end
-
-
-%R = cornerness(im,1);
-%R = (R>threshold) & ((imdilate(R, strel('square', 3))-R)==0);
-%   figure;
-%   imshow(R);
-
-%done = 0;
-%sigma = 2;
-%while 1
-   % Determine cornerpoints for sigma
-%   newR = cornerness(im,sigma);
-%   newR = (newR>threshold) & ((imdilate(newR, strel('square', 3))-newR)==0);
-   % Check if already present
-%   newR = ((newR-(imdilate(R, strel('square', 3))))>0)*sigma;
-   %figure;
-   %imshow(newR);
-%   if sum(sum(newR))==0
-%       break;
-%   else
-%       R = R+newR;
-%       sigma=sigma+1;
-%   end
-%   pause(1)
-%end
-
-%[r,c,s] = find(R);
+    sigmas = sigma_array(sigmas);
 
 end

@@ -1,18 +1,33 @@
-function [r,c,s] = harris(im)
-threshold=0.0000005;
+function [r, c] = harris(im, sigma)
 
-R = cornerness(im,1);
-R = (R>threshold) & ((imdilate(R, strel('square', 3))-R)==0);
-done = 0;
-while done==0
-   newR = cornerness(im,sigma);
-   newR = (newR>threshold) & ((imdilate(newR, strel('square', 3))-newR)==0);
-   R = R+ ((newR-(imdilate(R, strel('square', 3))))>0)*sigma;
-end
+gamma = 0.7;
+threshold = 0.000005;
 
+Ix =  ImageDerivatives(im, gamma*sigma, 'x');
+Iy =  ImageDerivatives(im, gamma*sigma, 'y');
+M = zeros(size(Ix,1), size(Ix,2), 3);
 
+M(:,:,1) = Ix.^2;
+M(:,:,2) = Ix.*Iy;
+M(:,:,3) = Iy.^2;
 
+M = imfilter(M, fspecial('gaussian', ceil(sigma*6+1), sigma), 'replicate', 'same');
 
-[r,c,s] = find(R);
+trace = M(:,:,1) + M(:,:,3);
+det = M(:,:,1) .* M(:,:,3)-M(:,:,2).^2;
+R = det - 0.05 .* (trace).^2;
+
+% TODO: set threshold automatically: 0.2*maxR
+% Set threshold based on max R
+%threshold = 0.1*max(max(R));
+
+% Find local maxima
+R = ((R>threshold) & ((imdilate(R, strel('square', 3))==R))) ; %.* sigma;
+
+%figure
+%imshow(R,[]);
+
+% Return the coordinates
+[r,c] = find(R);
 
 end

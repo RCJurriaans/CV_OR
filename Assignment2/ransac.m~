@@ -1,0 +1,66 @@
+function H = ransac(match1, match2)
+
+iterations = 10;
+threshold = 5000;
+H = zeros(3);
+minerror = Inf;
+bestH = H;
+
+
+x = match1(1,:);
+y = match1(2,:);
+nx = match2(1,:);
+ny = match2(2,:);
+
+onevec = ones(size(x));
+
+for i=1:iterations
+    % Draw initial random points
+    perm = randperm(size(match1,2));
+    seed = perm(:,1:4);
+    
+    % Fit LQ solution
+    A = [x', y', onevec'];
+    b = nx';
+    H = ((A'*A) \ A'*b)';
+    b = ny';
+    H = [H; ((A'*A) \ A'*b)'];
+    b = ones(size(ny))';
+    H = [H; ((A'*A) \ A'*b)'];
+    
+    % Find all inliers below theshold
+    error = sum(((H*[x;y;ones(size(y))]) - [nx;ny;ones(size(y))]).^2);
+    inlierind = find(error<threshold);
+    if(sum(inlierind)>3)
+    inliers = [x;y;ones(size(y))];
+    inliers = inliers(:,inlierind);
+    outputinliers = [nx; ny; ones(size(ny))];
+    outputinliers = outputinliers(:,inlierind);
+    
+    % Refit LQ
+    A = inliers';
+    b1 = outputinliers(1,:)';
+    H1 = ((A'*A) \ A'*b)';
+    b2 = outputinliers(2,:)';
+    H2 = [H; ((A'*A) \ A'*b)'];
+    b3 = ones(1,size(outputinliers,2))';
+    H3 = [H; ((A'*A) \ A'*b)'];
+    
+    % Find new inliers below threshold
+    error = sum(((H*[x;y;ones(size(y))]) - [nx;ny;ones(size(y))]).^2);
+    inlierind = find(error<threshold);
+    inliers = [x;y;ones(size(y))];
+    inliers = inliers(:,inlierind);
+    outputinliers = [nx; ny; ones(size(ny))];
+    outputinliers = outputinliers(:,inlierind);
+    
+    % Calculate error
+    error = sum(sum(((H*inliers) - outputinliers).^2));
+    if minerror>error
+       bestH = H; 
+        
+    end
+    end
+end
+H = bestH;
+end
