@@ -8,7 +8,7 @@ function [ L ] = laplace( im, sigma )
     
     
     
-    L = imfilter(im, sigma^2*fspecial('log', 2*ceil(3*sigma)+1, sigma), 'same');
+    L = imfilter(im, sigma^2*fspecial('log', 2*ceil(3*sigma)+1, sigma), 'replicate', 'same');
     %Lyy = conv2(Lxx, Gdd', 'same');
     %imshow(Lxx);
     %figure

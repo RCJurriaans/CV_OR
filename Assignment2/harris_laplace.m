@@ -7,14 +7,14 @@ function [rows,cols,sigmas] = harris_laplace(im)
     L = zeros(size(im,1), size(im,2), numScales); % LoG images
     
     for i=1:numScales,
-        sigma = sigma_array(i);% i*0.5;
+        sigma = sigma_array(i);
         
         [r,c] = harris(im, sigma);
         num_corners = size(r, 1);
         corners(end+1:end+num_corners,:) = [r,c,ones(num_corners, 1)*i];
         
         % Calculate the scale-normalized LoG
-        L(:,:,i) = imfilter(im, sigma^2 * fspecial('log', 2*ceil(3*sigma)+1, sigma), 'same'); %laplace(im, sigma);
+        L(:,:,i) = imfilter(im, sigma^2 * fspecial('log', 2*ceil(3*sigma)+1, sigma), 'replicate', 'same');
         %figure
         %imshow(L(:,:,i), []);
     end
