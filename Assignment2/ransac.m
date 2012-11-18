@@ -4,8 +4,8 @@ function H = ransac(match1, match2)
 
 % Parameters of RANSAC
 % d is the minimum required amount of inliers for a model
-iterations = 50;
-threshold = 22;
+iterations = 100;
+threshold = 2;
 d = max(4,floor(0.5*size(match1,2)));
 
 % Initialize H
@@ -32,17 +32,14 @@ for i=1:iterations
     onevec2 = onevec(seed);
     % Fit LQ solution
     A = [x2', y2', onevec2'];
-    b = nx2';
-    H = ((A'*A) \ A'*b)';
-    b = ny2';
-    H = [H; ((A'*A) \ A'*b)'];
-    b = ones(size(ny2))';
-    H = [H; ((A'*A) \ A'*b)'];
+    H = [((A'*A) \ A'*nx2')';...
+         ((A'*A) \ A'*ny2')';...
+         ((A'*A) \ A'*ones(size(ny2))')'];
     
     % Find all inliers below theshold
     error = sum(((H*[x;y;ones(size(y))]) - [nx;ny;ones(size(y))]).^2);
     inlierind = find(error<threshold);
-    if(sum(inlierind)>d)
+    if(size(inlierind,2)>d)
         inliers = [x;y;ones(size(y))];
         inliers = inliers(:,inlierind);
         
@@ -51,12 +48,9 @@ for i=1:iterations
         
         % Refit LQ
         A = inliers';
-        b = outputinliers(1,:)';
-        H = ((A'*A) \ A'*b)';
-        b = outputinliers(2,:)';
-        H = [H; ((A'*A) \ A'*b)'];
-        b = ones(1,size(outputinliers,2))';
-        H = [H; ((A'*A) \ A'*b)'];
+        H = [((A'*A) \ A'*outputinliers(1,:)')';...
+             ((A'*A) \ A'*outputinliers(2,:)')';...
+             ((A'*A) \ A'*ones(1,size(outputinliers,2))')'];
         
         % Find new inliers below threshold
         error = sum(((H*[x;y;ones(size(y))]) - [nx;ny;ones(size(y))]).^2);
@@ -67,7 +61,7 @@ for i=1:iterations
         outputinliers = outputinliers(:,inlierind);
         
         % Calculate error
-        error = (sum(sum(((H*inliers) - outputinliers).^2)));
+        error = (sum(sum(((H*inliers) - outputinliers).^2)))/(size(inlierind,2)/size(match1,2));
         if minerror>error
             bestH = H;
             minerror = error;
