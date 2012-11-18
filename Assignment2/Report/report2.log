@@ -1,8 +1,12 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.4.23)  18 NOV 2012 20:59
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.8.18)  18 NOV 2012 21:27
 entering extended mode
  %&-line parsing enabled.
-**\nonstopmode\input report2.tex
-(./report2.tex (/usr/share/texmf-texlive/tex/latex/base/article.cls
+**report2.tex
+(./report2.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, loaded.
+(/usr/share/texmf-texlive/tex/latex/base/article.cls
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
 (/usr/share/texmf-texlive/tex/latex/base/size10.clo
 File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
@@ -42,8 +46,7 @@ Package ifvtex Info: VTeX not detected.
 \Gm@odd@mp=\dimen105
 \Gm@even@mp=\dimen106
 \Gm@dimlist=\toks15
-
-(/usr/share/texmf-texlive/tex/xelatex/xetexconfig/geometry.cfg))
+)
 (/usr/share/texmf-texlive/tex/latex/base/inputenc.sty
 Package: inputenc 2008/03/30 v1.1d Input encoding file
 \inpenc@prehook=\toks16
@@ -467,28 +470,30 @@ File: img/mosaic.png Graphic file (type png)
 File: img/LOG_DOG.png Graphic file (type png)
  <use img/LOG_DOG.png>
 (./report2.bbl [4 <./img/mosaicmatch.png (PNG copy)>] [5 <./img/mosaic.png (PNG
- copy)> <./img/LOG_DOG.png (PNG copy)>]) [6] (./report2.aux) ) 
+ copy)> <./img/LOG_DOG.png (PNG copy)>]) [6] [7
+
+] (./report2.aux) ) 
 Here is how much of TeX's memory you used:
- 2325 strings out of 493848
- 28928 string characters out of 1152823
- 86934 words of memory out of 3000000
- 5556 multiletter control sequences out of 15000+50000
+ 2322 strings out of 495061
+ 28757 string characters out of 1182621
+ 85941 words of memory out of 3000000
+ 5457 multiletter control sequences out of 15000+50000
  30774 words of font info for 82 fonts, out of 3000000 for 9000
- 714 hyphenation exceptions out of 8191
- 27i,8n,20p,555b,216s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/texmf
--texlive/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texlive/fonts/type1/publ
-ic/amsfonts/cm/cmex10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts
-/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.p
-fb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/sh
-are/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-t
-exlive/fonts/type1/public/mathpazo/fplmr.pfb></usr/share/texmf-texlive/fonts/ty
-pe1/public/mathpazo/fplmri.pfb></usr/share/texmf-texlive/fonts/type1/urw/palati
-no/uplb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/palatino/uplr8a.pfb></u
-sr/share/texmf-texlive/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on report2.pdf (6 pages, 751764 bytes).
+ 28 hyphenation exceptions out of 8191
+ 27i,8n,20p,893b,216s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/
+share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf
+-texlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fo
+nts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/pu
+blic/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfon
+ts/cm/cmtt10.pfb></usr/share/texmf-texlive/fonts/type1/public/mathpazo/fplmr.pf
+b></usr/share/texmf-texlive/fonts/type1/public/mathpazo/fplmri.pfb></usr/share/
+texmf-texlive/fonts/type1/urw/palatino/uplb8a.pfb></usr/share/texmf-texlive/fon
+ts/type1/urw/palatino/uplr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/pala
+tino/uplri8a.pfb>
+Output written on report2.pdf (7 pages, 754947 bytes).
 PDF statistics:
- 68 PDF objects out of 1000 (max. 8388607)
+ 73 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  26 words of extra memory for PDF output out of 10000 (max. 10000000)
 

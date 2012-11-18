@@ -133,4 +133,13 @@ A rigorous repeatability study is beyond the scope of this report.
 \bibliographystyle{plain}
 \bibliography{references}
 
+\clearpage
+\appendix
+\section{Running the code}
+The file \verb|master.m| can be run to load in the two landscape images. It runs findmatches with a very high threshold (250) because we then use Lowe's method to reject any matches where the ratio of distance in descriptors is above $0.8$ for the closest descriptor and the second closest. \verb|findMatches.m| uses \verb|harris_laplace.m| to find the corners using either Laplacians or DoG. The Harris detector also has a threshold which we set at $0.01*\max(R)$, but which can be set higher to reject more features or lower to allow for more features. This setting is domain dependent and thus we will wait for the next assignments to further tweak this threshold. The findMatches function also shows both images next to each other with scatter plots to show the features. However, this will cause the program to crash if the used images are not equal in size.
+
+In the file \verb|ransacmaster.m| the same code as above is ran, but this time the matches are used to estimate a homography matrix to make a mosaic image. Ransac is ran for 100 iterations and can be further tweaked with the threshold for inliers and the minimum required inliers for a model. Again, the landscape images are not fit to be used to stitch the images due to the difference in optical centre.
+
+
+
 \end{document}
