@@ -11,7 +11,7 @@ function [magnitude, orientation] = gradmag(img, sigma)
     Gy = conv2(img, kernel', 'same');
     
     magnitude = sqrt( Gx .* Gx + Gy .* Gy );
-    orientation = atan2(Gx,Gy);
+    orientation = atan2(Gy,Gx);
     
     %orientation = zeros(size(Gx,1), size(Gx,2), 2);
     %orientation(:,:,1) = Gx;

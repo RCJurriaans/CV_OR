@@ -1,4 +1,6 @@
 function [match1, match2] = findMatches(im1,im2,threshold)
+% Finds matching SIFT descriptors at Harris corner points in two images.
+
 % Find features and make descriptor of image 1
 [r1,c1,s1] = harris_laplace(im1);
 [f1,d1] = sift(single(im1),r1,c1, s1);
@@ -29,7 +31,7 @@ for fn1=1:size(d1,2)
         dif = sqrt(sum((desc1-desc2).^2));
         
         % If difference is lower than the threshold, it's a match
-        if dif<threshold %&& ~(sum(find(fn2found==fn2)))
+        if dif<threshold
             crtf1 = f1(:,fn1);
             crtf2 = f2(:,fn2);
             % Draw line from image 1 to image2
