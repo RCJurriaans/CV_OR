@@ -64,7 +64,9 @@ To avoid a costly calculation of the eigenvalues of $M$, it is possible to repre
 
 \[R = \det( M ) - k(\operatorname{trace}( M ))^2\]
 
-where $k$ is a small constant. We can avoid the use of an unjustified empirical constant $k$ by using Noble's measure of cornerness\cite{noble1989descriptions}:
+where $k$ is a small constant which is used to bias the detector towards corners or towards edges.
+$k=0$ would focus solely on corners whereas $k=0.25$ would only return edges.
+It is possible to avoid the use of this empirical constant $k$ by using Noble's measure of cornerness\cite{noble1989descriptions}:
 
 \[M'_c = 2 \frac{\det( M )}{\operatorname{trace}( M ) + \epsilon}\]
 

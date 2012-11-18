@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.4.23)  18 NOV 2012 20:39
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.4.23)  18 NOV 2012 20:59
 entering extended mode
  %&-line parsing enabled.
 **\nonstopmode\input report2.tex
@@ -455,7 +455,7 @@ File: img/isoresponse.jpg Graphic file (type jpg)
  <use img/isoresponse.jpg>
 [2 <./img/isoresponse.jpg>]
 LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 71.
+(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 73.
  [3]
 <img/mosaicmatch.png, id=23, 1239.029pt x 659.263pt>
 File: img/mosaicmatch.png Graphic file (type png)
@@ -486,7 +486,7 @@ exlive/fonts/type1/public/mathpazo/fplmr.pfb></usr/share/texmf-texlive/fonts/ty
 pe1/public/mathpazo/fplmri.pfb></usr/share/texmf-texlive/fonts/type1/urw/palati
 no/uplb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/palatino/uplr8a.pfb></u
 sr/share/texmf-texlive/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on report2.pdf (6 pages, 751633 bytes).
+Output written on report2.pdf (6 pages, 751764 bytes).
 PDF statistics:
  68 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
