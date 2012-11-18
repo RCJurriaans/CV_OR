@@ -23,24 +23,19 @@ match2 = [];
 % For-loops are horrible, but matrix operations can run out of memory
 %fn2found = [];
 for fn1=1:size(d1,2)
-    fn1found = 0;
     for fn2=1:size(d2,2)
         desc1 = d1(:,fn1);
         desc2 = d2(:,fn2);
         dif = sqrt(sum((desc1-desc2).^2));
         
         % If difference is lower than the threshold, it's a match
-        if dif<threshold && fn1found==0 %&& ~(sum(find(fn2found==fn2)))
-            %fn2found = [fn2found fn2];
+        if dif<threshold %&& ~(sum(find(fn2found==fn2)))
             crtf1 = f1(:,fn1);
             crtf2 = f2(:,fn2);
             % Draw line from image 1 to image2
             line([crtf1(1);size(im1,2)+crtf2(1)], [crtf1(2);crtf2(2)]);
             match1 = [match1, crtf1];
             match2 = [match2, crtf2];
-            %fn1found=1;
-            break;
-            
         end
     end
     drawnow;

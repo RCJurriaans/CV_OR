@@ -5,7 +5,7 @@ im2 = im2double(rgb2gray(imread('c.jpg')));
 
 
 close all;
-[match1, match2] = findMatches(im1,im2,30);
-num_matches = size(match1,2)
+[match1, match2] = findMatches(im1,im2,40);
+num_matches = size(match1,2);
 H = ransac(match1, match2);
 mosaic(im1,im2,H);

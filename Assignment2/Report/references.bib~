@@ -1,0 +1,9 @@
+@incollection{Moravec1980,
+   author = "Hans Moravec",
+   title = "Obstacle Avoidance and Navigation in the Real World by a Seeing Robot Rover",
+   booktitle = "tech. report CMU-RI-TR-80-03, Robotics Institute, Carnegie Mellon University \& doctoral dissertation, Stanford University",
+   month = "September",
+   year = "1980",
+   number= "CMU-RI-TR-80-03",
+   Notes = "Available as Stanford AIM-340, CS-80-813 and republished as a Carnegie Mellon University Robotics Institue Technical Report to increase availability"
+}

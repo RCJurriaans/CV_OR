@@ -61,11 +61,9 @@ If both eigenvalues are low, than the change in intensity is small in all direct
 
 To circumvent the calculation of the eigenvalues of $M$, it is possible to represent the cornerness $R$ by the determinant and the trace of $M$ as follows:
 
-\[R = \det( M ) - k(\operatorname{trace}( M ))^2\]
+\[R = \det M - k(\operatorname{trace} M)^2\]
 
-where $k$ is a small constant. It is possible to circumvent this empirical constant $k$ by using Noble's measure (CITE) of cornerness:
-
-\[M'_c = 2 \frac{\det( M )}{\operatorname{trace}( M ) + \epsilon}\]
+where $k$ is a small constant.
 
 
 

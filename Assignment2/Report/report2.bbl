@@ -1,0 +1,17 @@
+\begin{thebibliography}{1}
+
+\bibitem{Harris1988}
+Chris Harris and Mike Stephens.
+\newblock A combined corner and edge detector.
+\newblock In {\em In Proc. of Fourth Alvey Vision Conference}, pages 147--151,
+  1988.
+
+\bibitem{Moravec1980}
+Hans Moravec.
+\newblock Obstacle avoidance and navigation in the real world by a seeing robot
+  rover.
+\newblock In {\em tech. report CMU-RI-TR-80-03, Robotics Institute, Carnegie
+  Mellon University \& doctoral dissertation, Stanford University}, number
+  CMU-RI-TR-80-03. September 1980.
+
+\end{thebibliography}

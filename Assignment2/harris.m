@@ -19,7 +19,7 @@ R = det - 0.05 .* (trace).^2;
 
 % TODO: set threshold automatically: 0.2*maxR
 % Set threshold based on max R
-threshold = 0.0005*max(max(R));
+threshold = 0.1*max(max(R));
 
 % Find local maxima
 R = ((R>threshold) & ((imdilate(R, strel('square', 3))==R))) ; %.* sigma;
