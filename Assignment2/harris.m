@@ -28,7 +28,6 @@ R = det - 0.05 .* (trace).^2;
 % Set threshold based on max R
 threshold = 0.01*max(max(R));
 
-
 % Find local maxima
 % Dilation will alter every pixel except local maxima in a 3x3 square area.
 % Also checks if R is above threshold
