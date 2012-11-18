@@ -1,7 +1,7 @@
 function [r, c] = harris(im, sigma)
 
 gamma = 0.7;
-threshold = 0.000005;
+%threshold = 0.000005;
 
 Ix =  ImageDerivatives(im, gamma*sigma, 'x');
 Iy =  ImageDerivatives(im, gamma*sigma, 'y');
@@ -17,14 +17,15 @@ trace = M(:,:,1) + M(:,:,3);
 det = M(:,:,1) .* M(:,:,3)-M(:,:,2).^2;
 R = det - 0.05 .* (trace).^2;
 
+% TODO: set threshold automatically: 0.2*maxR
+% Set threshold based on max R
+threshold = 0.0005*max(max(R));
+
 % Find local maxima
 R = ((R>threshold) & ((imdilate(R, strel('square', 3))==R))) ; %.* sigma;
 
-% TODO: set threshold automatically: 0.2*maxR
-
-
-figure
-imshow(R,[]);
+%figure
+%imshow(R,[]);
 
 % Return the coordinates
 [r,c] = find(R);

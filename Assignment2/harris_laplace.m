@@ -1,6 +1,6 @@
 function [rows,cols,sigmas] = harris_laplace(im)
     
-    sigma_array = [1.5:0.5:4];
+    sigma_array = [1:0.5:8];
     numScales = size(sigma_array, 2);
    
     corners = zeros(0, 3); % Rows, corners, scale_num
@@ -59,11 +59,13 @@ function [rows,cols,sigmas] = harris_laplace(im)
     
     tst = zeros(size(im));
     tst(sub2ind(size(im), rows, cols)) = 1;
-    figure
-    imshow(tst, []);
+%     figure
+%     imshow(tst, []);
+%     
+%     imshow(im, []);
+%     hold on;
+%     scatter(cols, rows, sigma_array(sigmas) * 15, [1,1,0]);
     
-    imshow(im, []);
-    hold on;
-    scatter(cols, rows, sigma_array(sigmas) * 15, [1,1,0]);
-    
+    sigmas = sigma_array(sigmas);
+
 end
