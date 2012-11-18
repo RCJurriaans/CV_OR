@@ -1,6 +1,9 @@
 function [rows,cols,sigmas] = harris_laplace(im)
-    
-    sigma_array = 1.5 * 1.4 .^ (0:5);%[1:0.5:8];
+
+% Scale invariant implementation of harris detector
+% Uses Laplacian to detect corners on multiple scales
+
+    sigma_array = 1.5 * 1.4 .^ (0:6);
     numScales = size(sigma_array, 2);
    
     corners = zeros(0, 3); % Rows, corners, scale_num

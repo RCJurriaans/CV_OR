@@ -1,11 +1,13 @@
-function [] = mosaic(im2,im1,H)
-tform = maketform('projective',H');
+function imgout = mosaic(im2,im1,H)
+% Mosaics two images using homography H
 
+% Do the transformation
+tform = maketform('projective',H');
 im21 = imtransform(im2,tform, 'bicubic');
 
+% Calculate the offset of the new image
 [M1 N1] = size(im1);
 [M2 N2] = size(im2);
-% do the mosaic
 pt = zeros(3,4);
 pt(:,1) = H*[1;1;1];
 pt(:,2) = H*[N2;1;1];
@@ -28,25 +30,14 @@ if left<=0
 	left = 1;
 end
 
-[M3 N3 ~] = size(im21);
+% Use the offsets to create the output image
+[M3 N3] = size(im21);
 imgout(up:up+M3-1,left:left+N3-1,:) = im21;
 imgout(Yoffset+1:Yoffset+M1,Xoffset+1:Xoffset+N1,:) = im1;
 
+% Show output image
 figure;
 imshow(imgout);
 
 
-%H(3,:) = [0 0 1];
-
-
-
-% tform = maketform('projective', H');
-% im2b = imtransform(im2, tform,  'bicubic',...
-%                                 'udata', udata,...
-%                                 'vdata', vdata,...
-%                                 'size', size(im2),...
-%                                 'fill', 128);
-%imshow(im2b);
-%hold on;
-%imshow(im1);
 end

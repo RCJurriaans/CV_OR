@@ -3,7 +3,7 @@ function [r, c] = harris(im, sigma)
 % The row and column of each point is returned in r and c
 % We choose the derivative scale automatically as gamma*sigma
 
-gamma = 0.7; % The derivative-scale is gamma times the integration scale
+gamma = .7; % The derivative-scale is gamma times the integration scale
 
 % Calculate Gaussian Derivatives at derivative-scale
 Ix =  ImageDerivatives(im, gamma*sigma, 'x');
@@ -26,7 +26,7 @@ det = M(:,:,1) .* M(:,:,3)-M(:,:,2).^2;
 R = det - 0.05 .* (trace).^2;
 
 % Set threshold based on max R
-threshold = 0.05*max(max(R));
+threshold = 0.01*max(max(R));
 
 % Find local maxima
 % Dilation will alter every pixel except local maxima in a 3x3 square area.

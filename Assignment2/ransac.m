@@ -1,11 +1,17 @@
 function H = ransac(match1, match2)
+% Implementation of ransac to calculate homography
+% Uses linear least squares solution
 
-iterations = 100;
-threshold = 25;
+% Parameters of RANSAC
+% d is the minimum required amount of inliers for a model
+iterations = 50;
+threshold = 22;
+d = max(4,floor(0.5*size(match1,2)));
+
+% Initialize H
 H = zeros(3);
 minerror = Inf;
 bestH = H;
-
 
 x = match1(1,:);
 y = match1(2,:);
@@ -17,7 +23,7 @@ onevec = ones(size(x));
 for i=1:iterations
     % Draw initial random points
     perm = randperm(size(match1,2));
-    seed = perm(:,1:8);
+    seed = perm(:,1:4);
     
     x2 = x(seed);
     y2 = y(seed);
@@ -36,9 +42,10 @@ for i=1:iterations
     % Find all inliers below theshold
     error = sum(((H*[x;y;ones(size(y))]) - [nx;ny;ones(size(y))]).^2);
     inlierind = find(error<threshold);
-    if(sum(inlierind)>3)
+    if(sum(inlierind)>d)
         inliers = [x;y;ones(size(y))];
         inliers = inliers(:,inlierind);
+        
         outputinliers = [nx; ny; ones(size(ny))];
         outputinliers = outputinliers(:,inlierind);
         
@@ -60,7 +67,7 @@ for i=1:iterations
         outputinliers = outputinliers(:,inlierind);
         
         % Calculate error
-        error = sum(sum(((H*inliers) - outputinliers).^2));
+        error = (sum(sum(((H*inliers) - outputinliers).^2)));
         if minerror>error
             bestH = H;
             minerror = error;

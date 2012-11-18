@@ -92,8 +92,23 @@ We only use the SIFT \emph{descriptor} and not the keypoint detector from \verb+
 
 
 \section{Mosaic}
+To evaluate the matches, we estimate the homography matrix $H$ using RANSAC by fitting the linear least squares solution to a set of matching points $p_1$ and $p_2$. All point pairs are then evaluated if they are within a given threshold $t$ by $((H*p_1)-p_2)^2 < t$ and if so, they are classified as inliers for the estimated model. A new model is fitted on all inliers and a final score is calculated for the model. After $n$ iterations the best model is returned and used to transform the image to the new image plane. 
 
+\begin{figure}[h!t]
+\centering
+\includegraphics[width=0.8\textwidth]{img/mosaicmatch}
+\caption{Matches found between sift descriptors of harris corners in two images from same optical centre}
+\label{fig:mosaicmatch}
+\end{figure}
 
+In the landscape images, there is a large translation between both camera positions in the $z$-direction. Therefore, mosaicking these images is very difficult as there is no projective transformation that can account for this. However, by using images, as seen in figure \ref{fig:mosaicmatch}, that are taken from the same optical centre it becomes possible to stitch the images together to form a mosaic, as can be seen in figure \ref{fig:mosaic}.
+
+\begin{figure}[h!t]
+\centering
+\includegraphics[width=0.8\textwidth]{img/mosaic}
+\caption{Image mosaic made by estimating homography using RANSAC}
+\label{fig:mosaic}
+\end{figure}
 
 \section{DoG vs. Laplace}
 A fast alternative to the scale-normalized Laplacian is the Difference of Gaussians (DoG).
