@@ -64,21 +64,21 @@ To avoid a costly calculation of the eigenvalues of $M$, it is possible to repre
 
 \[R = \det( M ) - k(\operatorname{trace}( M ))^2\]
 
-where $k$ is a small constant. We can avoid the use of an unjustified empirical constant $k$ by using Noble's measure (CITE) of cornerness:
+where $k$ is a small constant. We can avoid the use of an unjustified empirical constant $k$ by using Noble's measure of cornerness\cite{noble1989descriptions}:
 
 \[M'_c = 2 \frac{\det( M )}{\operatorname{trace}( M ) + \epsilon}\]
 
 \subsection{Implementation Details}
 We have implemented the Harris corner detector in \verb+harris.m+.
 Following Mikolajczyk et al.\cite{Mikolajczyk2004}, we use a constant $\gamma = 0.7$ to automatically determine the derivative scale from the given integration scale $\sigma$.
-We use a morphological image operation to determine local maxima in the cornerness image; see the code and its comments for further details.
+We use a morphological image operation (dilation) to determine local maxima in the cornerness image; see the code and its comments for further details.
 
 \section{Harris-Laplace}
 The basic Harris corner detector is not scale-invariant.
 To gain scale invariance we implemented the Harris-Laplace detector from \cite{Mikolajczyk2004}.
-Although there are a number of subtleties in the implementation of this detector (Mikolajczyk's original algorithm uses an iterative algorithm to find the characteristic scales), we have implemented a simple variant as follows.
+Although there are a number of subtleties in the implementation of this detector (Mikolajczyk's original algorithm uses an iterative procedure to find the characteristic scales), we have implemented a simple variant as follows.
 We first detect Harris corners at several scales, spaced appart by a factor of $1.4$.
-Next, for each keypoint we look at the neighbouring levels if the scale-normalized Laplacian is at a scale-space maximum.
+Next, for each keypoint we look at the neighbouring scales if the scale-normalized Laplacian is at a scale-space extremum.
 If it is, we keep the corner point (at the found scale), otherwise we reject it.
 It is also possible to use an additional threshold on the value of the Laplacian.
 
@@ -92,7 +92,7 @@ We only use the SIFT \emph{descriptor} and not the keypoint detector from \verb+
 
 
 \section{Mosaic}
-To evaluate the matches, we estimate the homography matrix $H$ using RANSAC by fitting the linear least squares solution to a set of matching points $p_1$ and $p_2$. All point pairs are then evaluated if they are within a given threshold $t$ by $((H*p_1)-p_2)^2 < t$ and if so, they are classified as inliers for the estimated model. A new model is fitted on all inliers and a final score is calculated for the model. After $n$ iterations the best model is returned and used to transform the image to the new image plane. 
+To evaluate the matches, we estimate the homography matrix $H$ using RANSAC by fitting the linear least squares solution to a set of matching points $p_1$ and $p_2$. All point pairs are then evaluated if they are within a given threshold $t$ by $((H p_1)-p_2)^2 < t$ and if so, they are classified as inliers for the estimated model. A new model is fitted on all inliers and a final score is calculated for the model. After $n$ iterations the best model is returned and used to transform the image to the new image plane. 
 
 \begin{figure}[h!t]
 \centering
@@ -101,7 +101,7 @@ To evaluate the matches, we estimate the homography matrix $H$ using RANSAC by f
 \label{fig:mosaicmatch}
 \end{figure}
 
-In the landscape images, there is a large translation between both camera positions in the $z$-direction. Therefore, mosaicking these images is very difficult as there is no projective transformation that can account for this. However, by using images, as seen in figure \ref{fig:mosaicmatch}, that are taken from the same optical centre it becomes possible to stitch the images together to form a mosaic, as can be seen in figure \ref{fig:mosaic}.
+In the landscape images, there is a large translation between both camera positions in the $z$-direction. Therefore, mosaicing these images is very difficult as there is no projective transformation that can account for this. However, by using images, as seen in figure \ref{fig:mosaicmatch}, that are taken from the same optical centre it becomes possible to stitch the images together to form a mosaic, as can be seen in figure \ref{fig:mosaic}.
 
 \begin{figure}[h!t]
 \centering
@@ -110,9 +110,23 @@ In the landscape images, there is a large translation between both camera positi
 \label{fig:mosaic}
 \end{figure}
 
-\section{DoG vs. Laplace}
+\section{DoG versus LoG}
 A fast alternative to the scale-normalized Laplacian is the Difference of Gaussians (DoG).
-T
+We implemented this the usual way, by calculating the Gaussian blurred images at several scales, and then creating difference maps of subsequent levels.
+The results are qualitatively very similar to the LoG results, see figure \ref{fig:logdog}.
+
+DoG can be used in the \verb+harris_laplace+ function by passing 'DoG' for the mode parameter.
+We did some quick tests, and on our system the \verb+harris_laplace+ with 'DoG' takes about $0.9$ seconds to execute, whereas with 'LoG' it takes about $1.1$ seconds.
+Of course, both versions could be optimized further.
+In terms of matching performance, the two approaches appear to have a similar accuracy, but this is a subjective judgement.
+A rigorous repeatability study is beyond the scope of this report.
+
+\begin{figure}[h!t]
+\centering
+\includegraphics[width=0.95\textwidth]{img/LOG_DOG}
+\caption{LoG (top) versus DoG (bottom) at scales $\sigma = 1$ and $\sigma = 4$.}
+\label{fig:logdog}
+\end{figure}
 
 \bibliographystyle{plain}
 \bibliography{references}

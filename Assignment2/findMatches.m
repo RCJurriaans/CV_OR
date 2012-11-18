@@ -2,11 +2,11 @@ function [match1, match2] = findMatches(im1,im2,threshold)
 % Finds matching SIFT descriptors at Harris corner points in two images.
 
 % Find features and make descriptor of image 1
-[r1,c1,s1] = harris_laplace(im1);
+[r1,c1,s1] = harris_laplace(im1, 'DoG');
 [f1,d1] = sift(single(im1),r1,c1, s1);
 
 % Find features and make descriptor of image 1
-[r2,c2,s2] = harris_laplace(im2);
+[r2,c2,s2] = harris_laplace(im2, 'DoG');
 [f2,d2] = sift(single(im2),r2,c2, s2);
 
 % Show images with scatter plot on each image for the features

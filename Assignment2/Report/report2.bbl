@@ -6,6 +6,11 @@ Chris Harris and Mike Stephens.
 \newblock In {\em In Proc. of Fourth Alvey Vision Conference}, pages 147--151,
   1988.
 
+\bibitem{Mikolajczyk2004}
+Krystian Mikolajczyk and Cordelia Schmid.
+\newblock Scale \& affine invariant interest point detectors.
+\newblock {\em Int. J. Comput. Vision}, 60(1):63--86, October 2004.
+
 \bibitem{Moravec1980}
 Hans Moravec.
 \newblock Obstacle avoidance and navigation in the real world by a seeing robot
@@ -13,5 +18,10 @@ Hans Moravec.
 \newblock In {\em tech. report CMU-RI-TR-80-03, Robotics Institute, Carnegie
   Mellon University \& doctoral dissertation, Stanford University}, number
   CMU-RI-TR-80-03. September 1980.
+
+\bibitem{noble1989descriptions}
+J.A. Noble.
+\newblock {\em Descriptions of Image Surfaces}.
+\newblock University of Oxford, 1989.
 
 \end{thebibliography}
