@@ -22,55 +22,54 @@ drawnow;
 % Create two arrays containing the points location in both images
 match1 = [];
 match2 = [];
-
-matches = vl_ubcmatch(d1, d2);
-match1 = f1(:,matches(1,:));
-match2 = f2(:,matches(2,:));
-
-line([match1(1,:);size(im1,2)+match2(1,:)],[match1(2,:);match2(2,:)]);
-drawnow;
+% 
+% matches = vl_ubcmatch(d1, d2);
+% match1 = f1(:,matches(1,:));
+% match2 = f2(:,matches(2,:));
+% 
+% line([match1(1,:);size(im1,2)+match2(1,:)],[match1(2,:);match2(2,:)]);
+% drawnow;
 
 % For-loops are horrible, but matrix operations can run out of memory
-%fn2found = [];
-% for fn1=1:size(d1,2)
-%     bestmatch = [0 0];
-%     bestdis = Inf;
-%     %secbestmatch = [0 0];
-%     secbestdis = Inf;
-%     for fn2=1:size(d2,2)
-%         desc1 = d1(:,fn1);
-%         desc2 = d2(:,fn2);
-%         dif = sqrt(sum((desc1-desc2).^2));
-%         
-%         % 
-%         if dif<threshold
-%             if secbestdis>dif
-%                 if bestdis>dif
-%                     secbestdis=bestdis;
-%                     bestdis=dif;
-%                     bestmatch=[fn1 fn2];
-%                 else
-%                     secbestdis = dif;
-%                 end
-%             end
-%         end
-%     end
-% 
-%     % Lowe, D. G., “Distinctive Image Features from Scale-Invariant
-%     % Keypoints”
-%     % Reject matches where the distance ratio is greater than 0.8
-%     if (bestdis/secbestdis)<0.8
-%         crtf1 = f1(:,bestmatch(1));
-%         crtf2 = f2(:,bestmatch(2));
-%         line([crtf1(1);size(im1,2)+crtf2(1)], [crtf1(2);crtf2(2)]);
-%         match1 = [match1, crtf1];
-%         match2 = [match2, crtf2];
-%         drawnow;
-%     end
-%     
-%     
-%     
-%     
-% end
+for fn1=1:size(d1,2)
+    bestmatch = [0 0];
+    bestdis = Inf;
+    %secbestmatch = [0 0];
+    secbestdis = Inf;
+    for fn2=1:size(d2,2)
+        desc1 = d1(:,fn1);
+        desc2 = d2(:,fn2);
+        dif = sqrt(sum((desc1-desc2).^2));
+        
+        % 
+        if dif<threshold
+            if secbestdis>dif
+                if bestdis>dif
+                    secbestdis=bestdis;
+                    bestdis=dif;
+                    bestmatch=[fn1 fn2];
+                else
+                    secbestdis = dif;
+                end
+            end
+        end
+    end
+
+    % Lowe, D. G., “Distinctive Image Features from Scale-Invariant
+    % Keypoints”
+    % Reject matches where the distance ratio is greater than 0.8
+    if (bestdis/secbestdis)<0.8
+        crtf1 = f1(:,bestmatch(1));
+        crtf2 = f2(:,bestmatch(2));
+        line([crtf1(1);size(im1,2)+crtf2(1)], [crtf1(2);crtf2(2)]);
+        match1 = [match1, crtf1];
+        match2 = [match2, crtf2];
+        drawnow;
+    end
+    
+    
+    
+    
+end
 
 end
