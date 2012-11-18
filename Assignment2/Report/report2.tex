@@ -88,7 +88,7 @@ Our implementation can be found in \verb+harris_laplace.m+.
 After finding corners with the Multi-scale Harris Corner Detection, SIFT descriptors are created for each of these corners.
 We use the publicly available \verb+vl_feat+ SIFT implementation, which must be installed to run our code.
 We only use the SIFT \emph{descriptor} and not the keypoint detector from \verb+vl_feat+.
-
+We do use the \verb+vl_ubcmatch+ function for descriptor matching, but we have written code for this too; see the commented code block in \verb+findMatches.m+.
 
 
 \section{Mosaic}
