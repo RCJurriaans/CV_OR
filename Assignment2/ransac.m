@@ -5,7 +5,6 @@ function H = ransac(match1, match2)
 % Parameters of RANSAC
 % d is the minimum required amount of inliers for a model
 iterations = 100;
-threshold = 75;%2;
 d = max(4,floor(0.5*size(match1,2)));
 
 % Initialize H
