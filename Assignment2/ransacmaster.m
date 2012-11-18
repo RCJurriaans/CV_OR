@@ -1,7 +1,9 @@
-im1 = im2double(rgb2gray(imread('b.jpg')));
-im2 = im2double(rgb2gray(imread('c.jpg')));
+%im1 = im2double(rgb2gray(imread('b.jpg')));
+%im2 = im2double(rgb2gray(imread('c.jpg')));
 %im1 = im2double((imread('ah2.jpg')));
 %im2 = im2double((imread('ah1.jpg')));
+im1 = im2double(rgb2gray(imread('landscape-a.jpg')));
+im2 = im2double(rgb2gray(imread('landscape-b.jpg')));
 
 
 close all;
