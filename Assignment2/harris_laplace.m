@@ -8,7 +8,7 @@ function [rows,cols,sigmas] = harris_laplace(im, mode)
         mode = 'LoG';
     end
 
-    sigma_array = 1 * 1.6 .^ (0:12);
+    sigma_array = 1 * 1.2 .^ (0:12);
     numScales = size(sigma_array, 2);
    
     corners = zeros(0, 3); % Rows, corners, scale_num
