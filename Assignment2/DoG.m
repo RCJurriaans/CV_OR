@@ -3,7 +3,6 @@ function D = DoG(im, sigma_start, num_levels, scale_factor)
 
     scales = sigma_start * (scale_factor.^ (0:num_levels))
     
-    %Gaussians = zeros(size(im,1), size(im,2), num_levels+1);
     D = zeros(size(im,1), size(im,2), num_levels);
     
     for i = 1:num_levels+1
@@ -12,7 +11,7 @@ function D = DoG(im, sigma_start, num_levels, scale_factor)
         current = imfilter(Gx, G', 'replicate', 'same');
         
         if i > 1
-            D(:,:,i-1) = current - previous; %previous - current;
+            D(:,:,i-1) = current - previous;
             
             figure
             imshow(D(:,:,i-1), []);

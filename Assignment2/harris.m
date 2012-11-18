@@ -11,7 +11,7 @@ M(:,:,1) = Ix.^2;
 M(:,:,2) = Ix.*Iy;
 M(:,:,3) = Iy.^2;
 
-M = imfilter(M, fspecial('gaussian', ceil(sigma*6+1), sigma), 'same');
+M = imfilter(M, fspecial('gaussian', ceil(sigma*6+1), sigma), 'replicate', 'same');
 
 trace = M(:,:,1) + M(:,:,3);
 det = M(:,:,1) .* M(:,:,3)-M(:,:,2).^2;
