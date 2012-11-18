@@ -1,11 +1,12 @@
 function [rows,cols,sigmas] = harris_laplace(im)
     
-    sigma_array = [1:0.5:8];
+    sigma_array = 1.5 * 1.4 .^ (0:5);%[1:0.5:8];
     numScales = size(sigma_array, 2);
    
     corners = zeros(0, 3); % Rows, corners, scale_num
     L = zeros(size(im,1), size(im,2), numScales); % LoG images
     
+    % Compute corners and Laplacian at each scale
     for i=1:numScales,
         sigma = sigma_array(i);
         
@@ -43,11 +44,6 @@ function [rows,cols,sigmas] = harris_laplace(im)
             end
         end
         
-        %if s>1 & s < numScales
-        %    sprintf( 'test %f, %f, %f', L(r,c,s-1), L(r,c,s), L(r,c,s+1))
-        %end
-       
-        
         % Add the point
         lpts = lpts+1;
         rows(lpts) = r;
@@ -57,8 +53,8 @@ function [rows,cols,sigmas] = harris_laplace(im)
     end
     
     
-    tst = zeros(size(im));
-    tst(sub2ind(size(im), rows, cols)) = 1;
+%    tst = zeros(size(im));
+%    tst(sub2ind(size(im), rows, cols)) = 1;
 %     figure
 %     imshow(tst, []);
 %     

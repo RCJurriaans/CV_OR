@@ -1,12 +1,8 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.8.18)  18 NOV 2012 15:27
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.4.23)  18 NOV 2012 17:09
 entering extended mode
  %&-line parsing enabled.
-**report2.tex
-(./report2.tex
-LaTeX2e <2009/09/24>
-Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
-yphenation, loaded.
-(/usr/share/texmf-texlive/tex/latex/base/article.cls
+**\nonstopmode\input report2.tex
+(./report2.tex (/usr/share/texmf-texlive/tex/latex/base/article.cls
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
 (/usr/share/texmf-texlive/tex/latex/base/size10.clo
 File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
@@ -46,7 +42,8 @@ Package ifvtex Info: VTeX not detected.
 \Gm@odd@mp=\dimen105
 \Gm@even@mp=\dimen106
 \Gm@dimlist=\toks15
-)
+
+(/usr/share/texmf-texlive/tex/xelatex/xetexconfig/geometry.cfg))
 (/usr/share/texmf-texlive/tex/latex/base/inputenc.sty
 Package: inputenc 2008/03/30 v1.1d Input encoding file
 \inpenc@prehook=\toks16
@@ -444,7 +441,7 @@ LaTeX Font Info:    Try loading font information for OT1+zplm on input line 22.
 File: ot1zplm.fd 2002/09/08 Fontinst v1.914 font definitions for OT1/zplm.
 )
 LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 25.
+(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 26.
 
 <img/cornermetric1.png, id=1, 384.43625pt x 242.9075pt>
 File: img/cornermetric1.png Graphic file (type png)
@@ -456,27 +453,41 @@ NG copy)>]
 <img/isoresponse.jpg, id=11, 367.3725pt x 361.35pt>
 File: img/isoresponse.jpg Graphic file (type jpg)
  <use img/isoresponse.jpg>
-[2 <./img/isoresponse.jpg>] (./report2.bbl) [3] (./report2.aux) ) 
+[2 <./img/isoresponse.jpg>]
+LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 71.
+LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 78.
+
+
+LaTeX Warning: Citation `Mikolajczyk2004' on page 3 undefined on input line 78.
+
+
+(./report2.bbl [3]) [4] (./report2.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 2297 strings out of 495061
- 28335 string characters out of 1182621
- 83911 words of memory out of 3000000
- 5437 multiletter control sequences out of 15000+50000
- 29617 words of font info for 79 fonts, out of 3000000 for 9000
- 28 hyphenation exceptions out of 8191
- 27i,8n,20p,452b,214s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/te
-xmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texlive/fonts/type1/p
-ublic/amsfonts/cm/cmex10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfo
-nts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy1
-0.pfb></usr/share/texmf-texlive/fonts/type1/public/mathpazo/fplmr.pfb></usr/sha
-re/texmf-texlive/fonts/type1/public/mathpazo/fplmri.pfb></usr/share/texmf-texli
-ve/fonts/type1/urw/palatino/uplb8a.pfb></usr/share/texmf-texlive/fonts/type1/ur
-w/palatino/uplr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/palatino/uplri8
-a.pfb>
-Output written on report2.pdf (3 pages, 211832 bytes).
+ 2309 strings out of 493848
+ 28614 string characters out of 1152823
+ 85904 words of memory out of 3000000
+ 5542 multiletter control sequences out of 15000+50000
+ 31763 words of font info for 84 fonts, out of 3000000 for 9000
+ 714 hyphenation exceptions out of 8191
+ 27i,8n,21p,471b,214s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texli
+ve/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-texlive/fonts/ty
+pe1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public/a
+msfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/
+cmtt10.pfb></usr/share/texmf-texlive/fonts/type1/public/mathpazo/fplmr.pfb></us
+r/share/texmf-texlive/fonts/type1/public/mathpazo/fplmri.pfb></usr/share/texmf-
+texlive/fonts/type1/urw/palatino/uplb8a.pfb></usr/share/texmf-texlive/fonts/typ
+e1/urw/palatino/uplr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/palatino/u
+plri8a.pfb>
+Output written on report2.pdf (4 pages, 225360 bytes).
 PDF statistics:
- 48 PDF objects out of 1000 (max. 8388607)
+ 55 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
