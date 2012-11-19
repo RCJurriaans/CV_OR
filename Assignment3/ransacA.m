@@ -1,7 +1,7 @@
 function bestx = ransacA(match1, match2)
 
 % This should be set automatically
-iterations = 50;
+iterations = 75;
 threshold = 10;
 P = 3;
 mc = size(match1,2);

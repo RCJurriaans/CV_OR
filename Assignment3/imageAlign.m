@@ -9,9 +9,9 @@ x = ransacA(f1(1:2,matches(1,:)), f2(1:2,matches(2,:)));
 
 figure;
 % Original Image
-subplot(2,1,1);
+%subplot(2,1,1);
 
-imshow([im1 im2]);
+%imshow([im1 im2]);
 hold on;
 perm = randperm(size(matches,2));
 seed = perm(1:50);
