@@ -1,7 +1,12 @@
 function bestx = ransacA(match1, match2)
 
 % This should be set automatically
-iterations = 50;
+iterations = 75;
+
+% eps = 0.05;
+% q =
+% iterations = ceil( log(eps)/log(1-q));
+
 threshold = 10;
 P = 3;
 mc = size(match1,2);
@@ -20,20 +25,18 @@ for i=1:iterations;
         zeros(P , 2), match1(1:2,seed)', zeros(P ,1), ones(P, 1)];
     newx = pinv(A)* b';
     
-    % Determine inliers
-    
+    % Determine inliers   
     A = [match1', zeros(mc , 2) ones(mc, 1) ,zeros(mc ,1);...
         zeros(mc , 2), match1', zeros(mc ,1), ones(mc, 1)];
-    %b = [match2(1,:) match2(2,:)];
     b2 = A*newx;
-    b2 = reshape(b2, P, 2);
-    inliers = find((b'-b2)<threshold); % TODO
+    b2 = reshape(b2, size(match2,2), 2)';
+    inliers = find(sqrt(sum((match2-b2).^2)) <threshold); % TODO
     
     % Refit model
     
-    ic = size(inliers,1);
-    A = [match1(1:2,inliers)', zeros(ic , 2), ones(ic, 1) , zeros(ic ,1);...
-        zeros(ic , 2), match1(1:2,inliers)', zeros(ic ,1), ones(ic, 1)];
+    ic = size(inliers,2);
+    A = [match1(:,inliers)', zeros(ic , 2), ones(ic, 1) , zeros(ic ,1);...
+        zeros(ic , 2), match1(:,inliers)', zeros(ic ,1), ones(ic, 1)];
     b = [match2(1,inliers) match2(2,inliers)];
     newx = pinv(A)* b';
     
@@ -41,26 +44,18 @@ for i=1:iterations;
     mc = size(match1,2);
     A = [match1', zeros(mc , 2) ones(mc, 1) ,zeros(mc ,1);...
         zeros(mc , 2), match1', zeros(mc ,1), ones(mc, 1)];
-    b = [match2(1,:) match2(2,:)];
     b2 = A*newx;
+    b2 = reshape(b2, size(match2,2), 2)';
+    inliers = find(sqrt(sum((match2-b2).^2)) <threshold);
     
-    inliers = find((b'-b2)<threshold); % TODO
-    
-    if size(inliers,1)>bestinliers
-        bestinliers = size(inliers,1);
+    if size(inliers,2)>bestinliers
+        bestinliers = size(inliers,2);
         bestx = newx;
     end
     
     
     
 end
-
-A = [match1', zeros(mc , 2) ones(mc, 1) ,zeros(mc ,1);...
-    zeros(mc , 2), match1', zeros(mc ,1), ones(mc, 1)];
-b = [match2(1,:) match2(2,:)];
-b2 = A*bestx;
-error = sqrt(sum((b'-b2).^2))
-bestinliers
 
 %m = reshape(bestx(1:4),2,2);
 %t = bestx(5:6);

@@ -1,7 +1,9 @@
 function bestx = ransacA(match1, match2)
 
 % This should be set automatically
-iterations = 75;
+iterations = 50;
+
+
 threshold = 10;
 P = 3;
 mc = size(match1,2);
@@ -46,10 +48,18 @@ for i=1:iterations;
     if size(inliers,2)>bestinliers
         bestinliers = size(inliers,2);
         bestx = newx;
+    
+    
+    eps = 0.001;
+    N1 = bestinliers;
+    N = size(match1,2);
+    k=3;
+    q = (N1/N)^k;
+    % N1 is the largest set on inliers so far
+    % N is the total number of data-points = size(match1,2)
+    % k is the number of data-points that are needed
+    iterations = ceil( log(eps)/log(1-q))
     end
-    
-    
-    
 end
 
 %m = reshape(bestx(1:4),2,2);

@@ -17,9 +17,9 @@ for i=2:nargin
     
     % Get transformation A from new image to target
     x = imageAlign(imnew, varargin{i-1});
-
+    
     A(:,:,i) = [[x(1) x(2) x(5); x(3) x(4) x(6)] ; 0 0 1];
-
+    
     accA(:,:,i) = A(:,:,i)*accA(:,:,i-1);
     w = size(imnew,2);
     h = size(imnew,1);
@@ -57,7 +57,7 @@ end
 
 figure;
 % imgout = nanmean(imgout,3);
- imgout = nanmedian(imgout,3);
+imgout = nanmedian(imgout,3);
 % imgout = nanmin(imgout,[],3);
 % imgout = max(imgout,[],3);
 imshow(imgout);
