@@ -1,4 +1,4 @@
-function bestx = ransacA(match1, match2)
+function bestH = ransacH(match1, match2)
 
 % This is automatically changed during runtime
 % based on inlier-count. Set min-iterations to circumvent corner-cases
@@ -8,14 +8,14 @@ iterations = 1;
 % Threshold is 10 pixels
 threshold = 10;
 
-% The model needs atleast 3 points (6 equations) to
-% form an affine transformation
-P = 3;
+% The model needs atleast 4 points (8 equations) to
+% form a homography matrix
+P = 4;
 
 
 mc = size(match1,2);
 bestinliers = 0;
-bestx = zeros(6,1);
+bestx = zeros(8,1);
 
 for i=1:iterations;
     % Take P matches
@@ -24,17 +24,29 @@ for i=1:iterations;
     
     % Fit model
     b = [match2(1,seed) match2(2,seed)];
-    A = [match1(1:2,seed)', zeros(P , 2) ones(P, 1) ,zeros(P ,1);...
-        zeros(P , 2), match1(1:2,seed)', zeros(P ,1), ones(P, 1)];
+    %A = [match1(1:2,seed)', zeros(P , 2) ones(P, 1) ,zeros(P ,1);...
+    %    zeros(P , 2), match1(1:2,seed)', zeros(P ,1), ones(P, 1)];
+    mc = size(seed,2);
+    x1 = match1(1,seed)';
+    x2 = match2(1,seed)';
+    y1 = match1(2,seed)';
+    y2 = match2(2,seed)';
+
+    A = [-x1, -y1, -ones(1, mc)', zeros(1, mc)', zeros(1, mc)', zeros(1, mc)', ...
+         x2.*x1, x2.*y1, x2;...
+        zeros(1, mc)', zeros(1, mc)', zeros(1, mc)', -match1(1,seed)', -match1(2,seed)', -ones(1, mc)',...
+        match2(2,seed)'.*match1(1,seed)', match2(2,seed)'.*match1(2,seed)',...
+         match2(2,seed)'];                 
     newx = pinv(A)* b';
     
     % Determine inliers
-    A = [match1', zeros(mc , 2) ones(mc, 1) ,zeros(mc ,1);...
-        zeros(mc , 2), match1', zeros(mc ,1), ones(mc, 1)];
-    b2 = A*newx;
-    b2 = reshape(b2, size(match2,2), 2)';
-    inliers = find(sqrt(sum((match2-b2).^2)) <threshold); % TODO
-    
+    H = [ newx(1) newx(2) newx(3);...
+          newx(4) newx(5) newx(6);...
+          newx(7) newx(8) 1];
+    b2 = H*[match1 ;ones(1,size(match1,2))]
+    match2
+    inliers = find(sqrt(sum((match2-b2(1:2,:)).^2)) <threshold); 
+    inliers
     % Refit model
     
     ic = size(inliers,2);

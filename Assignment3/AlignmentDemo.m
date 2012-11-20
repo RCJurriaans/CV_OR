@@ -1,0 +1,60 @@
+% Image Alignment Demo
+% Assignment 3.1
+
+% Open Images
+im1 = im2double(imread('boat/img1.pgm'));
+im2 = im2double(imread('boat/img2.pgm'));
+
+% Find Transformation
+[x, match1, match2] = imageAlign(im1,im2);
+
+% Draw images with lines from original points
+% to transformed points
+figure;
+% Original Images
+imshow([im1 im2]);
+hold on;
+
+% Take random subsample of all matches
+perm = randperm(size(match1,2));
+seed = perm(1:50);
+
+% Use transformation to get transformed points
+T = [x(1) x(2) x(5);...
+     x(3) x(4) x(6);...
+     0    0    1   ];
+match1t = T*[match1(:,seed); ones(1, size(seed,2))];
+
+% Draw lines from original points to transformed points
+line([match1(1,seed); size(im1,2)+match1t(1,:)],...
+     [match1(2,seed);             match1t(2,:)]);
+
+title('Image 1 and 2 with 50 original points and their transformed counterparts in image 2');
+
+% Draw both original images with the other image transformed to the first
+% image below it
+figure;
+subplot(2,2,1);
+imshow(im1);
+title('Image 1');
+subplot(2,2,2);
+imshow(im2);
+title('Image 2');
+
+% First Image transformed
+subplot(2,2,4);
+
+% Do the transformation
+tform = maketform('affine', T');
+im1b = imtransform(im1,tform, 'bicubic');
+imshow(im1b);
+title('Image 1 transformed to image 2')
+% Second Image transformed
+subplot(2,2,3);
+
+% Do the transformation
+tform = maketform('affine', inv(T)' );
+im2b = imtransform(im2,tform, 'bicubic');
+imshow(im2b);
+title('Image 2 transformed to image 1')
+

@@ -49,18 +49,17 @@ for i=1:nargin
     newtimg = imtransform(varargin{i}, tform, 'bicubic',...
         'XData', xdata, 'YData', ydata,...
         'FillValues', NaN);
-    subplot(1,nargin,i);
-    imshow(newtimg);
     imgout(:,:,i) = newtimg;
-    
 end
 
-figure;
+
+% Different bleding methods
+% nanmedian seems to be the most stable
 % imgout = nanmean(imgout,3);
 imgout = nanmedian(imgout,3);
 % imgout = nanmin(imgout,[],3);
 % imgout = max(imgout,[],3);
-imshow(imgout);
+
 
 
 
