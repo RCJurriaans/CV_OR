@@ -55,8 +55,8 @@ end
 
 % Different bleding methods
 % nanmedian seems to be the most stable
-% imgout = nanmean(imgout,3);
-imgout = nanmedian(imgout,3);
+ imgout = nanmean(imgout,3);
+%imgout = nanmedian(imgout,3);
 % imgout = nanmin(imgout,[],3);
 % imgout = max(imgout,[],3);
 

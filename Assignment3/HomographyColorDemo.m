@@ -1,11 +1,12 @@
 % Homography Stitching Demo
-% Extra Credit
+% Now in Color!
 
 % Load left and right image
+img1 = im2double((imread('left.jpg')));
+img2 = im2double((imread('right.jpg')));
+
 im2 = im2double(rgb2gray(imread('left.jpg')));
 im1 = im2double(rgb2gray(imread('right.jpg')));
-%im1 = im2double(rgb2gray(imread('stitch_03.png')));
-%im2 = im2double(rgb2gray(imread('stitch_04.png')));
 
 % Find matches
 [f1, d1] = vl_sift(single(im1));
@@ -56,30 +57,60 @@ tx= floor(1-minx);
 ty= floor(1-miny);
 
 % Output image
-imgout = zeros(maxy-miny+1, maxx-minx+1, 2);
+imgout = zeros(maxy-miny+1, maxx-minx+1, 3);
+imgout1 = zeros(maxy-miny+1, maxx-minx+1, 2);
+imgout2 = zeros(maxy-miny+1, maxx-minx+1, 2);
+imgout3 = zeros(maxy-miny+1, maxx-minx+1, 2);
 
 xdata = [minx, maxx];
 ydata = [miny, maxy];
 
-
+% R channel
 tform = maketform('projective', (accA(:,:,1))' );
-newtimg = imtransform(im2, tform, 'bicubic',...
+newtimg = imtransform(img1(:,:,1), tform, 'bicubic',...
     'XData', xdata, 'YData', ydata,...
     'FillValues', NaN);
-imgout(:,:,1) = newtimg;
+imgout1(:,:,1) = newtimg;
 
 tform = maketform('projective', (accA(:,:,2))' );
-newtimg = imtransform(im1, tform, 'bicubic',...
+newtimg = imtransform(img2(:,:,1), tform, 'bicubic',...
     'XData', xdata, 'YData', ydata,...
     'FillValues', NaN);
-imgout(:,:,2) = newtimg;
+imgout1(:,:,2) = newtimg;
 
-% Different bleding methods
-% nanmedian seems to be the most stable
-imgout = nanmean(imgout,3);
-% imgout = nanmedian(imgout,3);
-% imgout = nanmin(imgout,[],3);
-% imgout = max(imgout,[],3);
 
+imgout(:,:,1) = nanmean(imgout1,3);
+
+% G channel
+tform = maketform('projective', (accA(:,:,1))' );
+newtimg = imtransform(img1(:,:,2), tform, 'bicubic',...
+    'XData', xdata, 'YData', ydata,...
+    'FillValues', NaN);
+imgout2(:,:,1) = newtimg;
+
+tform = maketform('projective', (accA(:,:,2))' );
+newtimg = imtransform(img2(:,:,2), tform, 'bicubic',...
+    'XData', xdata, 'YData', ydata,...
+    'FillValues', NaN);
+imgout2(:,:,2) = newtimg;
+
+imgout(:,:,2) = nanmean(imgout2,3);
+
+% B channel
+tform = maketform('projective', (accA(:,:,1))' );
+newtimg = imtransform(img1(:,:,3), tform, 'bicubic',...
+    'XData', xdata, 'YData', ydata,...
+    'FillValues', NaN);
+imgout3(:,:,1) = newtimg;
+
+tform = maketform('projective', (accA(:,:,2))' );
+newtimg = imtransform(img2(:,:,3), tform, 'bicubic',...
+    'XData', xdata, 'YData', ydata,...
+    'FillValues', NaN);
+imgout3(:,:,2) = newtimg;
+
+imgout(:,:,3) = nanmean(imgout3,3);
+
+% Show image
 figure;
 imshow(imgout);
