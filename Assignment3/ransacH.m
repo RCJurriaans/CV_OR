@@ -3,7 +3,7 @@ function bestx = ransacH(match1, match2)
 % This is automatically changed during runtime
 % based on inlier-count. Set min-iterations to circumvent corner-cases
 miniterations = 5;
-iterations = 150;
+iterations = 5;
 
 % Threshold is 10 pixels
 threshold = 10;

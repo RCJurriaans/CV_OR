@@ -12,8 +12,9 @@ im1 = im2double(rgb2gray(imread('right.jpg')));
 [f2, d2] = vl_sift(single(im2));
 [matches] = vl_ubcmatch(d1,d2);
 
-
+imnew = im2;
 imtarget = im1;
+
 
 w = size(imnew,2);
 h = size(imnew,1);
@@ -23,10 +24,6 @@ corners = [1 1 1; w 1 1; 1 h 1; w h 1]';
 A = zeros(3,3,nargin);
 A(:,:,1) = eye(3);
 accA = A;
-
-% get transformed corners of all images
-% Load next image
-imnew = im2;
 
 % Get transformation A from new image to target
 newx = ransacH(f1(1:2,matches(1,:)), f2(1:2,matches(2,:)));

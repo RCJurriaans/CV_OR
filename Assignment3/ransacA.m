@@ -2,8 +2,8 @@ function bestx = ransacA(match1, match2)
 
 % This is automatically changed during runtime
 % based on inlier-count. Set min-iterations to circumvent corner-cases
-miniterations = 5;
 iterations = 5;
+miniterations=5;
 
 % Threshold is 10 pixels
 threshold = 10;
@@ -70,12 +70,7 @@ for i=1:iterations;
             iterations = ceil( log(eps)/log(1-q));
         end
     end
+    binlar(1,i) = bestinliers;
 end
-iterations
-bestinliers
-%m = reshape(bestx(1:4),2,2);
-%t = bestx(5:6);
-
-
 
 end
