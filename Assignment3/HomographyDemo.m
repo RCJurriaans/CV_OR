@@ -15,8 +15,8 @@ im1 = im2double(rgb2gray(imread('right.jpg')));
 
 imtarget = im1;
 
-w = size(imtarget,2);
-h = size(imtarget,1);
+w = size(imnew,2);
+h = size(imnew,1);
 
 corners = [1 1 1; w 1 1; 1 h 1; w h 1]';
 
@@ -35,8 +35,8 @@ A(:,:,2) = [ newx(1) newx(2) newx(3);...
     newx(7) newx(8) newx(9)]./newx(9);
 
 accA(:,:,2) = A(:,:,2)*accA(:,:,1);
-w = size(imnew,2);
-h = size(imnew,1);
+w = size(imtarget,2);
+h = size(imtarget,1);
 
 corners = [corners (accA(:,:,2))*[1 1 1; w 1 1; 1 h 1; w h 1]'];
 corners(1,:) = corners(1,:)./corners(3,:);
