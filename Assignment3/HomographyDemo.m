@@ -2,19 +2,22 @@
 % Extra Credit
 
 % Load left and right image
-im1 = im2double(rgb2gray(imread('left.jpg')));
-im2 = im2double(rgb2gray(imread('right.jpg')));
+im2 = im2double(rgb2gray(imread('left.jpg')));
+im1 = im2double(rgb2gray(imread('right.jpg')));
+%im1 = im2double(rgb2gray(imread('stitch_03.png')));
+%im2 = im2double(rgb2gray(imread('stitch_04.png')));
 
 % Find matches
 [f1, d1] = vl_sift(single(im1));
 [f2, d2] = vl_sift(single(im2));
 [matches] = vl_ubcmatch(d1,d2);
 
-
+imnew = im2;
 imtarget = im1;
 
-w = size(imtarget,2);
-h = size(imtarget,1);
+
+w = size(imnew,2);
+h = size(imnew,1);
 
 corners = [1 1 1; w 1 1; 1 h 1; w h 1]';
 
@@ -22,21 +25,15 @@ A = zeros(3,3,nargin);
 A(:,:,1) = eye(3);
 accA = A;
 
-% get transformed corners of all images
-% Load next image
-imnew = im2;
-
 % Get transformation A from new image to target
 newx = ransacH(f1(1:2,matches(1,:)), f2(1:2,matches(2,:)));
 A(:,:,2) = [ newx(1) newx(2) newx(3);...
     newx(4) newx(5) newx(6);...
     newx(7) newx(8) newx(9)]./newx(9);
 
-%A(:,:,i) = [[x(1) x(2) x(5); x(3) x(4) x(6)] ; 0 0 1];
-
 accA(:,:,2) = A(:,:,2)*accA(:,:,1);
-w = size(imnew,2);
-h = size(imnew,1);
+w = size(imtarget,2);
+h = size(imtarget,1);
 
 corners = [corners (accA(:,:,2))*[1 1 1; w 1 1; 1 h 1; w h 1]'];
 corners(1,:) = corners(1,:)./corners(3,:);

@@ -3,7 +3,7 @@ function bestx = ransacH(match1, match2)
 % This is automatically changed during runtime
 % based on inlier-count. Set min-iterations to circumvent corner-cases
 miniterations = 5;
-iterations = 150;
+iterations = 50;
 
 % Threshold is 10 pixels
 threshold = 10;
@@ -16,8 +16,9 @@ P = 8;
 mc = size(match1,2);
 bestinliers = 0;
 bestx = zeros(8,1);
+i=1;
 
-for i=1:iterations;
+while i<iterations
     % Take P matches
     perm = randperm(size(match1,2));
     seed = perm(1:P);
@@ -35,7 +36,7 @@ for i=1:iterations;
     A = [-x1, -y1, -ones(1, mc)', zeros(1, mc)', zeros(1, mc)', zeros(1, mc)', ...
          x2.*x1, x2.*y1, x2;...
         zeros(1, mc)', zeros(1, mc)', zeros(1, mc)', -match1(1,seed)', -match1(2,seed)', -ones(1, mc)',...
-        match2(2,seed)'.*match1(1,seed)', match2(2,seed)'.*match1(2,seed)',...
+        y2.*match1(1,seed)', match2(2,seed)'.*match1(2,seed)',...
          match2(2,seed)'];                 
     %newx = pinv(A)* b';
     [~,~,V] = svd(A);
@@ -95,6 +96,7 @@ for i=1:iterations;
             iterations = ceil( log(eps)/log(1-q));
         end
     end
+    i = i+1;
 end
 
 
