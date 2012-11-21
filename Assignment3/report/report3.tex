@@ -1,0 +1,88 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8x]{inputenc}
+
+\usepackage{graphicx}
+\usepackage{float}
+
+\usepackage{amsmath}
+
+\title{Assignment 3: Image Alignment and Stitching}
+\author{}
+
+\begin{document}
+
+\maketitle
+
+\section{Image Alignment}
+
+To align two images, we use the standard procedure involving:
+\begin{enumerate}
+ \item Find keypoints in both images
+ \item Compute descriptors for each keypoint
+ \item Compute matches between keypoints
+ \item Estimate the Affine transformation using RANSAC
+\end{enumerate}
+
+In the previous assignment we have looked at keypoint detection, descriptors and matching.
+As requested in the current assignment, we have used the \verb+vl_feat+ SIFT implementation for these three stages.
+This procedure is straightforward, and can be found in \verb+imageAlign.m+, where we use \verb+vl_sift+ to detect and describe keypoints,
+and \verb+vl_ubcmatch+ to do the matching.
+The result is a set of point correspondences, which we pass to our \verb+ransacA.m+ function, where we perform robust fitting of an affine transformation.
+
+Next, we perform RANSAC with an affine transformation model.
+An affine transformation in 2D has $6$ parameters, and since each 2D-point correspondence gives us two equations, we need 3 point correspondences.
+We simply perform the RANSAC algorithm as described in the excercise, and to estimate the transformation we use a simple linear least squares (using the pseudo inverse, as described in the assignment).
+
+To see the result, simply run \verb+AlignmentDemo.m+, or see figure REF.
+The first image that is plotted shows the two images with the keypoints and the corresponding transformed keypoint linked by a line.
+Note that the keypoints in the right image are \emph{not} the keypoints found in that image.
+The second image that is plotted shows the two images, and the transformation of image one to image two, and vice-versa.
+
+\begin{figure}
+
+\includegraphics[]{}
+
+\end{figure}
+
+\subsection{The number of RANSAC iterations}
+In our basic RANSAC implementation, convergence is usually very fast.
+For the tram image, we found that only about 8 out of 67 point correspondences appear to be outliers.
+This means that the probability of picking three inliers is $(59/67)^3 \approx 0.68$.
+For this reason, the algorithm often finds the correct transformation in the first few iterations on this image.
+
+There is an easy way to estimate the number of iterations that have to be performed to be reasonably sure to have found the true transformation.
+Let $q$ be the probability of sampling three inliers.
+If we perform $h$ iterations, the probability that none of them will be `good' (i.e. consist of three inliers) is given by $(1-q)^h$.
+We want to choose $h$ so that this quantity is below some acceptable level: $(1-q)^h \leq \epsilon$.
+If we invert this inequality, we find
+\begin{equation}
+h \geq \left( \frac{\log \elpsilon}{\log{1-q}} \right)
+\end{equation}
+
+However, since we do not know $q$, we cannot use this relation directly.
+The probability of sampling a set of $k=3$ inliers can be expressed in terms of the number of matches $N$ and the number of inliers $N_I$:
+\begin{equation}
+q = \frac{\binom{N_I}{k}}{\binom{N}{k}} \approx \left(\frac{N_I}{N}\right)^k.
+\end{equation}
+
+where the approximate equality holds when $N_I,N \gg k$ (which will almost certainly hold for our case $k=3$.
+We still cannot use this formula directly because we do not know $N_I$.
+However, the number of inliers of the current best model is a conservative estimate of $N_I$, so we can use it instead of $N_I$.
+We have implemented this method to determine the number of iterations $h$.
+
+%To see more of the behaviour of RANSAC, we can decrease the accuracy of the found matches by decreasing the threshold that SIFT uses for rejecting matches based on the distance-ratio.
+%In figure REF, we have plotted two graphs where the inlier count of the best model is plotted against the iteration.
+%We see clearly that when the threshold has a good value, RANSAC quickly finds the right transformation, after which the inlier count remains stable (i.e. the algorithm has converged).
+%On the other hand, when more false matches are found due to a bad threshold setting, RANSAC takes a while to sample a good triple of points, but once it does, the estimated transformation is the same, and so is the inlier count.
+%This shows that 
+
+
+\section{Image Stitching}
+We can use the estimated affine transformation to stitch a series of images.
+
+\section{Homography}
+As a bonus, we implemented homography estimation and used it to stitch two images, as in the previous assignment.
+We solve for the optimal projective transformation using the SVD.
+
+
+\end{document}

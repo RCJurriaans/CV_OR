@@ -1,0 +1,27 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8x]{inputenc}
+
+%opening
+\title{Assignment 3: Image Alignment and Stitching}
+\author{}
+
+\begin{document}
+
+\maketitle
+
+\section{Image Alignment}
+
+To align 
+
+Affine; 3 matches
+
+\subsection{The number of RANSAC iterations}
+
+
+\section{Image Stitching: Affine}
+
+
+how many iterations to converge ransac?
+\section{Image Stitching: Projective}
+
+\end{document}

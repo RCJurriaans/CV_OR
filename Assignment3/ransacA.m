@@ -36,7 +36,6 @@ for i=1:iterations;
     inliers = find(sqrt(sum((match2-b2).^2)) <threshold); % TODO
     
     % Refit model
-    
     ic = size(inliers,2);
     A = [match1(:,inliers)', zeros(ic , 2), ones(ic, 1) , zeros(ic ,1);...
         zeros(ic , 2), match1(:,inliers)', zeros(ic ,1), ones(ic, 1)];
@@ -71,10 +70,5 @@ for i=1:iterations;
         end
     end
 end
-
-%m = reshape(bestx(1:4),2,2);
-%t = bestx(5:6);
-
-
 
 end
