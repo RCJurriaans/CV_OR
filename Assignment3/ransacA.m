@@ -2,8 +2,11 @@ function bestx = ransacA(match1, match2)
 
 % This is automatically changed during runtime
 % based on inlier-count. Set min-iterations to circumvent corner-cases
-iterations = 5;
+iterations = 50;
 miniterations=5;
+
+binlar = zeros(1,50);
+
 
 % Threshold is 10 pixels
 threshold = 10;
@@ -16,8 +19,8 @@ P = 3;
 mc = size(match1,2);
 bestinliers = 0;
 bestx = zeros(6,1);
-
-for i=1:iterations;
+i=1;
+while i<iterations
     % Take P matches
     perm = randperm(size(match1,2));
     seed = perm(1:P);
@@ -71,6 +74,11 @@ for i=1:iterations;
         end
     end
     binlar(1,i) = bestinliers;
+    i = i+1;
 end
+
+figure;
+plot(binlar);
+axis([1,iterations,1,size(match1,2)]);
 
 end

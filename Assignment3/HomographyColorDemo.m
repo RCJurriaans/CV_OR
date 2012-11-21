@@ -2,17 +2,17 @@
 % Now in Color!
 
 % Load left and right image
-%img1 = im2double((imread('left.jpg')));
-%img2 = im2double((imread('right.jpg')));
+img1 = im2double((imread('left.jpg')));
+img2 = im2double((imread('right.jpg')));
 
-%im2 = im2double(rgb2gray(imread('left.jpg')));
-%im1 = im2double(rgb2gray(imread('right.jpg')));
+im2 = im2double(rgb2gray(imread('left.jpg')));
+im1 = im2double(rgb2gray(imread('right.jpg')));
 
-  img1 = im2double((imread('stitch_03.png')));
-  img2 = im2double((imread('stitch_04.png')));
+%  img1 = im2double((imread('stitch_03.png')));
+%  img2 = im2double((imread('stitch_04.png')));
   
-  im2 = im2double(rgb2gray(imread('stitch_03.png')));
-  im1 = im2double(rgb2gray(imread('stitch_04.png')));
+%  im2 = im2double(rgb2gray(imread('stitch_03.png')));
+%  im1 = im2double(rgb2gray(imread('stitch_04.png')));
 
 
 % Find matches
