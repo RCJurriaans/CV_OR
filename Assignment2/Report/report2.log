@@ -1,12 +1,8 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.8.18)  18 NOV 2012 21:27
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.4.23)  18 NOV 2012 21:29
 entering extended mode
  %&-line parsing enabled.
-**report2.tex
-(./report2.tex
-LaTeX2e <2009/09/24>
-Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
-yphenation, loaded.
-(/usr/share/texmf-texlive/tex/latex/base/article.cls
+**\nonstopmode\input report2.tex
+(./report2.tex (/usr/share/texmf-texlive/tex/latex/base/article.cls
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
 (/usr/share/texmf-texlive/tex/latex/base/size10.clo
 File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
@@ -46,7 +42,8 @@ Package ifvtex Info: VTeX not detected.
 \Gm@odd@mp=\dimen105
 \Gm@even@mp=\dimen106
 \Gm@dimlist=\toks15
-)
+
+(/usr/share/texmf-texlive/tex/xelatex/xetexconfig/geometry.cfg))
 (/usr/share/texmf-texlive/tex/latex/base/inputenc.sty
 Package: inputenc 2008/03/30 v1.1d Input encoding file
 \inpenc@prehook=\toks16
@@ -474,13 +471,13 @@ File: img/LOG_DOG.png Graphic file (type png)
 
 ] (./report2.aux) ) 
 Here is how much of TeX's memory you used:
- 2322 strings out of 495061
- 28757 string characters out of 1182621
- 85941 words of memory out of 3000000
- 5457 multiletter control sequences out of 15000+50000
+ 2325 strings out of 493848
+ 28928 string characters out of 1152823
+ 86934 words of memory out of 3000000
+ 5556 multiletter control sequences out of 15000+50000
  30774 words of font info for 82 fonts, out of 3000000 for 9000
- 28 hyphenation exceptions out of 8191
- 27i,8n,20p,893b,216s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 714 hyphenation exceptions out of 8191
+ 27i,8n,20p,912b,216s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/
 share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf
 -texlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fo

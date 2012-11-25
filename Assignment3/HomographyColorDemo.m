@@ -20,8 +20,10 @@ im1 = im2double(rgb2gray(imread('right.jpg')));
 [f2, d2] = vl_sift(single(im2));
 [matches] = vl_ubcmatch(d1,d2);
 
-
 imtarget = im1;
+% get transformed corners of all images
+% Load next image
+imnew = im2;
 
 w = size(imnew,2);
 h = size(imnew,1);
@@ -32,9 +34,7 @@ A = zeros(3,3,nargin);
 A(:,:,1) = eye(3);
 accA = A;
 
-% get transformed corners of all images
-% Load next image
-imnew = im2;
+
 
 % Get transformation A from new image to target
 newx = ransacH(f1(1:2,matches(1,:)), f2(1:2,matches(2,:)));
@@ -76,7 +76,7 @@ ydata = [miny, maxy];
 tform = maketform('projective', (accA(:,:,1))' );
 newtimg = imtransform(img1(:,:,1), tform, 'bicubic',...
     'XData', xdata, 'YData', ydata,...
-    'FillValues', NaN);
+    'FillValues', NaN);match2(2,seed)'
 imgout1(:,:,1) = newtimg;
 
 tform = maketform('projective', (accA(:,:,2))' );
@@ -96,7 +96,7 @@ newtimg = imtransform(img1(:,:,2), tform, 'bicubic',...
 imgout2(:,:,1) = newtimg;
 
 tform = maketform('projective', (accA(:,:,2))' );
-newtimg = imtransform(img2(:,:,2), tform, 'bicubic',...
+newtimg = imtransform(img2(:,:,2), tform, 'bicubic',...HomographyColorDemo.m
     'XData', xdata, 'YData', ydata,...
     'FillValues', NaN);
 imgout2(:,:,2) = newtimg;

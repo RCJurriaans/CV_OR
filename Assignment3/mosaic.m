@@ -33,7 +33,7 @@ maxx = ceil(max(corners(1,:)));
 miny = floor(min(corners(2,:)));
 maxy = ceil(max(corners(2,:)));
 
-% Offset translation
+% Offset translation\verb+nanmean+,
 %T = [1 0 1-minx; 0 1 1-miny; 0 0 1];
 tx= floor(1-minx);
 ty= floor(1-miny);
