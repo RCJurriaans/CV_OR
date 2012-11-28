@@ -34,20 +34,14 @@ function [Vx, Vy, Px, Py] = LucasKanade(varargin)
     % Reshape into 3xNxM,
     % where N is the number of pixels in a window
     % and M is the number of windows
-    Ax = mat2cell( Dx, ones(1, num_patches_y) * patch_size, ones(1, num_patches_x) * patch_size, nargin);
-    Ay = mat2cell( Dy, ones(1, num_patches_y) * patch_size, ones(1, num_patches_x) * patch_size, nargin);
-    At = mat2cell( Dt, ones(1, num_patches_y) * patch_size, ones(1, num_patches_x) * patch_size, nargin);
+    %Ax = mat2cell( Dx, ones(1, num_patches_y) * patch_size, ones(1, num_patches_x) * patch_size);
+    
+    Vx = images;
+    Vy = 0
+    Px = 0
+    Py = 0
     
     % Loop over windows, and solve
-    for x = 1:num_patches_x
-        for y = 1:num_patches_y
-            A = [reshape(Ax{x, y}, 1, patch_size*patch_size, nargin), reshape(Ay{x, y}, 1, patch_size*patch_size, nargin)];
-            b = -reshape(At{x, y}, 1, patch_size*patch_size, nargin);
-            for t = 1:nargin-1
-                v = pinv(A)*b
-            end
-        end
-    end
     
     
     
