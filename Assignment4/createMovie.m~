@@ -1,0 +1,34 @@
+function Files = createMovie()
+% Make movie from all images in directory direc
+
+direc = 'model house/';
+Files=dir(strcat(direc, '*.jpg'));
+%Files = Files(1:5)
+
+M = readMeasurementMatrix();
+fig1=figure(1);
+set(fig1,'NextPlot','replacechildren', 'visible', 'off')
+
+[Vx,Vy,Px,Py] = LK_M(Files.name);
+
+
+
+for k=1:length(Files)
+   imshow(im2double(imread(strcat(direc, Files(k).name))));
+   hold on;
+   scatter(M((k-1)*2+1,:),M((k-1)*2+2,:), 15, 'g');
+   
+   % Do opflow stuff
+   %quiver(Px(:,k),Py(:,k), Vx(:,k),Vy(:,k),'x');
+   scatter(Px(:,k),Py(:,k), 15, 'r');
+   line([M((k-1)*2+1,:)', Px(:,k)], [M((k-1)*2+2,:)
+   drawnow;
+   hold off;
+
+   filename =  strcat('model house out/', Files(k).name);
+   print('-djpeg72', filename);
+end
+
+%mov = close(mov);
+
+end

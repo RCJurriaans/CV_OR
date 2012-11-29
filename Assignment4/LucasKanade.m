@@ -1,5 +1,5 @@
 function [Vx, Vy, Px, Py] = LucasKanade(varargin)
-
+varargin
 %
 %imshow(varargin{1})
 %figure
@@ -7,10 +7,10 @@ function [Vx, Vy, Px, Py] = LucasKanade(varargin)
 
 % Calculate the number of patches
 patch_size = 15;
-num_patches_x = floor(size(varargin{1}, 2) / patch_size)
-num_patches_y = floor(size(varargin{1}, 1) / patch_size)
-cropped_width = patch_size * num_patches_x
-cropped_height = patch_size * num_patches_y
+num_patches_x = floor(size(varargin{1}, 2) / patch_size);
+num_patches_y = floor(size(varargin{1}, 1) / patch_size);
+cropped_width = patch_size * num_patches_x;
+cropped_height = patch_size * num_patches_y;
 
 images = zeros(cropped_height, cropped_width, nargin);
 for i= 1:nargin
@@ -38,6 +38,12 @@ Ax = mat2cell( Dx, ones(1, num_patches_y) * patch_size, ones(1, num_patches_x) *
 Ay = mat2cell( Dy, ones(1, num_patches_y) * patch_size, ones(1, num_patches_x) * patch_size, nargin);
 At = mat2cell( Dt, ones(1, num_patches_y) * patch_size, ones(1, num_patches_x) * patch_size, nargin);
 
+% Vx, Vy, Px, Py
+Vx = zeros(num_patches_x*num_patches_y, nargin);
+Vy = zeros(num_patches_x*num_patches_y, nargin);
+Px = zeros(num_patches_x*num_patches_y, nargin);
+Py = zeros(num_patches_x*num_patches_y, nargin);
+
 % Loop over windows, and solve
 figure;
 imshow(varargin{2})
@@ -50,7 +56,11 @@ for x = 1:num_patches_x
             v = pinv(A(:,:,t))*b(:,:,t);
             % Instead of using quiver here, Vx, Vy, Px, Py have to be set
             % and then later used with quiver per image
-            quiver((x-1)*15+8,(y-1)*15+8, v(1),v(2),'s');
+            %quiver((x-1)*15+8,(y-1)*15+8, v(1),v(2),'s');
+            Vx(x*y,t) = v(1);
+            Vy(x*y,t) = v(2);
+            Px(x*y,t) = (x-1)*15+8;
+            Py(x*y,t) = (y-1)*15+8;
             
         end
     end
