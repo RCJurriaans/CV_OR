@@ -1,4 +1,4 @@
-function Files = createMovie()
+function [Vx,Vy,Px,Py] = createMovie()
 % Make movie from all images in directory direc
 
 direc = 'model house/';
