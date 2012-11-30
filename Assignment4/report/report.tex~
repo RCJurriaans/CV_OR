@@ -16,10 +16,6 @@
 
 \maketitle
 
-\begin{abstract}
-
-\end{abstract}
-
 \section{Optical Flow}
 We have implemented Lucas-Kanade optical flow for a single scale on both synthetic images and on a sequence of a model house. For the synthetic images, optical flow was computed on a grid of non-overlapping $15x15$ windows, whilst a set of points was tracked over the model house sequence. We created two separate functions for this: \verb|LucasKanade.m| for the non-overlapping windows and \verb|LK_M.m| for the tracking. 
 
@@ -55,10 +51,10 @@ The model house sequence consist of 101 frames with 215 given points which can b
 \label{fig:modelhouse}
 \end{figure}
 
-
+A movie was created of the output frames: \verb|opflow.avi| in which this effect can be clearly seen. This is especially the case for the points on the left of the house which drift into the dark background.
 
 \section{Structure from Motion}
-
+test to see if section falls to next page
 
 
 \end{document}

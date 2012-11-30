@@ -1,26 +1,26 @@
 function bestx = ransacA(match1, match2)
+% Ransac to find affine transformation
+% Input is a set of point pairs
 
-% This is automatically changed during runtime
+% Iterations is automatically changed during runtime
 % based on inlier-count. Set min-iterations to circumvent corner-cases
 iterations = 50;
 miniterations=5;
 
-binlar = zeros(1,50);
-
-
 % Threshold is 10 pixels
 threshold = 10;
 
-% The model needs atleast 3 points (6 equations) to
+% The model needs atleast 3 point pairs (6 equations) to
 % form an affine transformation
 P = 3;
 
-
+%
 mc = size(match1,2);
 bestinliers = 0;
 bestx = zeros(6,1);
 i=1;
-while i<iterations
+
+while ((i<iterations) || (i<miniterations))
     % Take P matches
     perm = randperm(size(match1,2));
     seed = perm(1:P);
@@ -57,27 +57,18 @@ while i<iterations
         bestinliers = size(inliers,2);
         bestx = newx;
         
-        
         % Within a chance of epsilon, find number of required iterations
         % N1 is the largest set on inliers so far
         % N is the total number of data-points = size(match1,2)
         % k is the number of data-points that are needed
-        if i>miniterations
-            eps = 0.001;
-            N1 = bestinliers;
-            N = size(match1,2);
-            k=3;
-            q = (N1/N)^k;
-            
-            iterations = ceil( log(eps)/log(1-q));
-        end
+        eps = 0.001;
+        N1 = bestinliers;
+        N = size(match1,2);
+        k=3;
+        q = (N1/N)^k;
+        iterations = ceil( log(eps)/log(1-q));
     end
-    binlar(1,i) = bestinliers;
+    
     i = i+1;
 end
-
-figure;
-plot(binlar);
-axis([1,iterations,1,size(match1,2)]);
-
 end

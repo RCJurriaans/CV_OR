@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.8.18)  30 NOV 2012 23:11
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.8.18)  30 NOV 2012 23:14
 entering extended mode
  %&-line parsing enabled.
 **report.tex
@@ -175,7 +175,9 @@ File: synth.png Graphic file (type png)
 ./synth.png (PNG copy)>] <frame00000100.jpg, id=15, 1204.5pt x 903.375pt>
 File: frame00000100.jpg Graphic file (type jpg)
  <use frame00000100.jpg>
-[2 <./frame00000100.jpg>] (./report.aux) ) 
+[2 <./frame00000100.jpg>] [3
+
+] (./report.aux) ) 
 Here is how much of TeX's memory you used:
  2575 strings out of 495061
  36558 string characters out of 1182621
@@ -184,17 +186,17 @@ Here is how much of TeX's memory you used:
  9528 words of font info for 35 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  36i,7n,38p,670b,432s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/share/texmf-texlive/fonts/type1
-/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-texlive/fonts/type1/public/ams
-fonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cm
-r10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></us
-r/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texm
-f-texlive/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-texlive/fon
-ts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-texlive/fonts/type1/pu
-blic/amsfonts/cm/cmtt10.pfb>
-Output written on report.pdf (2 pages, 241668 bytes).
+</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx
+12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></us
+r/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texm
+f-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/fo
+nts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/pu
+blic/amsfonts/cm/cmr9.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts
+/cm/cmti10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt10.
+pfb>
+Output written on report.pdf (3 pages, 243321 bytes).
 PDF statistics:
- 44 PDF objects out of 1000 (max. 8388607)
+ 47 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  16 words of extra memory for PDF output out of 10000 (max. 10000000)
 
