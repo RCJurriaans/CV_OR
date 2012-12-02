@@ -54,18 +54,17 @@ for x = 1:num_patches_x
         b = -reshape(At{y, x}, patch_size*patch_size, 1, nargin);
         for t = 1:nargin-1
             v = pinv(A(:,:,t))*b(:,:,t);
-            % Instead of using quiver here, Vx, Vy, Px, Py have to be set
-            % and then later used with quiver per image
-            quiver((x-1)*15+8,(y-1)*15+8, v(1),v(2),  ['y', 'o']);
-            Vx(x*y,t) = v(1);
-            Vy(x*y,t) = v(2);
-            Px(x*y,t) = (x-1)*15+8;
-            Py(x*y,t) = (y-1)*15+8;
+            xy = x + (y-1)*num_patches_x;
+            Vx(xy,t) = v(1);
+            Vy(xy,t) = v(2);
+            Px(xy,t) = (x-1)*15+8;
+            Py(xy,t) = (y-1)*15+8;
             
         end
     end
 end
 
+quiver(Px(:,1),Py(:,1), Vx(:,1), Vy(:,1),  ['yd'], 'filled', 'LineWidth', 2, 'MarkerSize', 3);
 
 
 end
