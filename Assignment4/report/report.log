@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.4.23)  2 DEC 2012 16:56
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.4.23)  2 DEC 2012 17:01
 entering extended mode
  %&-line parsing enabled.
 **\nonstopmode\input report.tex
@@ -160,10 +160,10 @@ LaTeX Font Info:    ... okay on input line 15.
 )
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
- <sphere.png, id=1, 482.603pt x 481.8pt>
+ <sphere.png, id=1, 481.8pt x 482.603pt>
 File: sphere.png Graphic file (type png)
  <use sphere.png>
-<synth.png, id=2, 416.757pt x 419.969pt>
+<synth.png, id=2, 417.56pt x 419.969pt>
 File: synth.png Graphic file (type png)
  <use synth.png> [1
 
@@ -171,19 +171,16 @@ File: synth.png Graphic file (type png)
 ./synth.png (PNG copy)>] <frame00000100.jpg, id=15, 1204.5pt x 903.375pt>
 File: frame00000100.jpg Graphic file (type jpg)
  <use frame00000100.jpg>
-[2 <./frame00000100.jpg>]
-
-LaTeX Warning: Reference `fig:kamikaze' on page 3 undefined on input line 84.
-
-<AffineStructure1.png, id=20, 449.68pt x 337.26pt>
+[2 <./frame00000100.jpg>] <AffineStructure1.png, id=20, 449.68pt x 337.26pt>
 File: AffineStructure1.png Graphic file (type png)
- <use AffineStructure1.png>
-<AffineStructure2.png, id=21, 449.68pt x 337.26pt>
+
+<use AffineStructure1.png> <AffineStructure2.png, id=21, 449.68pt x 337.26pt>
 File: AffineStructure2.png Graphic file (type png)
- <use AffineStructure2.png>
-<AffineStructure3.png, id=22, 449.68pt x 337.26pt>
+
+<use AffineStructure2.png> <AffineStructure3.png, id=22, 449.68pt x 337.26pt>
 File: AffineStructure3.png Graphic file (type png)
- <use AffineStructure3.png>
+
+<use AffineStructure3.png>
 <EuclideanStructure1.png, id=23, 449.68pt x 337.26pt>
 File: EuclideanStructure1.png Graphic file (type png)
 
@@ -209,37 +206,29 @@ File: EuclideanStructureLK.png Graphic file (type png)
 ineStructure3.png (PNG copy)>] [4 <./EuclideanStructure1.png (PNG copy)> <./Euc
 lideanStructure2.png (PNG copy)> <./EuclideanStructure3.png (PNG copy)> <./Affi
 neStructureLK.png (PNG copy)> <./EuclideanStructureLK.png (PNG copy)>] (./repor
-t.aux)
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+t.aux) ) 
 Here is how much of TeX's memory you used:
- 2620 strings out of 493848
- 37642 string characters out of 1152823
- 100781 words of memory out of 3000000
- 5899 multiletter control sequences out of 15000+50000
- 9836 words of font info for 36 fonts, out of 3000000 for 9000
+ 2618 strings out of 493848
+ 37621 string characters out of 1152823
+ 100789 words of memory out of 3000000
+ 5898 multiletter control sequences out of 15000+50000
+ 9528 words of font info for 35 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
  36i,7n,38p,689b,432s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/sha
-re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-te
-xlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts
-/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-texlive/fonts/type1/publi
-c/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/c
-m/cmr12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/t
-exmf-texlive/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-texlive/
-fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1
-/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsf
-onts/cm/cmti10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmt
-t10.pfb>
-Output written on report.pdf (4 pages, 361754 bytes).
+</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></u
+sr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/te
+xmf-texlive/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-texlive/
+fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/
+public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfo
+nts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr7.
+pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/sha
+re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-te
+xlive/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf-texlive/fonts/
+type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-texlive/fonts/type1/publi
+c/amsfonts/cm/cmtt10.pfb>
+Output written on report.pdf (4 pages, 358369 bytes).
 PDF statistics:
- 78 PDF objects out of 1000 (max. 8388607)
+ 74 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  56 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,34 +1,65 @@
-function Files = createMovie()
-% Make movie from all images in directory direc
+function [Vx,Vy,Px,Py] = createMovie()
+% Make movie from all images in directory 'direc'
+% Tracks initial ground truth points over entire sequence
 
+% Read images from 'model house/'
 direc = 'model house/';
 Files=dir(strcat(direc, '*.jpg'));
-%Files = Files(1:5)
 
+% Get M
 M = readMeasurementMatrix();
+
+% Invisible plots
 fig1=figure(1);
 set(fig1,'NextPlot','replacechildren', 'visible', 'off')
 
+% Get optical flow for each image in the sequence
 [Vx,Vy,Px,Py] = LK_M(Files.name);
 
+% Keep track of sum of squared error and median squared error
+error = zeros(1,length(Files));
+medianerror = zeros(1,length(Files));
 
-
+% For all images in sequence
 for k=1:length(Files)
+    
+   % Show image
+    subplot(2,2,[1,3]);
    imshow(im2double(imread(strcat(direc, Files(k).name))));
    hold on;
+   
+   % Show ground truth points
    scatter(M((k-1)*2+1,:),M((k-1)*2+2,:), 15, 'g');
    
-   % Do opflow stuff
-   %quiver(Px(:,k),Py(:,k), Vx(:,k),Vy(:,k),'x');
+   % Show tracked points
    scatter(Px(:,k),Py(:,k), 15, 'r');
-   line([M((k-1)*2+1,:)', Px(:,k)], [M((k-1)*2+2,:)
+   
+   
+   if k<length(Files)
+       line([M((k-1)*2+1,:); Px(:,k)'], [M((k-1)*2+2,:); Py(:,k)']);
+       error(k) = sqrt(sum( (M((k-1)*2+1,:)-Px(:,k)').^2 + (M((k-1)*2+2,:)-Py(:,k)').^2));
+       medianerror(k) = sqrt(median( (M((k-1)*2+1,:)-Px(:,k)').^2 + (M((k-1)*2+2,:)-Py(:,k)').^2));
+   end
+   title('Green is ground truth, red is tracked points')
    drawnow;
    hold off;
 
+   subplot(2,2,2);
+   plot(error(1:k));
+   axis([0 length(Files)-1 0 500]);
+   title('Sum of squared errors')
+   
+   subplot(2,2,4);
+   plot(medianerror(1:k));
+   axis([0 length(Files)-1 0 50]);
+   title('Median of squared errors')
+   
    filename =  strcat('model house out/', Files(k).name);
    print('-djpeg72', filename);
 end
 
+error
+medianerror
 %mov = close(mov);
 
 end
