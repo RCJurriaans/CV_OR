@@ -1,9 +1,4 @@
 function [Vx, Vy, Px, Py] = LucasKanade(varargin)
-varargin
-%
-%imshow(varargin{1})
-%figure
-%imshow(varargin{2})
 
 % Calculate the number of patches
 patch_size = 15;
@@ -45,9 +40,6 @@ Px = zeros(num_patches_x*num_patches_y, nargin);
 Py = zeros(num_patches_x*num_patches_y, nargin);
 
 % Loop over windows, and solve
-figure;
-imshow(varargin{2})
-hold on;
 for x = 1:num_patches_x
     for y = 1:num_patches_y
         A = [reshape(Ax{y, x}, patch_size*patch_size, 1, nargin), reshape(Ay{y, x}, patch_size*patch_size, 1, nargin)];
@@ -64,7 +56,12 @@ for x = 1:num_patches_x
     end
 end
 
-quiver(Px(:,1),Py(:,1), Vx(:,1), Vy(:,1),  ['yd'], 'filled', 'LineWidth', 2, 'MarkerSize', 3);
-
+% Plot the images
+for t = 1:nargin-1
+    figure;
+    imshow(varargin{t})
+    hold on;
+    quiver(Px(:,t),Py(:,t), Vx(:,t), Vy(:,t),  ['yo'], 'filled', 'LineWidth', 2, 'MarkerSize', 5);
+end
 
 end

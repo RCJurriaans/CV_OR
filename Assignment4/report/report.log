@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.8.18)  30 NOV 2012 23:14
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.8.18)  2 DEC 2012 12:39
 entering extended mode
  %&-line parsing enabled.
 **report.tex
@@ -164,10 +164,10 @@ LaTeX Font Info:    ... okay on input line 15.
 )
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
- <sphere.png, id=1, 482.603pt x 481.8pt>
+ <sphere.png, id=1, 481.8pt x 482.603pt>
 File: sphere.png Graphic file (type png)
  <use sphere.png>
-<synth.png, id=2, 416.757pt x 419.969pt>
+<synth.png, id=2, 417.56pt x 419.969pt>
 File: synth.png Graphic file (type png)
  <use synth.png> [1
 
@@ -194,7 +194,7 @@ nts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/pu
 blic/amsfonts/cm/cmr9.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts
 /cm/cmti10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt10.
 pfb>
-Output written on report.pdf (3 pages, 243321 bytes).
+Output written on report.pdf (3 pages, 248892 bytes).
 PDF statistics:
  47 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
