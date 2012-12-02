@@ -1,21 +1,21 @@
 function [Vx, Vy, Px, Py] = LK_M(varargin)
+% Calculates optical flow for set of points in measurement matrix
+% Returns optical flow vectors Vx,Vy at locations Px,Py for each
+% frame
 
-% Varargin is a list of names of files
-% Note: This function will change due to Taco-ness
+% Get ground truth
 M = readMeasurementMatrix();
+points = [M(1,:);M(2,:)];
 
 % Calculate the number of patches
 patch_size = 15;
 num_patches = size(M,2);
 
-points = [M(1,:);M(2,:)];
 % Vx, Vy, Px, Py
 Vx = zeros(num_patches, nargin);
 Vy = zeros(num_patches, nargin);
 Px = zeros(num_patches, nargin);
 Py = zeros(num_patches, nargin);
-
-
 
 % Create temporal and spatial derivative filters
 sigmaSpace = 1;
@@ -27,9 +27,9 @@ T = [-1, 1];
 GderTime = gaussianDer(T, sigmaTime);
 
 % For each 2 images
+% Loading in all images causes a crash due to memory constraints
 for i = 1:nargin-1
     % Get 2 images
-    
     images(:,:,1) = padarray(im2double(imread(strcat('model house/', varargin{(i)}))), [15,15], 'replicate');
     images(:,:,2) = padarray(im2double(imread(strcat('model house/', varargin{(i+1)}))), [15,15], 'replicate');
     
