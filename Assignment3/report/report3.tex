@@ -1,5 +1,5 @@
 \documentclass[a4paper,10pt]{article}
-\usepackage[utf8x]{inputenc}
+%\usepackage[utf8x]{inputenc}
 
 \usepackage{graphicx}
 \usepackage{float}
@@ -9,7 +9,7 @@
 \usepackage{amsmath}
 
 \title{Assignment 3: Image Alignment and Stitching}
-\author{}
+\author{Taco Cohen \& Robrecht Jurriaans\\ (6394590) \& (5887380)}
 
 \begin{document}
 
@@ -87,20 +87,21 @@ We see clearly that when the threshold has a good value, RANSAC quickly finds th
 On the other hand, when more false matches are found due to a bad threshold setting, RANSAC takes a while to sample a good triple of points, but once it does, the estimated transformation is the same, and so is the inlier count (59).
 
 \begin{figure}
-\label{fig:inliercount}
+
         \centering
-        \begin{subfigure}[b]{1\textwidth}
+        \begin{subfigure}[b]{0.475\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{img/inliercount}
-                \caption{Inlier count versus iteration for normal parameter settings.}
+                \caption{Inlier count versus iteration for normal parameter settings (Standard SIFT distance ratio threshold).}
         \end{subfigure}
         ~
-        \begin{subfigure}[b]{1\textwidth}
+        \begin{subfigure}[b]{0.475\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{img/inliercount_11}
                 \caption{Inlier count versus iteration for high-noise condition (low SIFT distance ratio threshold).}
         \end{subfigure}
-        
+\caption{Best model inlier count over multiple iterations with low and high noise setting}
+\label{fig:inliercount}      
 \end{figure}
 
 \section{Image Stitching}

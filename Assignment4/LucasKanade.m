@@ -56,7 +56,7 @@ for x = 1:num_patches_x
             v = pinv(A(:,:,t))*b(:,:,t);
             % Instead of using quiver here, Vx, Vy, Px, Py have to be set
             % and then later used with quiver per image
-            %quiver((x-1)*15+8,(y-1)*15+8, v(1),v(2),'s');
+            quiver((x-1)*15+8,(y-1)*15+8, v(1),v(2),  ['y', 'o']);
             Vx(x*y,t) = v(1);
             Vy(x*y,t) = v(2);
             Px(x*y,t) = (x-1)*15+8;

@@ -1,23 +1,26 @@
-function bestH = ransacH(match1, match2)
+function bestx = ransacH(match1, match2)
+% Ransac to find Homography
+% Input is a set of point pairs
 
 % This is automatically changed during runtime
 % based on inlier-count. Set min-iterations to circumvent corner-cases
 miniterations = 5;
-iterations = 1;
+iterations = 50;
 
 % Threshold is 10 pixels
 threshold = 10;
 
 % The model needs atleast 4 points (8 equations) to
 % form a homography matrix
-P = 4;
+P = 8;
 
 
 mc = size(match1,2);
 bestinliers = 0;
 bestx = zeros(8,1);
+i=1;
 
-for i=1:iterations;
+while i<iterations
     % Take P matches
     perm = randperm(size(match1,2));
     seed = perm(1:P);
@@ -34,34 +37,46 @@ for i=1:iterations;
 
     A = [-x1, -y1, -ones(1, mc)', zeros(1, mc)', zeros(1, mc)', zeros(1, mc)', ...
          x2.*x1, x2.*y1, x2;...
-        zeros(1, mc)', zeros(1, mc)', zeros(1, mc)', -match1(1,seed)', -match1(2,seed)', -ones(1, mc)',...
-        match2(2,seed)'.*match1(1,seed)', match2(2,seed)'.*match1(2,seed)',...
-         match2(2,seed)'];                 
-    newx = pinv(A)* b';
+        zeros(1, mc)', zeros(1, mc)', zeros(1, mc)', -x1, -y1, -ones(1, mc)',...
+        y2.*x1, y2.*y1, y2];                 
+    %newx = pinv(A)* b';
+    [~,~,V] = svd(A);
+    newx = V(:,size(V,2));
     
     % Determine inliers
     H = [ newx(1) newx(2) newx(3);...
           newx(4) newx(5) newx(6);...
-          newx(7) newx(8) 1];
-    b2 = H*[match1 ;ones(1,size(match1,2))]
-    match2
+          newx(7) newx(8) newx(9)];
+    b2 = H*[match1 ;ones(1,size(match1,2))];
+    b2(1,:) = b2(1,:)./b2(3,:);
+    b2(2,:) = b2(2,:)./b2(3,:);
+    b2(3,:) = b2(3,:)./b2(3,:);
     inliers = find(sqrt(sum((match2-b2(1:2,:)).^2)) <threshold); 
-    inliers
+
     % Refit model
+    seed = inliers;
+    mc = size(seed,2);
+    x1 = match1(1,seed)';
+    x2 = match2(1,seed)';
+    y1 = match1(2,seed)';
+    y2 = match2(2,seed)';
+    A = [-x1, -y1, -ones(1, mc)', zeros(1, mc)', zeros(1, mc)', zeros(1, mc)', ...
+         x2.*x1, x2.*y1, x2;...
+        zeros(1, mc)', zeros(1, mc)', zeros(1, mc)', -match1(1,seed)', -match1(2,seed)', -ones(1, mc)',...
+        match2(2,seed)'.*match1(1,seed)', match2(2,seed)'.*match1(2,seed)',...
+         match2(2,seed)'];                 
+    [~,~,V] = svd(A);
+    newx = V(:,size(V,2));
     
-    ic = size(inliers,2);
-    A = [match1(:,inliers)', zeros(ic , 2), ones(ic, 1) , zeros(ic ,1);...
-        zeros(ic , 2), match1(:,inliers)', zeros(ic ,1), ones(ic, 1)];
-    b = [match2(1,inliers) match2(2,inliers)];
-    newx = pinv(A)* b';
-    
-    % Determine final inliers, if better than what we had save x
-    mc = size(match1,2);
-    A = [match1', zeros(mc , 2) ones(mc, 1) ,zeros(mc ,1);...
-        zeros(mc , 2), match1', zeros(mc ,1), ones(mc, 1)];
-    b2 = A*newx;
-    b2 = reshape(b2, size(match2,2), 2)';
-    inliers = find(sqrt(sum((match2-b2).^2)) <threshold);
+    % Determine inliers
+    H = [ newx(1) newx(2) newx(3);...
+          newx(4) newx(5) newx(6);...
+          newx(7) newx(8) newx(9)];
+    b2 = H*[match1 ;ones(1,size(match1,2))];
+    b2(1,:) = b2(1,:)./b2(3,:);
+    b2(2,:) = b2(2,:)./b2(3,:);
+    b2(3,:) = b2(3,:)./b2(3,:);
+    inliers = find(sqrt(sum((match2-b2(1:2,:)).^2)) <threshold);
     
     if size(inliers,2)>bestinliers
         bestinliers = size(inliers,2);
@@ -76,16 +91,14 @@ for i=1:iterations;
             eps = 0.001;
             N1 = bestinliers;
             N = size(match1,2);
-            k=3;
+            k=P;
             q = (N1/N)^k;
             
             iterations = ceil( log(eps)/log(1-q));
         end
     end
+    i = i+1;
 end
-
-%m = reshape(bestx(1:4),2,2);
-%t = bestx(5:6);
 
 
 

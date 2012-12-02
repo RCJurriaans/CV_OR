@@ -16,7 +16,6 @@ Px = zeros(num_patches, nargin);
 Py = zeros(num_patches, nargin);
 
 
-
 % Create temporal and spatial derivative filters
 sigmaSpace = 1;
 X = -1:1;

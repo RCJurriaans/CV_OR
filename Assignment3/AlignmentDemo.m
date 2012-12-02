@@ -12,6 +12,8 @@ im2 = im2double(imread('boat/img2.pgm'));
 % to transformed points
 figure;
 % Original Images
+% Note that both images need to be the same size
+% for this to work
 imshow([im1 im2]);
 hold on;
 

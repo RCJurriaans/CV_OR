@@ -47,6 +47,8 @@ for k=1:length(Files)
    print('-djpeg72', filename);
 end
 
+error
+medianerror
 %mov = close(mov);
 
 end

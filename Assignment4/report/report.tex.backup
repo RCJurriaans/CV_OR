@@ -1,0 +1,56 @@
+\documentclass[a4paper,10pt]{article}
+%\usepackage[utf8x]{inputenc}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amsmath}
+
+
+%opening
+\title{Assignment 4: Optical Flow and Structure from Motion}
+\author{Robrecht Jurriaans (5887380), Taco Cohen (6394590)}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+
+\end{abstract}
+
+\section{Optical Flow}
+
+
+\subsection{Sphere and Synthetic Images}
+
+\begin{figure}[h!tb]
+
+        \centering
+        \begin{subfigure}{0.475\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{sphere}
+                \caption{Optical flow for the sphere images}
+        \end{subfigure}
+        ~
+        \begin{subfigure}{0.475\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{synth}
+                \caption{Optical flow for the synth images}
+        \end{subfigure}
+\caption{Optical flow for non overlapping $15x15$ windows, circle denotes origin of optical flow vector}
+\label{fig:opflow}      
+\end{figure}
+\begin{figure}
+\includegraphics[width=1\textwidth]{frame00000100}
+\caption{Keypoints in the left image, and the same points transformed, plotted over the right image.}
+\label{fig:matches}
+\end{figure}
+
+
+\section{Structure from Motion}
+
+
+
+\end{document}
