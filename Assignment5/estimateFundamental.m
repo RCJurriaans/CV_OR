@@ -13,13 +13,16 @@ for i=1:iterations
     perm = randperm(size(match1,2));
     seed = perm(1:P);
     
-    % Estimate F
-    % Estimate A
+    
+    % Compute A
     A = getA(match1(:,seed), match2(:,seed));
+    
+    % Estimate F by least-squares, then make it singular
     [~,~,Vt] = svd(A);
     F = Vt(:,size(Vt,2));
     F = reshape(F,3,3);
     F = singularizeF(F);
+    
     % Find inliers using Sampson distance
     numer = (diag(match2' * (F*match1))').^2;
     Fm1 = F*match1;
@@ -43,6 +46,7 @@ for i=1:iterations
     F = Vt(:,size(Vt,2));
     F = reshape(F,3,3);
     F = singularizeF(F);
+    
     % Find inliers
     numer = (diag(match2' * (F*match1))').^2;
     Fm1 = F*match1;
@@ -56,14 +60,14 @@ for i=1:iterations
     %       Fm1 = F*match1(:,pc);
     %       Fm2 = F*match2(:,pc);
     %       denom = Fm1(1)^2+Fm1(2)^2+Fm2(1)^2+Fm2(2)^2;
-    %       sd(pc) = numer/denom;
+    %       sd(pc) = numer/denom; = reshape(F,3,3);
     %    end
     %    inliers = find(sd<threshold);
     
     % if inlier count< best sofar, use new F
     if size(inliers,2)>bestcount
         bestcount=size(inliers,2);
-        bestF = reshape(F,3,3);
+        %bestF = reshape(F,3,3);
         bestinliers=inliers;
     end
 end

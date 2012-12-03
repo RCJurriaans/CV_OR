@@ -2,17 +2,30 @@
 \usepackage[utf8x]{inputenc}
 
 %opening
-\title{}
-\author{}
+\title{Epipolar Geometry}
+\author{Robrecht Jurriaans, Taco Cohen}
 
 \begin{document}
 
 \maketitle
 
-\begin{abstract}
+\section{Estimating the Fundamental Matrix}
 
-\end{abstract}
+In order to estimate the 3D geometry of the scene from stereo images, we need to know the epipolar geometry of the scene.
+The easiest treatment of epipolar geometry can be made when the image planes are parallel, but this is generally not the case for our input images.
+For this reason, we first estimate the fundamental matrix $F$, that maps one image to another by a projective transformation.
 
-\section{}
+To estimate $F$, we need correspondences, for which we will use points.
+We find corresponding points in two images by matching Harris/Hessian Scale+Affine invariant descriptors.
+Next, we center the two point-sets ${p_i}$ and ${p'_i}$ (one for each image), and scale the points so that the average distance to the mean is $\sqrt{2}$.
+The matrices that perform this translation-scaling we call $T$ and $T'$.
+As shown by Hartley CITE, this transformation improves the numerical stability of the following estimation procedure.
+
+The Fundamental matrix is defined by the constraints
+\begin{equation}
+\mathbf{p'}_i F \mathbf{p}_i = 0
+\end{equation}
+which is linear in the parameters of $F$.
+
 
 \end{document}
