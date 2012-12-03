@@ -1,4 +1,5 @@
 function [Pout, T] = normalize( Pin )
+
 % Pin is a matrix with 2D inhomogeneous points in the columns.
 % Pout is a matrix with 2+1D homogeneous points in the columns.
 % The points in Pout are centered (mean=0) and have average distance

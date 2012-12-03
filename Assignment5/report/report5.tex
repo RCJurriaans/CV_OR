@@ -23,9 +23,12 @@ As shown by Hartley CITE, this transformation improves the numerical stability o
 
 The Fundamental matrix is defined by the constraints
 \begin{equation}
-\mathbf{p'}_i F \mathbf{p}_i = 0
+\mathbf{p_i'} F \mathbf{p_i} = 0
 \end{equation}
 which is linear in the parameters of $F$.
+We form the matrix $A$ containing the coefficients of the linear equations in its rows, and solve $A \mathbf{f} = 0$ using SVD, where $\mathbf{f}$ is the matrix $F$ reshaped to a vector.
+
+
 
 
 \end{document}
