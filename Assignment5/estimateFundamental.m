@@ -1,21 +1,24 @@
-function bestF = estimateFundamental(match1, match2)
+function [bestF bestinliers] = estimateFundamental(match1, match2)
 F = zeros(9,1);
 bestcount = 0;
+bestinliers = [];
 
 iterations = 50;
-threshold  = 10;
+% We need a better value for this
+threshold  = 0.001;
+P=8;
 
 for i=1:iterations
    % Take initial seed
    perm = randperm(size(match1,2));
-   seed = perm(1:4);
+   seed = perm(1:P);
    
    % Estimate F
    % Estimate A
    A = getA(match1(:,seed), match2(:,seed));
    [~,~,Vt] = svd(A);   
    F = Vt(:,9);
-   F = reshape(F,3,3)';
+   F = reshape(F,3,3);
    
    % Find inliers
    match2est = F*match1;
@@ -26,7 +29,7 @@ for i=1:iterations
    A = getA(match1(:,seed), match2(:,seed));
    [~,~,Vt] = svd(A);   
    F = Vt(:,9);
-   F = reshape(F,3,3)';
+   F = reshape(F,3,3);
    
    % Find inliers
    match2est = F*match1;
@@ -36,7 +39,8 @@ for i=1:iterations
    % if inlier count< best sofar, use new F
    if size(inliers,2)>bestcount
       bestcount=size(inliers,2);
-      bestF = reshape(F,3,3)';       
+      bestF = reshape(F,3,3); 
+      bestinliers=inliers;
    end
 end
 end
