@@ -22,12 +22,16 @@ while i<iterations
     [f1n,T1] = normalize(match1(1:2, seed));
     [f2n,T2] = normalize(match2(1:2, seed));
     A = getA(f1n, f2n);
-    [~,~,Vt] = svd(A);
-    F = Vt(:,size(Vt,2));
-    F = reshape(F,3,3);  
+    %     [~,~,Vt] = svd(A);
+    %     F = Vt(:,size(Vt,2));
+    %     F = reshape(F,3,3);
+    
+    F = pinv(A)*(-ones(size(A,1),1));
+    F = reshape([F;1],3,3)';
+    
     F = singularizeF(F);
     F = T2' * F * T1;
-    F = F./F(3,3);
+    %F = F./F(3,3);
     
     % Find inliers using Sampson distance
     numer = (diag(match2' * (F*match1))').^2;
@@ -37,16 +41,23 @@ while i<iterations
     sd = numer./denom;
     seed = find(sd<threshold);
     
+    if size(seed,2)>=8
+    
     % Use inliers to re-estimate F
     [f1n,T1] = normalize(match1(1:2, seed));
     [f2n,T2] = normalize(match2(1:2, seed));
     A = getA(f1n, f2n);
-    [~,~,Vt] = svd(A);
-    F = Vt(:,size(Vt,2));
-    F = reshape(F,3,3);
+    %[~,~,Vt] = svd(A);
+    %F = Vt(:,size(Vt,2));
+    %F = reshape(F,3,3);
+    
+    
+    F = pinv(A)*(-ones(size(A,1),1));
+    F = reshape([F;1],3,3)';
+    
     F = singularizeF(F);
     F = T2' * F * T1;
-    F = F./F(3,3);
+    %F = F./F(3,3);
     
     % Find inliers
     numer = (diag(match2' * (F*match1))').^2;
@@ -56,6 +67,7 @@ while i<iterations
     sd = numer./denom;
     inliers = find(sd<threshold);
     
+
     % if inlier count< best sofar, use new F
     if size(inliers,2)>bestcount
         bestcount=size(inliers,2);
@@ -74,6 +86,7 @@ while i<iterations
     q = (N1/N)^k;
     iterations = max(miniter,ceil( log(eps)/log(1-q)));
     
+    end
     i = i+1;
     
 end
@@ -84,12 +97,12 @@ end
 
 function A = getA(x1, x2)
 A = [x1(1,:)    .*  x2(1,:) ;...
-     x1(1,:)    .*  x2(2,:) ;...
-     x1(1,:)                ;...
-     x1(2,:)    .*  x2(1,:) ;...
-     x1(2,:)    .*  x2(2,:) ;...
-     x1(2,:)                ;...
-                    x2(1,:) ;...
-                    x2(2,:) ;...
-     ones(1,size(x1,2))     ]';
+    x1(1,:)    .*  x2(2,:) ;...
+    x1(1,:)                ;...
+    x1(2,:)    .*  x2(1,:) ;...
+    x1(2,:)    .*  x2(2,:) ;...
+    x1(2,:)                ;...
+    x2(1,:) ;...
+    x2(2,:) ]';%;...
+%ones(1,size(x1,2))     ]';
 end
