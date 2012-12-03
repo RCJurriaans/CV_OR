@@ -1,7 +1,7 @@
 function F = Fdemo()
 % Demo for assignment 5
 % Computes Fundamental Matrix using the normalized Eight-Point Algorithm
-tic;
+
 % Read images
 disp('Reading images');
 img1 = im2double(rgb2gray(imread('TeddyBearPNG/obj02_001.png')));
@@ -33,14 +33,14 @@ disp('Estimating F');
 
 F = singularizeF(F);
 
-F = T2' * F * T1;
-F = F./F(3,3);
+F = T2'*F*T1);
 
+F = F./F(3,3);
 
 disp(strcat(int2str(size(inliers,2)), ' inliers found'));
 
 F
-toc
+
 % Show the images with matched points
 figure;
 imshow([img1,img2],'InitialMagnification', 'fit');
