@@ -27,10 +27,16 @@ disp('Normalizing coordinates');
 % Estimate Fundamental Matrix, singularize and retransform using T and T'
 disp('Estimating F');
 [F inliers] = estimateFundamental(f1n,f2n);
-F = singularizeF(F);
-F = T2'*F*T1;
+
+F = inv(T2)'*(F/T1);
+
+F = F./F(3,3);
 
 disp(strcat(int2str(size(inliers,2)), ' inliers found'));
+
+% Show rectified image
+
+
 
 % Show the images with matched points
 figure;
