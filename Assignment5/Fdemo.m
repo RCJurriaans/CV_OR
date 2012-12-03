@@ -14,6 +14,7 @@ img2 = im2double(rgb2gray(imread('TeddyBearPNG/obj02_002.png')));
 % Match Descriptors
 disp('Matching Descriptors');
 [matches, ~] = vl_ubcmatch(desc1,desc2);
+disp(strcat( int2str(size(matches,2)), ' matches found'));
 
 %perm = randperm(size(matches,2));
 %matches = matches(:,perm(1:50));
@@ -24,18 +25,10 @@ f2 = feat2(1:2,matches(2,:));
 
 % Normalize X,Y
 disp('Normalizing coordinates');
-[f1n,T1] = normalize(f1);
-[f2n,T2] = normalize(f2);
 
 % Estimate Fundamental Matrix, singularize and retransform using T and T'
 disp('Estimating F');
-[F inliers] = estimateFundamental(f1n,f2n);
-
-F = singularizeF(F);
-
-F = T2' * F * T1;
-F = F./F(3,3);
-
+[F inliers] = estimateFundamental(f1,f2);
 
 disp(strcat(int2str(size(inliers,2)), ' inliers found'));
 
@@ -49,3 +42,7 @@ hold on;
 scatter(f1(1,inliers),f1(2,inliers), 'y');
 scatter(size(img1,2)+f2(1,inliers),f2(2,inliers) ,'r');
 line([f1(1,inliers);size(img1,2)+f2(1,inliers)], [f1(2,inliers);f2(2,inliers)], 'Color', 'b');
+
+outliers = setdiff(1:size(matches,2),inliers);
+line([f1(1,outliers);size(img1,2)+f2(1,outliers)], [f1(2,outliers);f2(2,outliers)], 'Color', 'r');
+
