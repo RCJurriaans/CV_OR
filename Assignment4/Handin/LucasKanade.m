@@ -1,0 +1,75 @@
+function [Vx, Vy, Px, Py] = LucasKanade(varargin)
+% Calculates Optical Flow on a grid of non overlapping 15x15 windows
+% Can be used as [Vx,Vy,Px,Py] = LucasKanade(im1,im2,im3...);
+% Where Vx, Vy is the optical flow vector at location Px,Py
+
+% Calculate the number of patches
+patch_size = 15;
+num_patches_x = floor(size(varargin{1}, 2) / patch_size);
+num_patches_y = floor(size(varargin{1}, 1) / patch_size);
+cropped_width = patch_size * num_patches_x;
+cropped_height = patch_size * num_patches_y;
+
+% Crop images to accomodate 15x15 windows
+images = zeros(cropped_height, cropped_width, nargin);
+for i= 1:nargin
+    images(:,:,i) = varargin{i}(1:cropped_height, 1:cropped_width);
+end
+
+% Create temporal and spatial derivative filters
+sigmaSpace = 1;
+X = -1:1;
+GderSpace = gaussianDer(X, sigmaSpace);
+
+sigmaTime = 1;
+T = [-1, 1];
+GderTime = gaussianDer(T, sigmaTime);
+
+% Take spatial and temporal derivatives
+Dx = imfilter(images, GderSpace, 'replicate', 'same');
+Dy = imfilter(images, GderSpace', 'replicate', 'same');
+Dt = permute(imfilter(permute(images, [2 3 1]), GderTime, 'replicate', 'same'), [3 1 2]);
+
+% Reshape into 3xNxM,
+% where N is the number of pixels in a window
+% and M is the number of windows
+Ax = mat2cell( Dx, ones(1, num_patches_y) * patch_size, ones(1, num_patches_x) * patch_size, nargin);
+Ay = mat2cell( Dy, ones(1, num_patches_y) * patch_size, ones(1, num_patches_x) * patch_size, nargin);
+At = mat2cell( Dt, ones(1, num_patches_y) * patch_size, ones(1, num_patches_x) * patch_size, nargin);
+
+% Initialize: Vx, Vy, Px, Py
+Vx = zeros(num_patches_x*num_patches_y, nargin);
+Vy = zeros(num_patches_x*num_patches_y, nargin);
+Px = zeros(num_patches_x*num_patches_y, nargin);
+Py = zeros(num_patches_x*num_patches_y, nargin);
+
+% Loop over windows, and solve
+for x = 1:num_patches_x
+    for y = 1:num_patches_y
+        % Create A and b to use with LQ solver
+        A = [reshape(Ax{y, x}, patch_size*patch_size, 1, nargin), reshape(Ay{y, x}, patch_size*patch_size, 1, nargin)];
+        b = -reshape(At{y, x}, patch_size*patch_size, 1, nargin);
+        % For each image in the sequence
+        for t = 1:nargin-1
+            % Find the optical flow vector
+            v = pinv(A(:,:,t))*b(:,:,t);
+            % Save optical flow vector
+            xy = x + (y-1)*num_patches_x;
+            Vx(xy,t) = v(1);
+            Vy(xy,t) = v(2);
+            Px(xy,t) = (x-1)*15+8;
+            Py(xy,t) = (y-1)*15+8;
+            
+        end
+    end
+end
+
+% Plot the images
+for t = 1:nargin-1
+    figure;
+    imshow(varargin{t})
+    hold on;
+    quiver(Px(:,t),Py(:,t), Vx(:,t), Vy(:,t),  ['yo'], 'filled', 'LineWidth', 2, 'MarkerSize', 5);
+end
+
+end
