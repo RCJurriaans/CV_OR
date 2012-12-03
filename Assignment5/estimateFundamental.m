@@ -5,7 +5,7 @@ bestinliers = [];
 
 iterations = 50;
 % We need a better value for this
-threshold  = 0.001;
+threshold  = 0.01;
 P=8;
 
 for i=1:iterations
@@ -20,10 +20,13 @@ for i=1:iterations
    F = Vt(:,9);
    F = reshape(F,3,3);
    
-   % Find inliers
-   match2est = F*match1;
-   estimates = abs(diag(match2est' * match2))';
-   seed = find(estimates<threshold);
+   % Find inliers using Sampson distance
+   numer = (diag(match2' * (F*match1))').^2;
+   Fm1 = F*match1;
+   Fm2 = F*match2;
+   denom = sum([Fm1(1:2,:);Fm2(1:2,:)].^2);
+   sd = numer./denom;
+   seed = find(sd<threshold);
 
    % Use inliers to re-estimate F
    A = getA(match1(:,seed), match2(:,seed));
@@ -32,9 +35,12 @@ for i=1:iterations
    F = reshape(F,3,3);
    
    % Find inliers
-   match2est = F*match1;
-   estimates = abs(diag(match2est' * match2))';
-   inliers = find(estimates<threshold);
+   numer = (diag(match2' * (F*match1))').^2;
+   Fm1 = F*match1;
+   Fm2 = F*match2;
+   denom = sum([Fm1(1:2,:);Fm2(1:2,:)].^2);
+   sd = numer./denom;
+   inliers = find(sd<threshold);
    
    % if inlier count< best sofar, use new F
    if size(inliers,2)>bestcount
