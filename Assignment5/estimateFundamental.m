@@ -6,7 +6,7 @@ match2 = [match2;ones(1,size(match2,2))];
 bestcount = 0;
 bestinliers = [];
 
-iterations = 50;
+iterations = 20;
 miniter = iterations;
 % We need a better value for this
 threshold  = 10;
@@ -22,15 +22,16 @@ while i<iterations
     [f1n,T1] = normalize(match1(1:2, seed));
     [f2n,T2] = normalize(match2(1:2, seed));
     A = getA(f1n, f2n);
-    %     [~,~,Vt] = svd(A);
-    %     F = Vt(:,size(Vt,2));
-    %     F = reshape(F,3,3);
+    [~,~,Vt] = svd(A);
+    F = Vt(:,size(Vt,2));
+    F = reshape(F,3,3)';
     
-    F = pinv(A)*(-ones(size(A,1),1));
-    F = reshape([F;1],3,3)';
-    
+    %     F = pinv(A)*(-ones(size(A,1),1));
+    %     F = reshape([F;1],3,3)';
+    %
     F = singularizeF(F);
-    F = T2' * F * T1;
+    F = T2' * F' * T1;
+    F= F/norm(F);
     %F = F./F(3,3);
     
     % Find inliers using Sampson distance
@@ -42,50 +43,50 @@ while i<iterations
     seed = find(sd<threshold);
     
     if size(seed,2)>=8
-    
-    % Use inliers to re-estimate F
-    [f1n,T1] = normalize(match1(1:2, seed));
-    [f2n,T2] = normalize(match2(1:2, seed));
-    A = getA(f1n, f2n);
-    %[~,~,Vt] = svd(A);
-    %F = Vt(:,size(Vt,2));
-    %F = reshape(F,3,3);
-    
-    
-    F = pinv(A)*(-ones(size(A,1),1));
-    F = reshape([F;1],3,3)';
-    
-    F = singularizeF(F);
-    F = T2' * F * T1;
-    %F = F./F(3,3);
-    
-    % Find inliers
-    numer = (diag(match2' * (F*match1))').^2;
-    Fm1 = F*match1;
-    Fm2 = F'*match2;
-    denom = sum([Fm1(1:2,:);Fm2(1:2,:)].^2);
-    sd = numer./denom;
-    inliers = find(sd<threshold);
-    
-
-    % if inlier count< best sofar, use new F
-    if size(inliers,2)>bestcount
-        bestcount=size(inliers,2);
-        bestF = F;
-        bestinliers=inliers;
-    end
-    
-    % Within a chance of epsilon, find number of required iterations
-    % N1 is the largest set on inliers so far
-    % N is the total number of data-points = size(match1,2)
-    % k is the number of data-points that are needed
-    eps = 0.001;
-    N1 = bestcount;
-    N = size(match1,2);
-    k=P;
-    q = (N1/N)^k;
-    iterations = max(miniter,ceil( log(eps)/log(1-q)));
-    
+        
+        % Use inliers to re-estimate F
+        [f1n,T1] = normalize(match1(1:2, seed));
+        [f2n,T2] = normalize(match2(1:2, seed));
+        A = getA(f1n, f2n);
+        [~,~,Vt] = svd(A);
+        F = Vt(:,size(Vt,2));
+        F = reshape(F,3,3)';
+        
+        %    F = pinv(A)*(-ones(size(A,1),1));
+        %    F = reshape([F;1],3,3)';
+        
+        F = singularizeF(F);
+        F = T2' * F' * T1;
+        F= F/norm(F);
+        %F = F./F(3,3);
+        
+        % Find inliers
+        numer = (diag(match2' * (F*match1))').^2;
+        Fm1 = F*match1;
+        Fm2 = F'*match2;
+        denom = sum([Fm1(1:2,:);Fm2(1:2,:)].^2);
+        sd = numer./denom;
+        inliers = find(sd<threshold);
+        
+        
+        % if inlier count< best sofar, use new F
+        if size(inliers,2)>bestcount
+            bestcount=size(inliers,2);
+            bestF = F;
+            bestinliers=inliers;
+        end
+        
+        % Within a chance of epsilon, find number of required iterations
+        % N1 is the largest set on inliers so far
+        % N is the total number of data-points = size(match1,2)
+        % k is the number of data-points that are needed
+        eps = 0.001;
+        N1 = bestcount;
+        N = size(match1,2);
+        k=P;
+        q = (N1/N)^k;
+        iterations = max(miniter,ceil( log(eps)/log(1-q)));
+        
     end
     i = i+1;
     
@@ -103,6 +104,6 @@ A = [x1(1,:)    .*  x2(1,:) ;...
     x1(2,:)    .*  x2(2,:) ;...
     x1(2,:)                ;...
     x2(1,:) ;...
-    x2(2,:) ]';%;...
-%ones(1,size(x1,2))     ]';
+    x2(2,:) ;...
+    ones(1,size(x1,2))     ]';
 end

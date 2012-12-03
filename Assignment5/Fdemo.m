@@ -11,13 +11,20 @@ img2 = im2double(rgb2gray(imread('TeddyBearPNG/obj02_002.png')));
 [feat1,desc1,~,~] = loadFeatures('TeddyBearPNG/obj02_001.png.haraff.sift');
 [feat2,desc2,~,~] = loadFeatures('TeddyBearPNG/obj02_002.png.haraff.sift');
 
+% img1 = im2double(rgb2gray(imread('BoxPNG/left.png')));
+% img2 = im2double(rgb2gray(imread('BoxPNG/right.png')));
+% 
+% % Read Features and Descriptors
+% [feat1,desc1,~,~] = loadFeatures('BoxPNG/left.png.haraff.sift');
+% [feat2,desc2,~,~] = loadFeatures('BoxPNG/right.png.haraff.sift');
+
 % Match Descriptors
 disp('Matching Descriptors');
 [matches, ~] = vl_ubcmatch(desc1,desc2);
 disp(strcat( int2str(size(matches,2)), ' matches found'));
 
 %perm = randperm(size(matches,2));
-%matches = matches(:,perm(1:50));
+%matches = matches(:,perm(1:20));
 
 % Get X,Y coordinates of features
 f1 = feat1(1:2,matches(1,:));
