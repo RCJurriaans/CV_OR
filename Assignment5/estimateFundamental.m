@@ -6,14 +6,18 @@ match2 = [match2;ones(1,size(match2,2))];
 bestcount = 0;
 bestinliers = [];
 
-iterations = 20;
+iterations = 10;
 miniter = iterations;
 % We need a better value for this
 threshold  = 10;
 P=8;
 
 i=0;
+
+
+h = waitbar(0,'Initializing waitbar...');
 while i<iterations
+    waitbar(i/iterations,h,sprintf('at %d of %d iterations',[i,iterations]))
     % Take initial seed
     perm = randperm(size(match1,2));
     seed = perm(1:P);
@@ -22,52 +26,20 @@ while i<iterations
     [f1n,T1] = normalize(match1(1:2, seed));
     [f2n,T2] = normalize(match2(1:2, seed));
     A = getA(f1n, f2n);
-    [~,~,Vt] = svd(A);
-    F = Vt(:,size(Vt,2));
-    F = reshape(F,3,3)';
-    
-    %     F = pinv(A)*(-ones(size(A,1),1));
-    %     F = reshape([F;1],3,3)';
-    %
-    F = singularizeF(F);
-    F = T2' * F' * T1;
-    F= F/norm(F);
-    %F = F./F(3,3);
+    F = computeF(A,T1,T2);
     
     % Find inliers using Sampson distance
-    numer = (diag(match2' * (F*match1))').^2;
-    Fm1 = F*match1;
-    Fm2 = F'*match2;
-    denom = sum([Fm1(1:2,:);Fm2(1:2,:)].^2);
-    sd = numer./denom;
-    seed = find(sd<threshold);
+    seed = computeInliers(F,match1,match2,threshold);
     
     if size(seed,2)>=8
-        
         % Use inliers to re-estimate F
         [f1n,T1] = normalize(match1(1:2, seed));
         [f2n,T2] = normalize(match2(1:2, seed));
         A = getA(f1n, f2n);
-        [~,~,Vt] = svd(A);
-        F = Vt(:,size(Vt,2));
-        F = reshape(F,3,3)';
-        
-        %    F = pinv(A)*(-ones(size(A,1),1));
-        %    F = reshape([F;1],3,3)';
-        
-        F = singularizeF(F);
-        F = T2' * F' * T1;
-        F= F/norm(F);
-        %F = F./F(3,3);
+        F = computeF(A,T1,T2);
         
         % Find inliers
-        numer = (diag(match2' * (F*match1))').^2;
-        Fm1 = F*match1;
-        Fm2 = F'*match2;
-        denom = sum([Fm1(1:2,:);Fm2(1:2,:)].^2);
-        sd = numer./denom;
-        inliers = find(sd<threshold);
-        
+        inliers = computeInliers(F,match1,match2,threshold);
         
         % if inlier count< best sofar, use new F
         if size(inliers,2)>bestcount
@@ -93,6 +65,35 @@ while i<iterations
 end
 
 disp(strcat(int2str(iterations), ' iterations used to estimate F'));
+close(h);
+end
+
+function F = computeF(A,T1,T2)
+% SVD to get Least Square solution for Af=0
+[~,~,Vt] = svd(A);
+F = Vt(:,size(Vt,2));
+F = reshape(F,3,3)';
+
+% Make sure F is singular
+F = singularizeF(F);
+
+% Use transformation matrices around F
+F = T2' * F' * T1;
+
+% Make sure that norm(F)=1
+F= F/norm(F);
+end
+
+function inliers = computeInliers(F,match1,match2,threshold)
+% Calculate Sampson distance for each point
+numer = (diag(match2' * (F*match1))').^2;
+Fm1 = F*match1;
+Fm2 = F'*match2;
+denom = sum([Fm1(1:2,:);Fm2(1:2,:)].^2);
+sd = numer./denom;
+
+% Return inliers for which sd is smaller than threshold
+inliers = find(sd<threshold);
 
 end
 
