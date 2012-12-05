@@ -5,11 +5,11 @@ tic;
 % Read images
 disp('Reading images');
 img1 = im2double(rgb2gray(imread('TeddyBearPNG/obj02_001.png')));
-img2 = im2double(rgb2gray(imread('TeddyBearPNG/obj02_015.png')));
+img2 = im2double(rgb2gray(imread('TeddyBearPNG/obj02_002.png')));
 
 % Read Features and Descriptors
 [feat1,desc1,~,~] = loadFeatures('TeddyBearPNG/obj02_001.png.haraff.sift');
-[feat2,desc2,~,~] = loadFeatures('TeddyBearPNG/obj02_015.png.haraff.sift');
+[feat2,desc2,~,~] = loadFeatures('TeddyBearPNG/obj02_002.png.haraff.sift');
 
 % img1 = im2double(rgb2gray(imread('BoxPNG/left.png')));
 % img2 = im2double(rgb2gray(imread('BoxPNG/right.png')));
@@ -81,8 +81,43 @@ scatter(pointR(1),pointR(2),15,'y');
 epiR = F*pointL;
 plot(-(epiR(1)*(1:size(img2,2))+epiR(3))./epiR(2), 'r')
 
-
 epiL = F'*pointR;
 subplot(1,2,1);
 plot(-(epiL(1)*(1:size(img1,2))+epiL(3))./epiL(2), 'r')
+
+figure;
+subplot(1,2,1);
+imshow(img1);
+title('Image 1 with the epipolar lines from 20 points in image 2')
+hold on;
+subplot(1,2,2);
+imshow(img2);
+title('Image 2 with the epipolar lines from 20 points in image 1')
+hold on;
+
+perm = randperm(size(f2,2));
+seed = perm(1:20);
+
+pointsL = f2(1:2,seed);
+pointsL = [pointsL;ones(1,size(pointsL,2))];
+
+pointsR = f2(1:2,seed);
+pointsR = [pointsR;ones(1,size(pointsR,2))];
+
+for i=1:20
+    pointR = pointsR(:,i);
+    epiL = F'*pointR; 
+    
+    pointL = pointsL(:,i);
+    epiR = F'*pointL; 
+    
+    subplot(1,2,1);
+    plot(-(epiL(1)*(1:size(img1,2))+epiL(3))./epiL(2), 'r')
+    subplot(1,2,2);
+    plot(-(epiR(1)*(1:size(img2,2))+epiR(3))./epiL(2), 'r')
+end
+
+
+
+
 
