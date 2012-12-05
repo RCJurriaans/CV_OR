@@ -4,19 +4,19 @@ function F = Fdemo()
 tic;
 % Read images
 disp('Reading images');
-img1 = im2double(rgb2gray(imread('TeddyBearPNG/obj02_001.png')));
-img2 = im2double(rgb2gray(imread('TeddyBearPNG/obj02_002.png')));
+%img1 = im2double(rgb2gray(imread('TeddyBearPNG/obj02_001.png')));
+%img2 = im2double(rgb2gray(imread('TeddyBearPNG/obj02_002.png')));
 
 % Read Features and Descriptors
-[feat1,desc1,~,~] = loadFeatures('TeddyBearPNG/obj02_001.png.haraff.sift');
-[feat2,desc2,~,~] = loadFeatures('TeddyBearPNG/obj02_002.png.haraff.sift');
+%[feat1,desc1,~,~] = loadFeatures('TeddyBearPNG/obj02_001.png.haraff.sift');
+%[feat2,desc2,~,~] = loadFeatures('TeddyBearPNG/obj02_002.png.haraff.sift');
 
-% img1 = im2double(rgb2gray(imread('BoxPNG/left.png')));
-% img2 = im2double(rgb2gray(imread('BoxPNG/right.png')));
+ img1 = im2double(rgb2gray(imread('BoxPNG/left.png')));
+ img2 = im2double(rgb2gray(imread('BoxPNG/right.png')));
 % 
-% % Read Features and Descriptors
-% [feat1,desc1,~,~] = loadFeatures('BoxPNG/left.png.haraff.sift');
-% [feat2,desc2,~,~] = loadFeatures('BoxPNG/right.png.haraff.sift');
+ % Read Features and Descriptors
+ [feat1,desc1,~,~] = loadFeatures('BoxPNG/left.png.haraff.sift');
+ [feat2,desc2,~,~] = loadFeatures('BoxPNG/right.png.haraff.sift');
 
 % Match Descriptors
 disp('Matching Descriptors');
@@ -95,8 +95,10 @@ imshow(img2);
 title('Image 2 with the epipolar lines from 20 points in image 1')
 hold on;
 
+pointpairs = min(20,size(f1,2));
+
 perm = randperm(size(f2,2));
-seed = perm(1:20);
+seed = perm(1:pointpairs);
 
 pointsL = f2(1:2,seed);
 pointsL = [pointsL;ones(1,size(pointsL,2))];
@@ -104,12 +106,21 @@ pointsL = [pointsL;ones(1,size(pointsL,2))];
 pointsR = f2(1:2,seed);
 pointsR = [pointsR;ones(1,size(pointsR,2))];
 
-for i=1:20
+e12 = null(F);
+e21 = null(F');
+e12 = e12./e12(3);
+e21 = e21./e21(3);
+    subplot(1,2,1);
+    scatter(e12(1), e12(2));
+    subplot(1,2,2);
+    scatter(e21(1), e21(2));
+    
+for i=1:pointpairs
     pointR = pointsR(:,i);
     epiL = F'*pointR; 
     
     pointL = pointsL(:,i);
-    epiR = F'*pointL; 
+    epiR = F*pointL; 
     
     subplot(1,2,1);
     plot(-(epiL(1)*(1:size(img1,2))+epiL(3))./epiL(2), 'r')
