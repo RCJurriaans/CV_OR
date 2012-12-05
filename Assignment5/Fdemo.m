@@ -4,19 +4,19 @@ function F = Fdemo()
 tic;
 % Read images
 disp('Reading images');
-%img1 = im2double(rgb2gray(imread('TeddyBearPNG/obj02_001.png')));
-%img2 = im2double(rgb2gray(imread('TeddyBearPNG/obj02_002.png')));
+img1 = im2double(rgb2gray(imread('TeddyBearPNG/obj02_001.png')));
+img2 = im2double(rgb2gray(imread('TeddyBearPNG/obj02_002.png')));
 
 % Read Features and Descriptors
-%[feat1,desc1,~,~] = loadFeatures('TeddyBearPNG/obj02_001.png.haraff.sift');
-%[feat2,desc2,~,~] = loadFeatures('TeddyBearPNG/obj02_002.png.haraff.sift');
+[feat1,desc1,~,~] = loadFeatures('TeddyBearPNG/obj02_001.png.haraff.sift');
+[feat2,desc2,~,~] = loadFeatures('TeddyBearPNG/obj02_002.png.haraff.sift');
 
- img1 = im2double(rgb2gray(imread('BoxPNG/left.png')));
- img2 = im2double(rgb2gray(imread('BoxPNG/right.png')));
+% img1 = im2double(rgb2gray(imread('BoxPNG/left.png')));
+% img2 = im2double(rgb2gray(imread('BoxPNG/right.png')));
 % 
  % Read Features and Descriptors
- [feat1,desc1,~,~] = loadFeatures('BoxPNG/left.png.haraff.sift');
- [feat2,desc2,~,~] = loadFeatures('BoxPNG/right.png.haraff.sift');
+% [feat1,desc1,~,~] = loadFeatures('BoxPNG/left.png.haraff.sift');
+% [feat2,desc2,~,~] = loadFeatures('BoxPNG/right.png.haraff.sift');
 
 % Match Descriptors
 disp('Matching Descriptors');
@@ -125,7 +125,7 @@ for i=1:pointpairs
     subplot(1,2,1);
     plot(-(epiL(1)*(1:size(img1,2))+epiL(3))./epiL(2), 'r')
     subplot(1,2,2);
-    plot(-(epiR(1)*(1:size(img2,2))+epiR(3))./epiL(2), 'r')
+    plot(-(epiR(1)*(1:size(img2,2))+epiR(3))./epiR(2), 'r')
 end
 
 
