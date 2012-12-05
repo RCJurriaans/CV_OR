@@ -14,7 +14,7 @@ img2 = im2double(rgb2gray(imread('TeddyBearPNG/obj02_002.png')));
 % img1 = im2double(rgb2gray(imread('BoxPNG/left.png')));
 % img2 = im2double(rgb2gray(imread('BoxPNG/right.png')));
 % 
- % Read Features and Descriptors
+% % Read Features and Descriptors
 % [feat1,desc1,~,~] = loadFeatures('BoxPNG/left.png.haraff.sift');
 % [feat2,desc2,~,~] = loadFeatures('BoxPNG/right.png.haraff.sift');
 
