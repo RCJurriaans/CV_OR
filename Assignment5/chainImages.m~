@@ -1,0 +1,61 @@
+function M = chainImages(Files)
+
+frames = 16;
+M = zeros(frames,0);
+
+im2 = Files(1);
+[feat2,desc2,~,~] = loadFeatures(strcat('TeddyBearPNG/', im2.name, '.haraff.sift'));
+
+matchcount = 0;
+prevmatches = [];
+
+for i=1:frames
+    % Replace old image
+    im1 = im2;
+    feat1 = feat2;
+    desc1 = desc2;
+    
+    % Load new image
+    im2 = Files(mod(i,frames)+1);
+    
+    disp(strcat('Working on: ', im1.name, ', ', im2.name));
+    
+    % Read Features and Descriptors for new image
+    [feat2,desc2,~,~] = loadFeatures(strcat('TeddyBearPNG/', im2.name, '.haraff.sift'));
+    
+    disp('Matching Descriptors');
+    [matches, ~] = vl_ubcmatch(desc1,desc2);
+    disp(strcat( int2str(size(matches,2)), ' matches found'));
+    
+    % Get X,Y coordinates of features
+    f1 = feat1(1:2,matches(1,:));
+    f2 = feat2(1:2,matches(2,:));
+    
+    [~, inliers] = estimateFundamental(f1,f2);
+    
+    newmatches = matches(:,inliers);
+    
+    % Compare matches to old matches
+    
+    if i==1
+        M(i,1:size(newmatches(1,:)
+        
+    else
+    
+    [ints, IA, IB] = intersect(newmatches(1,:)', prevmatches);
+    if ~isempty(ints)
+
+
+    M(i,IB) = ints;
+ 
+    diff = setdiff(newmatches(1,:)', prevmatches);    
+    M = [M zeros(frames, size(diff,1))];
+    
+    M(i,(1+size(M,2))-size(diff,1):size(M,2)) = diff';
+    size(M)
+    
+    % New old matches    
+    prevmatches = matches(2,:)';
+    
+
+end

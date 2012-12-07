@@ -17,7 +17,7 @@ i=0;
 
 h = waitbar(0,'Initializing waitbar...');
 while i<iterations
-    waitbar(i/iterations,h,sprintf('at %d of %d iterations',[i,iterations]))
+    
     % Take initial seed
     perm = randperm(size(match1,2));
     seed = perm(1:P);
@@ -61,11 +61,14 @@ while i<iterations
         
     end
     i = i+1;
+    waitbar(i/iterations,h,sprintf('at %d of %d iterations',[i,iterations]))
     
 end
 
 disp(strcat(int2str(iterations), ' iterations used to estimate F'));
 close(h);
+pause(0.001);
+disp(strcat(int2str(size(bestinliers,2)), ' inliers found'));
 end
 
 function F = computeF(A,T1,T2)

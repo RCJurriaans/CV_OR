@@ -30,17 +30,13 @@ disp(strcat( int2str(size(matches,2)), ' matches found'));
 f1 = feat1(1:2,matches(1,:));
 f2 = feat2(1:2,matches(2,:));
 
-% Normalize X,Y
-disp('Normalizing coordinates');
-
 % Estimate Fundamental Matrix, singularize and retransform using T and T'
 disp('Estimating F');
 [F inliers] = estimateFundamental(f1,f2);
 
-disp(strcat(int2str(size(inliers,2)), ' inliers found'));
+%disp(strcat(int2str(size(inliers,2)), ' inliers found'));
 
 F
-toc
 % Show the images with matched points
 figure;
 imshow([img1,img2],'InitialMagnification', 'fit');
@@ -79,6 +75,7 @@ subplot(1,2,2);
 scatter(pointR(1),pointR(2),15,'y');
 
 epiR = F*pointL;
+% Y = -(u1 * X + u3)/u2
 plot(-(epiR(1)*(1:size(img2,2))+epiR(3))./epiR(2), 'r')
 
 epiL = F'*pointR;
