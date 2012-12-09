@@ -1,20 +1,20 @@
 function [bestF bestinliers] = estimateFundamental(match1, match2)
 
+% Set in homogenous coordinates
 match1 = [match1;ones(1,size(match1,2))];
 match2 = [match2;ones(1,size(match2,2))];
 
+% Initial values
 bestcount = 0;
 bestinliers = [];
 
+% RANSAC parameters
 iterations = 10;
 miniter = iterations;
-% We need a better value for this
 threshold  = 10;
 P=8;
 
 i=0;
-
-
 h = waitbar(0,'Initializing waitbar...');
 while i<iterations
     
@@ -31,14 +31,17 @@ while i<iterations
     % Find inliers using Sampson distance
     seed = computeInliers(F,match1,match2,threshold);
     
+    % We need atleast 8 inliers to estimate F
     if size(seed,2)>=8
-        % Use inliers to re-estimate F
+        % Use previously found inliers
         [f1n,T1] = normalize(match1(1:2, seed));
         [f2n,T2] = normalize(match2(1:2, seed));
+        
+        % Use inliers to re-estimate F
         A = getA(f1n, f2n);
         F = computeF(A,T1,T2);
         
-        % Find inliers
+        % Find final set of inliers
         inliers = computeInliers(F,match1,match2,threshold);
         
         % if inlier count< best sofar, use new F
@@ -48,15 +51,13 @@ while i<iterations
             bestinliers=inliers;
         end
         
-        % Within a chance of epsilon, find number of required iterations
-        % N1 is the largest set on inliers so far
-        % N is the total number of data-points = size(match1,2)
-        % k is the number of data-points that are needed
+        % Calculate how many iterations we need to run
         eps = 0.001;
         N1 = bestcount;
         N = size(match1,2);
         k=P;
         q = (N1/N)^k;
+        % To prevent special cases, always run atleast a couple of times
         iterations = max(miniter,ceil( log(eps)/log(1-q)));
         
     end
@@ -102,12 +103,12 @@ end
 
 function A = getA(x1, x2)
 A = [x1(1,:)    .*  x2(1,:) ;...
-    x1(1,:)    .*  x2(2,:) ;...
-    x1(1,:)                ;...
-    x1(2,:)    .*  x2(1,:) ;...
-    x1(2,:)    .*  x2(2,:) ;...
-    x1(2,:)                ;...
-    x2(1,:) ;...
-    x2(2,:) ;...
+     x1(1,:)    .*  x2(2,:) ;...
+     x1(1,:)                ;...
+     x1(2,:)    .*  x2(1,:) ;...
+     x1(2,:)    .*  x2(2,:) ;...
+     x1(2,:)                ;...
+                    x2(1,:) ;...
+                    x2(2,:) ;...
     ones(1,size(x1,2))     ]';
 end

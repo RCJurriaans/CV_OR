@@ -1,13 +1,17 @@
-function M = chainImages(Files)
+function [M, F] = chainImages(Files)
+% Find visibility matrix M
+% run as:   M = chainImages(Files);
+% with:     Files=dir(strcat('TeddyBearPNG/*.png'));
 
+% Run on all 16 sideviews
 frames = 16;
+
+% Initialize M
 M = zeros(frames,0);
 
+% First file to process
 im2 = Files(1);
 [feat2,desc2,~,~] = loadFeatures(strcat('TeddyBearPNG/', im2.name, '.haraff.sift'));
-
-matchcount = 0;
-prevmatches = [];
 
 for i=1:frames
     % Replace old image
@@ -31,31 +35,28 @@ for i=1:frames
     f1 = feat1(1:2,matches(1,:));
     f2 = feat2(1:2,matches(2,:));
     
+    % Find inliers according to F
     [~, inliers] = estimateFundamental(f1,f2);
-    
     newmatches = matches(:,inliers);
     
-    % Compare matches to old matches
-    
+    % First batch can not be compared to previous matches
     if i==1
-        M(i,1:size(newmatches(1,:)
-        
+        M(i,1:size(inliers,2)) = newmatches(1,:)';
+        F(i,:) = feat1(1, newmatches(1,:));
+        F(i,:) = feat1(1, newmatches(1,:));
     else
-    
-    [ints, IA, IB] = intersect(newmatches(1,:)', prevmatches);
-    if ~isempty(ints)
-
-
-    M(i,IB) = ints;
- 
-    diff = setdiff(newmatches(1,:)', prevmatches);    
-    M = [M zeros(frames, size(diff,1))];
-    
-    M(i,(1+size(M,2))-size(diff,1):size(M,2)) = diff';
-    size(M)
-    
-    % New old matches    
-    prevmatches = matches(2,:)';
-    
+        prevmatches = M(i-1,:);
+        
+        % Find already found points
+        [ints, ~, IB] = intersect(newmatches(1,:)', prevmatches);
+        M(i,IB) = ints;
+        
+        % Find new points
+        diff = setdiff(newmatches(1,:)', prevmatches);
+        start = size(M,2)+1;
+        M = [M zeros(frames, size(diff,2))];
+        M(i, start:end) = diff';
+    end
+end
 
 end

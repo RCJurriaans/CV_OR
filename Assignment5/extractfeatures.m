@@ -1,3 +1,6 @@
+% Extract the features using extract_features.ln
+% Only works on linux
+
 Files=dir(strcat('TeddyBearPNG/*.png'));
 
 for i=1:length(Files)

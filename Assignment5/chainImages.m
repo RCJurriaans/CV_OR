@@ -1,4 +1,4 @@
-function M = chainImages(Files)
+function [M, F] = chainImages(Files)
 % Find visibility matrix M
 % run as:   M = chainImages(Files);
 % with:     Files=dir(strcat('TeddyBearPNG/*.png'));
@@ -19,6 +19,9 @@ for i=1:frames
     feat1 = feat2;
     desc1 = desc2;
     
+    % Save the features
+    F{i}   = feat1(1:2, :); %#ok<AGROW>
+
     % Load new image
     im2 = Files(mod(i,frames)+1);
     
@@ -42,6 +45,7 @@ for i=1:frames
     % First batch can not be compared to previous matches
     if i==1
         M(i,1:size(inliers,2)) = newmatches(1,:)';
+        
     else
         prevmatches = M(i-1,:);
         

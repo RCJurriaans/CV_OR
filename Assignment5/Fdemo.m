@@ -11,9 +11,10 @@ img2 = im2double(rgb2gray(imread('TeddyBearPNG/obj02_002.png')));
 [feat1,desc1,~,~] = loadFeatures('TeddyBearPNG/obj02_001.png.haraff.sift');
 [feat2,desc2,~,~] = loadFeatures('TeddyBearPNG/obj02_002.png.haraff.sift');
 
+% Box images
 % img1 = im2double(rgb2gray(imread('BoxPNG/left.png')));
 % img2 = im2double(rgb2gray(imread('BoxPNG/right.png')));
-% 
+%
 % % Read Features and Descriptors
 % [feat1,desc1,~,~] = loadFeatures('BoxPNG/left.png.haraff.sift');
 % [feat2,desc2,~,~] = loadFeatures('BoxPNG/right.png.haraff.sift');
@@ -23,6 +24,7 @@ disp('Matching Descriptors');
 [matches, ~] = vl_ubcmatch(desc1,desc2);
 disp(strcat( int2str(size(matches,2)), ' matches found'));
 
+% Take subselection of matches
 %perm = randperm(size(matches,2));
 %matches = matches(:,perm(1:20));
 
@@ -34,9 +36,10 @@ f2 = feat2(1:2,matches(2,:));
 disp('Estimating F');
 [F inliers] = estimateFundamental(f1,f2);
 
-%disp(strcat(int2str(size(inliers,2)), ' inliers found'));
+% Display Fundamental matrix
+disp('F =');
+disp(F);
 
-F
 % Show the images with matched points
 figure;
 imshow([img1,img2],'InitialMagnification', 'fit');
@@ -50,7 +53,7 @@ outliers = setdiff(1:size(matches,2),inliers);
 line([f1(1,outliers);size(img1,2)+f2(1,outliers)], [f1(2,outliers);f2(2,outliers)], 'Color', 'r');
 
 figure;
-% Visualize epipoles
+% Visualize epipolar lines
 subplot(1,2,1);
 imshow(img1,'InitialMagnification', 'fit');
 title('Epipolar line for the yellow point of right image')
@@ -60,8 +63,7 @@ imshow(img2,'InitialMagnification', 'fit');
 title('Epipolar line for the yellow point of left image')
 hold on;
 
-%midpointL = [floor(size(img1,2)/2), floor(size(img1,1)/2),1]';
-%midpointR = [floor(size(img2,2)/2), floor(size(img2,1)/2),1]';
+% Take random point and visualize
 a=1;
 b=size(matches,2);
 rL = floor(a + (b-a).*rand(1,1));
@@ -82,6 +84,8 @@ epiL = F'*pointR;
 subplot(1,2,1);
 plot(-(epiL(1)*(1:size(img1,2))+epiL(3))./epiL(2), 'r')
 
+% Take 20 point pairs and visualize the epipolar lines
+% Note, these point pairs need not be inliers of the model
 figure;
 subplot(1,2,1);
 imshow(img1);
@@ -107,17 +111,17 @@ e12 = null(F);
 e21 = null(F');
 e12 = e12./e12(3);
 e21 = e21./e21(3);
-    subplot(1,2,1);
-    scatter(e12(1), e12(2));
-    subplot(1,2,2);
-    scatter(e21(1), e21(2));
-    
+subplot(1,2,1);
+scatter(e12(1), e12(2));
+subplot(1,2,2);
+scatter(e21(1), e21(2));
+
 for i=1:pointpairs
     pointR = pointsR(:,i);
-    epiL = F'*pointR; 
+    epiL = F'*pointR;
     
     pointL = pointsL(:,i);
-    epiR = F*pointL; 
+    epiR = F*pointL;
     
     subplot(1,2,1);
     plot(-(epiL(1)*(1:size(img1,2))+epiL(3))./epiL(2), 'r')
