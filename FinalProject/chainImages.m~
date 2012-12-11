@@ -49,23 +49,19 @@ for i=1:frames
         M(i,1:size(inliers,2)) = newmatches(1,:)';
         M(nexti,1:size(inliers,2)) = newmatches(2,:)';
     else
-        prevmatches = M(i,:);
+        prevmatches = M(i-1,:);
         
         % Find already found points
         [ints, IA, IB] = intersect(newmatches(1,:)', prevmatches);
-        % M(i,IB)     = ints;
+        M(i,IB)     = ints;
         M(nexti,IB) = newmatches(2,IA);
         
         % Find new points
-        [diff, IA] = setdiff(newmatches(1,:)', prevmatches);
+        diff = setdiff(newmatches(1,:)', prevmatches);
         start = size(M,2)+1;
         M = [M zeros(frames, size(diff,2))];
         M(i, start:end) = diff';
-        M(nexti, start:end) = newmatches(1,IA);
     end
-    
-    disp(strcat(int2str(size(M,2)), ' points in pointview matrix so far'));
-
 end
 
 end

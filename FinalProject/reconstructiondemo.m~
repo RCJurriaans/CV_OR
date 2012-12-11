@@ -1,0 +1,51 @@
+function [] = reconstructiondemo()
+directory = 'modelCastlePNG/';
+Files=dir(strcat(directory, '*.png'));
+
+n = length(Files);
+figure;
+[feat2,desc2,~,~] = loadFeatures(strcat(directory, Files(1).name, '.haraff.sift'));
+
+VP = 
+
+for i=1:n
+    feat1 = feat2;
+    desc1 = desc2;
+    
+    [feat2,desc2,~,~] = loadFeatures(strcat(directory, Files(mod(i,n)+1).name, '.haraff.sift'));
+    
+    % Match Descriptors
+    disp('Matching Descriptors');
+    [matches, ~] = vl_ubcmatch(desc1,desc2);
+    disp(strcat( int2str(size(matches,2)), ' matches found'));
+    
+    % Get X,Y coordinates of features
+    f1 = feat1(1:2,matches(1,:));
+    f2 = feat2(1:2,matches(2,:));
+    
+    % Estimate Fundamental Matrix, singularize and retransform using T and T'
+    disp('Find inliers using eight-point algorithm');
+    [~, inliers] = estimateFundamental(f1,f2);
+
+    
+    
+    
+end
+
+
+% Find features and sift descriptors
+
+% Find inliers according to Normalized 8-Point Algorithm
+
+% Construct Viewpoint matrix
+
+% Affine Structure from Motion
+
+% Bundle Adjustment
+
+% Eliminate Affine Ambiguity
+
+% Show surface with colors from images
+
+
+end

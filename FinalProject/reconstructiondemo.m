@@ -1,24 +1,17 @@
 function [] = reconstructiondemo()
+directory = 'modelCastlePNG/';
+Files=dir(strcat(directory, '*.png'));
 
-% Find features and sift descriptors
-
-% Find inliers according to Normalized 8-Point Algorithm
-
-
-% Construct Viewpoint matrix
-
+n = length(Files);
+[VP, F] = chainImages(Files);
 
 % Affine Structure from Motion
 
-
 % Bundle Adjustment
-
 
 % Eliminate Affine Ambiguity
 
-
 % Show surface with colors from images
-
 
 
 end

@@ -11,7 +11,7 @@ bestinliers = [];
 % RANSAC parameters
 iterations = 10;
 miniter = iterations;
-threshold  = 500;
+threshold  = 100;
 P=8;
 
 i=0;

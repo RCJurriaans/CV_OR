@@ -4,20 +4,12 @@ function F = Fdemo()
 tic;
 % Read images
 disp('Reading images');
-img1 = im2double(rgb2gray(imread('model_castle/8ADT8586.png')));
-img2 = im2double(rgb2gray(imread('model_castle/8ADT8587.png')));
+img1 = im2double(rgb2gray(imread('modelCastlePNG/8ADT8586.png')));
+img2 = im2double(rgb2gray(imread('modelCastlePNG/8ADT8587.png')));
 
 % Read Features and Descriptors
-[feat1,desc1,~,~] = loadFeatures('model_castle/8ADT8586.png.haraff.sift');
-[feat2,desc2,~,~] = loadFeatures('model_castle/8ADT8587.png.haraff.sift');
-
-% Box images
-% img1 = im2double(rgb2gray(imread('BoxPNG/left.png')));
-% img2 = im2double(rgb2gray(imread('BoxPNG/right.png')));
-%
-% % Read Features and Descriptors
-% [feat1,desc1,~,~] = loadFeatures('BoxPNG/left.png.haraff.sift');
-% [feat2,desc2,~,~] = loadFeatures('BoxPNG/right.png.haraff.sift');
+[feat1,desc1,~,~] = loadFeatures('modelCastlePNG/8ADT8586.png.haraff.sift');
+[feat2,desc2,~,~] = loadFeatures('modelCastlePNG/8ADT8587.png.haraff.sift');
 
 % Match Descriptors
 disp('Matching Descriptors');
