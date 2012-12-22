@@ -15,7 +15,7 @@ threshold  = 100;
 P=8;
 
 i=0;
-h = waitbar(0,'Initializing waitbar...');
+%h = waitbar(0,'Initializing waitbar...');
 while i<iterations
     
     % Take initial seed
@@ -62,12 +62,12 @@ while i<iterations
         
     end
     i = i+1;
-    waitbar(i/iterations,h,sprintf('at %d of %d iterations',[i,iterations]))
+   % waitbar(i/iterations,h,sprintf('at %d of %d iterations',[i,iterations]))
     
 end
 
 disp(strcat(int2str(iterations), ' iterations used to estimate F'));
-close(h);
+%close(h);
 pause(0.001);
 disp(strcat(int2str(size(bestinliers,2)), ' inliers found'));
 end

@@ -1,4 +1,4 @@
-function [M, F] = chainImages(Files)
+function [M, F] = chainImages(Files, directory)
 % Find visibility matrix M
 % run as:   M = chainImages(Files);
 % with:     Files=dir(strcat('TeddyBearPNG/*.png'));
@@ -7,30 +7,25 @@ function [M, F] = chainImages(Files)
 frames = length(Files);
 
 % Initialize M
-M = zeros(frames,0);
+M = zeros(frames+1,0);
 
-% First file to process
-im2 = Files(1);
-[feat2,desc2,~,~] = loadFeatures(strcat('modelCastlePNG/', im2.name, '.haraff.sift'));
+% Load all features and descriptors
+for i=1:frames
+    [feat1,desc1,~,~] = loadFeatures(strcat(directory, Files(i).name, '.haraff.sift'));
+    F{i} = feat1(1:2, :);
+    D{i} = desc1;
+end
 
 for i=1:frames
     nexti = mod(i,frames)+1;
     
-    % Replace old image
-    im1 = im2;
-    feat1 = feat2;
-    desc1 = desc2;
+    feat1 = F{i};
+    desc1 = D{i};
     
-    % Save the features
-    F{i}   = feat1(1:2, :); %#ok<AGROW>
-
-    % Load new image
-    im2 = Files(nexti);
+    feat2 = F{nexti};
+    desc2 = D{nexti};
     
-    disp(strcat('Working on: ', im1.name, ', ', im2.name));
-    
-    % Read Features and Descriptors for new image
-    [feat2,desc2,~,~] = loadFeatures(strcat('modelCastlePNG/', im2.name, '.haraff.sift'));
+    disp(strcat('Working on: ', Files(i).name, ', ', Files(nexti).name));
     
     disp('Matching Descriptors');
     [matches, ~] = vl_ubcmatch(desc1,desc2);
@@ -54,14 +49,14 @@ for i=1:frames
         % Find already found points
         [ints, IA, IB] = intersect(newmatches(1,:)', prevmatches);
         % M(i,IB)     = ints;
-        M(nexti,IB) = newmatches(2,IA);
+        M(i+1,IB) = newmatches(2,IA);
         
         % Find new points
         [diff, IA] = setdiff(newmatches(1,:)', prevmatches);
         start = size(M,2)+1;
-        M = [M zeros(frames, size(diff,2))];
+        M = [M zeros(frames+1, size(diff,2))]; %#ok<AGROW>
         M(i, start:end) = diff';
-        M(nexti, start:end) = newmatches(1,IA);
+        M(i+1, start:end) = newmatches(2,IA);
     end
     
     disp(strcat(int2str(size(M,2)), ' points in pointview matrix so far'));
