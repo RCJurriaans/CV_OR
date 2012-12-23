@@ -5,7 +5,7 @@ Files=dir(strcat('modelHouse/*.png'));
 
 for i=1:length(Files)
    file = Files(i);
-   command = './extract_features.ln -haraff -i ';
+   command = './extract_features_64bit.ln -hesaff -i ';
    command = [command strcat('modelHouse/', file.name)];
    command = strcat(command, ' -sift');
    disp(command);
