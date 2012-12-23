@@ -22,7 +22,7 @@ for numFrames=2:4 % How many consequtive frames to consider
         
         % Select the frames
         VPframes = VP(iBegin:iEnd, :);
-        size(VPframes)
+        %size(VPframes);
         
         % Select columns that do not have any zeros, for selected frames
         %colInds = sum(VPframes ~= 0, 1) == size(VPframes, 1)

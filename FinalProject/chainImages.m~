@@ -14,15 +14,15 @@ for i=1:frames
     [feat1,desc1,~,~] = loadFeatures(strcat(directory, Files(i).name, '.haraff.sift'));
     [feat2,desc2,~,~] = loadFeatures(strcat(directory, Files(i).name, '.hesaff.sift'));
     
-    %[~, I, J] = unique(round([feat1';feat2']), 'rows');
-%     
-%     feat = [feat1, feat2];
-%     feat1 = feat(:,I);
-%     desc = [desc1, desc2];
-%     desc1 = desc(:,I);
-
-    feat1 = [feat1 feat2];
-    desc1 = [desc1 desc2];
+    [~, I, J] = unique([feat1(1:2,:)';feat2(1:2,:)'], 'rows');
+    
+    feat = [feat1, feat2];
+    size(feat)
+    max(I)
+    feat1 = feat(:,I);
+    desc = [desc1, desc2];
+    size(desc)
+    desc1 = desc(I',:);
     
     F{i} = feat1(1:2, :);
     D{i} = desc1;
