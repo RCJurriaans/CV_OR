@@ -7,7 +7,7 @@ function [M, F] = chainImages(Files, directory)
 frames = length(Files);
 
 % Initialize M
-M = zeros(frames+1,0);
+M = zeros(frames,0);
 
 % Load all features and descriptors
 for i=1:frames
@@ -15,6 +15,7 @@ for i=1:frames
     F{i} = feat1(1:2, :);
     D{i} = desc1;
 end
+
 
 for i=1:frames
     nexti = mod(i,frames)+1;
@@ -43,7 +44,7 @@ for i=1:frames
     if i==1
         M(i,1:size(inliers,2)) = newmatches(1,:)';
         M(nexti,1:size(inliers,2)) = newmatches(2,:)';
-    else
+    elseif i<frames
         prevmatches = M(i,:);
         
         % Find already found points
@@ -54,9 +55,29 @@ for i=1:frames
         % Find new points
         [diff, IA] = setdiff(newmatches(1,:)', prevmatches);
         start = size(M,2)+1;
-        M = [M zeros(frames+1, size(diff,2))]; %#ok<AGROW>
+        M = [M zeros(frames, size(diff,2))]; %#ok<AGROW>
         M(i, start:end) = diff';
         M(i+1, start:end) = newmatches(2,IA);
+    else
+        matches1 = M(1,:);
+        matchesn = M(frames,:);
+        
+        % Find points in last frame that are also in frame 1
+        [~, IA1, IB1] = intersect(newmatches(1,:)', matchesn);
+        [~, IA2, IB2] = intersect(newmatches(2,:)', matches1);
+        [~,IA,IB] = intersect(IA1,IA2);
+
+        % Select the positions in frame n that are also in frame 1
+        IB1 = IB1(:,IA);
+        IB2 = IB2(:,IB);
+        
+        % Move non-zero entries in columns IA to positions IB
+        assert(sum(sum(((M(:,IB2)~=0).*(M(:,IB1)~=0))))==0,...
+            'Overlap in columns resulting in wrong viewpoint matrix');
+        M(:,IB2) = M(:,IB1) + M(:,IB2);
+        M(:, IB1) = [];
+
+        
     end
     
     disp(strcat(int2str(size(M,2)), ' points in pointview matrix so far'));
