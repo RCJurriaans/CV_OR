@@ -16,7 +16,7 @@ else
 end
 
 % Affine Structure from Motion
-for numFrames=2:4 % How many consequtive frames to consider
+for numFrames=3:4 % How many consequtive frames to consider
     for iBegin = 1:n-(numFrames - 1) % Loop over blocks
         iEnd = iBegin + numFrames-1;
         

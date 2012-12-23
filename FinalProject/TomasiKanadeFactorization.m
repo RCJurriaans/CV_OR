@@ -90,6 +90,6 @@ function [M, S] = TomasiKanadeFactorization( D )
     Y2 = S(2,:)';
     Z2 = S(3,:)';
     scatter3(X2, Y2, Z2, 20, [1 0 0], 'filled');
-    %axis( [-200 200 -200 200 -200 200] )
+    axis( [-500 500 -500 500 -500 500] )
 end
 
