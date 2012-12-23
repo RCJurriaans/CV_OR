@@ -9,9 +9,9 @@ bestcount = 0;
 bestinliers = [];
 
 % RANSAC parameters
-iterations = 10;
+iterations = 50;
 miniter = iterations;
-threshold  = 10;
+threshold  = 0.2;
 P=8;
 
 i=0;

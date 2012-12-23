@@ -5,45 +5,55 @@ Files=dir(strcat(directory, '*.png'));
 
 n = length(Files);
 
+% Calculate or load the view-point matrix VP, and the feature matrix F
 if(exist(strcat(directory, 'Viewpointmatrix.mat')) && exist(strcat(directory, 'FeatureMatrix.mat')))
     load(strcat(directory, 'Viewpointmatrix.mat'));
     load(strcat(directory, 'FeatureMatrix.mat'));
 else
-
-[VP, F] = chainImages(Files, directory);
-save(strcat(directory, 'Viewpointmatrix.mat'), 'VP');
-save(strcat(directory, 'FeatureMatrix.mat'),   'F');
+    [VP, F] = chainImages(Files, directory);
+    save(strcat(directory, 'Viewpointmatrix.mat'), 'VP');
+    save(strcat(directory, 'FeatureMatrix.mat'),   'F');
 end
 
 % Affine Structure from Motion
-% 3 Blocks
-
-for blockHeight=2:4 % How many consqutive frames to consider
-    for iBegin = 1:n-(blockHeight - 1)
-        iEnd = iBegin + blockHeight-1;
-    
-        VProws = VP(iBegin:iEnd, :);
-        colInds = find(sum(VProws, 1));
+for numFrames=2:4 % How many consequtive frames to consider
+    for iBegin = 1:n-(numFrames - 1) % Loop over blocks
+        iEnd = iBegin + numFrames-1;
         
-        VPblock = VProws(:, colInds);
+        % Select the frames
+        VPframes = VP(iBegin:iEnd, :);
+        size(VPframes)
         
-        if sum(sum(VPblock == 0)):
-            % VPblock has zeros
-        else
-            % Create point-view matrix with coordinates,
-            % instead of indices
-            
-            features = [F{iBegin:iEnd}] % The x,y-coords for current views
-            PVsfm = 
-            
-            % Factorize is 
-            
+        % Select columns that do not have any zeros, for selected frames
+        %colInds = sum(VPframes ~= 0, 1) == size(VPframes, 1)
+        colInds = sum(VPframes == 0, 1) == 0;
+        colInds = find(colInds);
+        numPoints = size(colInds, 2);
+        
+       % % If no points are visible in all views of this block
+        if numPoints < 8
+            continue
         end
         
+        % Index the block
+        VPblock = VPframes(:, colInds);
         
+        % Create point-view matrix with coordinates,
+        % instead of indices
+        D = zeros(2 * numFrames, numPoints);
+        for f = 1:numFrames
+           for p = 1:numPoints
+              D(2 * f - 1, p) = F{iBegin + f - 1}(1, VPblock(f, p));
+              D(2 * f, p) = F{iBegin + f - 1}(2, VPblock(f, p));
+           end
+        end
         
+        % Factorize
+        [M,S] = TomasiKanadeFactorization(D);
         
     end
+end
+    
 % 
 % for i1=1:n
 %    i2 = mod(i1,  n)+1; 
