@@ -1,4 +1,4 @@
-function [M, S, p] = TomasiKanadeFactorization( D)%, basis )
+function [M, S, p] = TomasiKanadeFactorization( D, basis )
 
     % Decompose measurement matrix
     [U,W,V] = svd(D);
@@ -88,27 +88,29 @@ function [M, S, p] = TomasiKanadeFactorization( D)%, basis )
     M = M * C;
     S = inv(C) * S;
     
-    %a1 = M(1,:) / (M(1,:) * M(1,:)');
-    %a2 = M(2,:) / (M(2,:) * M(2,:)');
-    %B = [a1' a2' [0 0 1]'];
-    %B = eye(3);
+    a1 = M(1,:) / (M(1,:) * M(1,:)');
+    a2 = M(2,:) / (M(2,:) * M(2,:)');
+    B = [a1' a2' [0 0 1]'];
     
-    %basis(1,:) = basis(1,:);% / (basis(1,:) * basis(1,:)');
-    %basis(2,:) = basis(2,:);% / (basis(2,:) * basis(2,:)');
+    basis(1,:) = basis(1,:) / (basis(1,:) * basis(1,:)');
+    basis(2,:) = basis(2,:) / (basis(2,:) * basis(2,:)');
     
-    %B = B * ([basis; [0 0 1]])';
+    B = B * inv([basis' [0 0 1]']);
 
-    %M = M * B;
-    %S = inv(B) * S;
+    M = M * B;
+    S = inv(B) * S;
+    
+    
+    
     
     % Plot again, now with Euclidean structure
-    %figure
-    %X2 = S(1,:)';
-    %Y2 = S(2,:)';
-    %Z2 = S(3,:)';
-    %scatter3(X2, Y2, Z2, 20, [1 0 0], 'filled');
-    %axis( [-500 500 -500 500 -500 500] )
-    %daspect([1 1 1])
-    %rotate3d
+    figure
+    X2 = S(1,:)';
+    Y2 = S(2,:)';
+    Z2 = S(3,:)';
+    scatter3(X2, Y2, Z2, 20, [1 0 0], 'filled');
+    axis( [-500 500 -500 500 -500 500] )
+    daspect([1 1 1])
+    rotate3d
 end
 
