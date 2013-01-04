@@ -10,6 +10,7 @@ frames = length(Files);
 M = zeros(frames,0);
 
 % Load all features and descriptors
+tic;
 for i=1:frames
     [feat1,desc1,~,~] = loadFeatures(strcat(directory, Files(i).name, '.haraff.sift'));
     [feat2,desc2,~,~] = loadFeatures(strcat(directory, Files(i).name, '.hesaff.sift'));
@@ -30,6 +31,8 @@ end
 
 
 for i=1:frames
+    toc;
+    tic;
     nexti = mod(i,frames)+1;
     
     feat1 = F{i};
@@ -40,9 +43,9 @@ for i=1:frames
     
     disp(strcat('Working on: ', Files(i).name, ', ', Files(nexti).name));
     
-    disp('Matching Descriptors');
+    disp('Matching Descriptors');drawnow('update')
     [matches, ~] = vl_ubcmatch(desc1,desc2);
-    disp(strcat( int2str(size(matches,2)), ' matches found'));
+    disp(strcat( int2str(size(matches,2)), ' matches found'));drawnow('update')
     
     % Get X,Y coordinates of features
     f1 = feat1(1:2,matches(1,:));
@@ -50,6 +53,7 @@ for i=1:frames
     
     % Find inliers according to F
     [~, inliers] = estimateFundamental(f1,f2);
+    drawnow('update')
     newmatches = matches(:,inliers);
     
     % First batch can not be compared to previous matches
@@ -95,5 +99,5 @@ for i=1:frames
     disp(strcat(int2str(size(M,2)), ' points in pointview matrix so far'));
 
 end
-
+toc;
 end
