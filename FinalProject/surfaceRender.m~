@@ -12,17 +12,22 @@ viewdir = cross(M(1,:), M(2,:));
 viewdir = viewdir/sum(viewdir);
 viewdir = viewdir'.*300;
 
-
 % Remove points further than mean
 mx = mean(X);
 my = mean(Y);
 mz = mean(Z);
 m = [mx;my;mz];
 
-dis = (viewdir-[mx,my,mz]).^2;
-x0 = [X';Y';Z']l
-x
-distancestoline = sum(cross((-viewdir), ([X';Y';Z']-m)))/sum(viewdir-m);
+x0 = [X';Y';Z'];
+x1 = repmat(viewdir, 1, size(x0,2));
+x2 = repmat(m, 1, size(x0,2));
+
+% Centre point cloud around zero and use dot product to remove everything
+% behind the mean
+indices = find(dot(x0-x2,x1)<0);
+X(indices) = [];
+Y(indices) = [];
+Z(indices) = [];
 
 % Grid to create surface on
 ti = -400:400;
@@ -46,6 +51,7 @@ yi2(isnan(xi2))=1;
 xi2(isnan(yi2))=1;
 yi2(isnan(yi2))=1;
 
+figure;
 if(size(img,3)==3)
     imgr = img(:,:,1);
     imgg = img(:,:,2);
@@ -63,7 +69,7 @@ else
 end
 
 % Display surface
-figure;
+
 surf(qx, qy, qz, qc);
 
 % Render parameters

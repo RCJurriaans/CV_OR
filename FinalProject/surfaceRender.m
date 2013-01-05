@@ -12,27 +12,22 @@ viewdir = cross(M(1,:), M(2,:));
 viewdir = viewdir/sum(viewdir);
 viewdir = viewdir'.*300;
 
-
 % Remove points further than mean
 mx = mean(X);
 my = mean(Y);
 mz = mean(Z);
 m = [mx;my;mz];
 
-% dis = sum((viewdir-m).^2);
 x0 = [X';Y';Z'];
 x1 = repmat(viewdir, 1, size(x0,2));
 x2 = repmat(m, 1, size(x0,2));
 
-% Centre point cloud around zero
-x0 = x0-x2;
-x0x1 = dot(x0,x1);
-indices = find(x0x1<0);
+% Centre point cloud around zero and use dot product to remove everything
+% behind the mean
+indices = find(dot(x0-x2,x1)<0);
 X(indices) = [];
 Y(indices) = [];
 Z(indices) = [];
-
-
 
 % Grid to create surface on
 ti = -400:400;
@@ -65,8 +60,8 @@ if(size(img,3)==3)
     Cg = imgg(sub2ind(size(imgg), round(yi2), round(xi2)));
     Cb = imgb(sub2ind(size(imgb), round(yi2), round(xi2)));
     qc(:,:,1) = reshape(Cr,size(qx));
-    qc(:,:,2) = reshape(Cr,size(qy));
-    qc(:,:,3) = reshape(Cr,size(qz));
+    qc(:,:,2) = reshape(Cg,size(qy));
+    qc(:,:,3) = reshape(Cb,size(qz));
 else
     C = img(sub2ind(size(img), round(yi2), round(xi2)));
     qc = reshape(C,size(qx));
@@ -74,9 +69,8 @@ else
 end
 
 % Display surface
-
 surf(qx, qy, qz, qc);
-
+ 
 % Render parameters
 axis( [-500 500 -500 500 -500 500] );
 daspect([1 1 1]);
