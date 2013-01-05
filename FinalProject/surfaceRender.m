@@ -1,24 +1,51 @@
 function [] = surfaceRender(pointcloud, M, Mean, img)
-%img = rgb2gray(img);
 % Point cloud
 pointcloud = unique(pointcloud', 'rows')';
 X = pointcloud(1,:)';
 Y = pointcloud(2,:)';
 Z = pointcloud(3,:)';
 
+% Projection matrix and camera
+M = M(1:2,:);
+
+viewdir = cross(M(1,:), M(2,:));
+viewdir = viewdir/sum(viewdir);
+viewdir = viewdir'.*300;
+
+
+% Remove points further than mean
+mx = mean(X);
+my = mean(Y);
+mz = mean(Z);
+m = [mx;my;mz];
+
+% dis = sum((viewdir-m).^2);
+x0 = [X';Y';Z'];
+x1 = repmat(viewdir, 1, size(x0,2));
+x2 = repmat(m, 1, size(x0,2));
+
+% Centre point cloud around zero
+x0 = x0-x2;
+x0x1 = dot(x0,x1);
+indices = find(x0x1<0);
+X(indices) = [];
+Y(indices) = [];
+Z(indices) = [];
+
+
+
+% Grid to create surface on
 ti = -400:400;
 [qx,qy] = meshgrid(ti,ti);
 
 % Surface generation
-figure;
 F = TriScatteredInterp(X,Y,Z);
 qz = F(qx,qy);
 
+% Color selection from view
 qxrow = reshape(qx, 1, prod(size((qx))));
 qyrow = reshape(qy, 1, prod(size((qy))));
 qzrow = reshape(qz, 1, prod(size((qz))));
-
-M = M(1:2,:);
 
 xy2 = M * [qxrow; qyrow; qzrow];
 xi2 = xy2(1,:)+Mean(1);
@@ -29,6 +56,7 @@ yi2(isnan(xi2))=1;
 xi2(isnan(yi2))=1;
 yi2(isnan(yi2))=1;
 
+figure;
 if(size(img,3)==3)
     imgr = img(:,:,1);
     imgg = img(:,:,2);
@@ -45,9 +73,9 @@ else
     colormap gray
 end
 
-surf(qx, qy, qz, qc);
+% Display surface
 
-camlight right
+surf(qx, qy, qz, qc);
 
 % Render parameters
 axis( [-500 500 -500 500 -500 500] );
@@ -55,6 +83,10 @@ daspect([1 1 1]);
 rotate3d;
 
 shading flat;
+campos(viewdir);
+
+
+
 
 
 end
