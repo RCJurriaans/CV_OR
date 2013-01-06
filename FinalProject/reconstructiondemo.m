@@ -18,7 +18,6 @@ end
 
 % Affine Structure from Motion
 Clouds = {};
-%cams = zeros(size(VP,1) * 2, 3);
 i = 1;
 for numFrames=3:4 % How many consequtive frames to consider
     for iBegin = 1:n-(numFrames - 1) % Loop over blocks
@@ -26,10 +25,8 @@ for numFrames=3:4 % How many consequtive frames to consider
         
         % Select the frames
         VPframes = VP(iBegin:iEnd, :);
-        %size(VPframes);
         
         % Select columns that do not have any zeros, for selected frames
-        %colInds = sum(VPframes ~= 0, 1) == size(VPframes, 1)
         colInds = sum(VPframes == 0, 1) == 0;
         colInds = find(colInds);
         numPoints = size(colInds, 2);
@@ -54,18 +51,8 @@ for numFrames=3:4 % How many consequtive frames to consider
             end
         end
         
-        %numPts = size(D,2);
         DC = D - repmat( sum(D,2) / numPoints, 1, numPoints);
-        
-        % Factorize
-        %iBegin
-        %if cams(2 * iBegin - 1, :) == [0 0 0]
-        %   cams(2 * iBegin - 1, :) = [1 0 0];
-        %   cams(2 * iBegin, :) = [0 1 0];
-        %end
-        
-        [M, S, p] = TomasiKanadeFactorization(DC)%, ...
-                        %cams(2 * iBegin-1: 2 * iBegin, :));
+        [M, S, p] = TomasiKanadeFactorization(DC);
                         
         if(i==1)
            M1 = M; 
@@ -74,27 +61,6 @@ for numFrames=3:4 % How many consequtive frames to consider
                         
         if ~p
             Clouds(i, :) = {M,S,colInds};
-            
-            
-            %cams(2 * iBegin + 1: 2*iEnd, :) = M(3:end,:)
-            
-        %    for c = iBegin:iEnd
-        %       
-        %        if cams(2*c-1,:) == [0 0 0]
-        %            
-        %           j = c - iBegin + 1;
-        %           cams(2*c-1,:) = M(2*j-1, :)
-        %           cams(2*c  ,:) = M(2*j,:)
-        %           
-        %        end
-        %    
-        %    end
-            
-            
-            %if cams(2 * iBegin - 1, :) == [0 0 0]
-            %    cams( 2 * iBegin - 1, :) = M(1, :);
-            %    cams( 2 * iBegin, :) = M(2, :);
-            %end
             
             i = i + 1;
         end

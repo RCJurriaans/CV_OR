@@ -6,7 +6,7 @@
 
 %opening
 \title{3D Reconstruction using Affine-Invariant Keypoints}
-\author{}
+\author{Taco Cohen, Robrecht Jurriaans}
 
 \begin{document}
 
@@ -16,12 +16,13 @@
 In this report we describe our work on 3D reconstruction using affine-invariant keypoints.
 The system consists of a number of stages, each of which has been described in detail in previous reports.
 Here we will limit ourselves to a high-level conceptual overview of the pipeline, a walkthrough of our code and a detailed description of newly implemented algorithms and results.
+To see the results, run \verb+reconstructiondemo.m+ in MATLAB.
 
 \end{abstract}
 
 \section{Feature Detection \& Description}
 Keypoints are detected in all images using both Hessian-affine and Harris-affine region detectors.
-These detectors are very similar, the difference being that Harris-affine uses the second moment matrix (as described in our previous report), while Hessian-affine uses the Hessian. CITE
+These detectors are very similar, the difference being that Harris-affine uses the second moment matrix (as described in our previous report), while Hessian-affine uses the Hessian.
 For every point we precompute a SIFT descriptor, which is saved to disk.
 These descriptors can then be matched between views, but a naive matching procedure will result in many false matches.
 In the following section, we discuss how to remedy this using a RANSAC-based robust estimation of the fundamental matrix, which enables us to discard inconsistent matches.
@@ -76,6 +77,7 @@ We found that an iterative optimization of the reference shape (`generalized pro
 \label{sec:vis}
 The result of the core algorithm is a 3D point cloud, as shown in figure \ref{fig:clouds}.
 To improve on this visualization, we created a surface rendering using MATLAB's \verb+surf+ command, as suggested in the assignment.
+See \verb+surfaceRender.m+.
 This works well for most viewing angles for the house model, but for the teddy bear model, this approach is problematic.
 Mathematically, points do not have an area and so occlusion cannot be established directly from point clouds.
 Since \verb+surf+ uses all points in the cloud, the rendered surface will be highly affected by points that would have been occluded in the real scene.
@@ -86,14 +88,14 @@ Since \verb+surf+ uses all points in the cloud, the rendered surface will be hig
 \centering
 \includegraphics[width=\textwidth]{cloud_house1}
 \caption{House model}
-\label{fig:figure1}
+%\label{fig:figure1}
 \end{minipage}
 \hspace{0.5cm}
 \begin{minipage}[b]{0.45\linewidth}
 \centering
 \includegraphics[width=\textwidth]{cloud_teddy1}
 \caption{Teddy bear model}
-\label{fig:figure2}
+%\label{fig:figure2}
 \end{minipage}
 \label{fig:clouds}
 \end{figure}
@@ -103,22 +105,24 @@ Points behind the plane, as seen from the camera are discarded for visualization
 
 As a little bonus, we mapped the texture on the object by projecting every point on the surface to the camera plane as recovered in the structure-motion factorization, and using the projected coordinates in a texture lookup.
 This is simplest for the first frame, which is not affected by the procrustes analysis, but other viewing directions could easily be textured by first transforming from world coordinates to camera coordinates using the inverse of the procrustes-transformation.
-Textured objects are shown in figure REF.
+Textured objects are shown in figure \ref{fig:textured}.
 
 \begin{figure}[ht]
+\caption{3D surface visualization with texturing}
 \begin{minipage}[b]{0.45\linewidth}
 \centering
 \includegraphics[width=\textwidth]{textured_house1}
-\caption{default}
-\label{fig:figure1}
+\caption{House model}
+%\label{fig:figure1}
 \end{minipage}
 \hspace{0.5cm}
 \begin{minipage}[b]{0.45\linewidth}
 \centering
 \includegraphics[width=\textwidth]{textured_teddy1}
-\caption{default}
-\label{fig:figure2}
+\caption{Teddy bear model}
+%\label{fig:figure2}
 \end{minipage}
+\label{fig:textured}
 \end{figure}
 
 \end{document}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2012.12.11)  6 JAN 2013 12:12
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2012.12.11)  6 JAN 2013 21:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -269,14 +269,7 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 \Gin@req@height=\dimen103
 \Gin@req@width=\dimen104
 )
-(./finalreport.aux
-
-LaTeX Warning: Label `fig:figure1' multiply defined.
-
-
-LaTeX Warning: Label `fig:figure2' multiply defined.
-
-)
+(./finalreport.aux)
 \openout1 = `finalreport.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 11.
@@ -291,7 +284,8 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 11.
 LaTeX Font Info:    ... okay on input line 11.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 11.
 LaTeX Font Info:    ... okay on input line 11.
- (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+
+(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count88
 \scratchdimen=\dimen105
@@ -359,70 +353,67 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 13.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 35.
+(Font)              <7> on input line 36.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 35.
+(Font)              <5> on input line 36.
 
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (27.43433pt too wide) in paragraph at lines 55--60
+Overfull \hbox (27.43433pt too wide) in paragraph at lines 56--61
 \OT1/cmr/m/n/10 re-con-struc-tion on each block. This is im-ple-mented in []\OT
 1/cmtt/m/n/10 TomasiKanadeFactorization.m\OT1/cmr/m/n/10 ,
  []
 
-[2] <cloud_house1.png, id=18, 449.68pt x 337.26pt>
+[2] <cloud_house1.png, id=19, 449.68pt x 337.26pt>
 File: cloud_house1.png Graphic file (type png)
  <use cloud_house1.png>
-Package pdftex.def Info: cloud_house1.png used on input line 87.
+Package pdftex.def Info: cloud_house1.png used on input line 89.
 (pdftex.def)             Requested size: 155.24895pt x 116.43715pt.
 
-<cloud_teddy1.png, id=19, 449.68pt x 337.26pt>
+<cloud_teddy1.png, id=20, 449.68pt x 337.26pt>
 File: cloud_teddy1.png Graphic file (type png)
  <use cloud_teddy1.png>
-Package pdftex.def Info: cloud_teddy1.png used on input line 94.
+Package pdftex.def Info: cloud_teddy1.png used on input line 96.
 (pdftex.def)             Requested size: 155.24895pt x 116.43715pt.
 
-<textured_house1.png, id=20, 449.68pt x 337.26pt>
+<textured_house1.png, id=21, 449.68pt x 337.26pt>
 File: textured_house1.png Graphic file (type png)
  <use textured_house1.png>
-Package pdftex.def Info: textured_house1.png used on input line 111.
+Package pdftex.def Info: textured_house1.png used on input line 114.
 (pdftex.def)             Requested size: 155.24895pt x 116.43715pt.
 
-<textured_teddy1.png, id=21, 449.68pt x 337.26pt>
+<textured_teddy1.png, id=22, 449.68pt x 337.26pt>
 File: textured_teddy1.png Graphic file (type png)
  <use textured_teddy1.png>
-Package pdftex.def Info: textured_teddy1.png used on input line 118.
+Package pdftex.def Info: textured_teddy1.png used on input line 121.
 (pdftex.def)             Requested size: 155.24895pt x 116.43715pt.
 
 [3 <./cloud_house1.png (PNG copy)> <./cloud_teddy1.png (PNG copy)>] [4 <./textu
 red_house1.png (PNG copy)> <./textured_teddy1.png (PNG copy)>]
-(./finalreport.aux)
-
-LaTeX Warning: There were multiply-defined labels.
-
- ) 
+(./finalreport.aux) ) 
 Here is how much of TeX's memory you used:
- 1722 strings out of 493485
- 23579 string characters out of 3143525
- 80248 words of memory out of 3000000
+ 1723 strings out of 493485
+ 23586 string characters out of 3143525
+ 80231 words of memory out of 3000000
  5018 multiletter control sequences out of 15000+200000
- 8362 words of font info for 30 fonts, out of 3000000 for 9000
+ 8529 words of font info for 31 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
  37i,7n,23p,335b,285s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmtt10.pfb>
-Output written on finalreport.pdf (4 pages, 304150 bytes).
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+bx9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmtt9.pfb>
+Output written on finalreport.pdf (4 pages, 316285 bytes).
 PDF statistics:
- 57 PDF objects out of 1000 (max. 8388607)
- 37 compressed objects within 1 object stream
+ 61 PDF objects out of 1000 (max. 8388607)
+ 40 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
