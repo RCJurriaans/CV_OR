@@ -11,10 +11,11 @@ for i=1:length(Files)
    %command = './extract_features_64bit.ln -haraff -i ';
    
    %command = [command strcat('modelCastlePNG/', file.name)];
-   %command = [command strcat('modelHouse/', file.name)];
+   command = [command strcat('modelHouse/', file.name)];
    %command = [command strcat('TeddyBearPNG/', file.name)];
-   command = [command strcat('TeddyBear2/', file.name)];
-   
+
+
+   %command = strcat(command, ' -sift');
    command = strcat(command, ' -sift thres 1000');
    disp(command);
    system(command);
