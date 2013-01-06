@@ -1,8 +1,7 @@
 function [] = reconstructiondemo()
-directory = 'modelCastlePNG/';
+%directory = 'modelCastlePNG/';
 %directory = 'modelHouse/';
-%directory = 'TeddyBearPNG/';
-
+directory = 'TeddyBearPNG/';
 Files=dir(strcat(directory, '*.png'));
 
 n = length(Files);

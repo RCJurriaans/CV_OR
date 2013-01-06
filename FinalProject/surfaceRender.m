@@ -25,9 +25,9 @@ x2 = repmat(m, 1, size(x0,2));
 % Centre point cloud around zero and use dot product to remove everything
 % behind the mean
 indices = find(dot(x0-x2,x1)<0);
-% X(indices) = [];
-% Y(indices) = [];
-% Z(indices) = [];
+X(indices) = [];
+Y(indices) = [];
+Z(indices) = [];
 
 % Grid to create surface on
 ti = -700:2.5:700;
