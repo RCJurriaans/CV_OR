@@ -14,8 +14,12 @@ for i=1:length(Files)
    %command = [command strcat('modelHouse/', file.name)];
    %command = [command strcat('TeddyBearPNG/', file.name)];
    
+<<<<<<< HEAD
    %command = strcat(command, ' -sift');
    command = strcat(command, ' -sift thres 1000');
+=======
+   command = strcat(command, ' -sift thres 1500');
+>>>>>>> 081ebd6462be72185a4a49309e82231772fca1ee
    disp(command);
    system(command);
     
