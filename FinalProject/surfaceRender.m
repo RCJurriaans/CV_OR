@@ -30,7 +30,7 @@ Y(indices) = [];
 Z(indices) = [];
 
 % Grid to create surface on
-ti = -400:400;
+ti = -500:0.5:500;
 [qx,qy] = meshgrid(ti,ti);
 
 % Surface generation
