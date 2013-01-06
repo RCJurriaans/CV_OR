@@ -112,18 +112,21 @@ for i = 2:numClouds
     % Get the points that are in the merged cloud and the new cloud:
     [sharedInds, ~, iClouds] = intersect(mergedInds, Clouds{i,3});
     sharedPoints = mergedCloud(:, sharedInds);
+    if size(sharedPoints, 2) < 15
+        continue
+    end      
     
     % Find optimal transformation between shared points
     [d, Z, T] = procrustes(sharedPoints', Clouds{i,2}(:, iClouds)');
-    
     
     % Transform new points
     % Z=procrustes(X,Y) gives: Z = T.b * Y * T.T + T.c
     % T.c is just a repeated 3D offset, so resample it to have more rows
     [iNew, iCloudsNew] = setdiff(Clouds{i, 3}, mergedInds);
+    
     c = T.c(ones(size(iCloudsNew,2),1),:);
     mergedCloud(:, iNew) = (T.b * Clouds{i, 2}(:, iCloudsNew)' * T.T + c)';
-    mergedInds = [mergedInds iNew]
+    mergedInds = [mergedInds iNew];
 end
 
 % Plot the full cloud
